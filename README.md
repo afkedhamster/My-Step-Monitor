@@ -45,4 +45,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   - The buzzer serves well as one of the alarm units
 - Testing the readout of the Pressure Sensor
   - Correctly produced bool value based on the existence of the pressure
-  - Cannot read the value of pressure due to lack of ADC  
+  - Cannot read the value of pressure due to lack of ADC
+- Tested the LCD12864 monitor module
+  - Constantly errors "implicit declaration of function ‘WriteCmd’"
+  - haven't located the library file that contains "WriteCmd" function
