@@ -8,6 +8,11 @@ int main() {
         return 1;
     }
 
+    //if (gpioInitialise() < 0) {
+        // 初始化失败
+       // return 1;
+    //}
+
     gpioSetMode(PIN, PI_OUTPUT); // 设置GPIO引脚为输出模式
 
     for (;;) {
