@@ -24,6 +24,10 @@ void testwiringPi_st()
     }
 }
 
+void testFunctionNewBrunch() {
+    std::cout << "It's main branch";
+}
+
 void setup()
 {
     pinMode(BUZZER_PIN, OUTPUT); // Êä³ö
