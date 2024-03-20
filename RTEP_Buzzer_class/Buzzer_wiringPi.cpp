@@ -36,7 +36,7 @@ int main()
     wiringPi_st();
     setup();
     Beep(1000, 1000); // 1000Hz，3000ms
-    Beep(1500,1000)
-    Beep(1800,2000)
+    Beep(1500,1000);
+    Beep(1800,2000);
     return 0;
 }
