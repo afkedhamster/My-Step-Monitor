@@ -15,6 +15,15 @@ void wiringPi_st()
     }
 }
 
+// ≥ı ºªØ
+void testwiringPi_st()
+{
+    if (wiringPiSetup() == -1) {
+        std::cerr << "Failed to initialize WiringPi library" << std::endl;
+        exit(1);
+    }
+}
+
 void setup()
 {
     pinMode(BUZZER_PIN, OUTPUT); //  ‰≥ˆ
