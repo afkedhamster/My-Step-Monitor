@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RTEP_Buzzer_class", "RTEP_Buzzer_class.vcxproj", "{C013A379-AD33-47BD-974E-1C10FA29FC28}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyStepMonitor", "..\MyStepMonitor\MyStepMonitor.vcxproj", "{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -25,6 +27,18 @@ Global
 		{C013A379-AD33-47BD-974E-1C10FA29FC28}.Release|ARM64.ActiveCfg = Release|ARM64
 		{C013A379-AD33-47BD-974E-1C10FA29FC28}.Release|ARM64.Build.0 = Release|ARM64
 		{C013A379-AD33-47BD-974E-1C10FA29FC28}.Release|ARM64.Deploy.0 = Release|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM.Build.0 = Debug|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM.Deploy.0 = Debug|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM64.Build.0 = Debug|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM.ActiveCfg = Release|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM.Build.0 = Release|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM.Deploy.0 = Release|ARM
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM64.ActiveCfg = Release|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM64.Build.0 = Release|ARM64
+		{9A8D7C39-BD08-4B5C-9C75-CEB622A443CD}.Release|ARM64.Deploy.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
