@@ -38,3 +38,11 @@
 - Conducted basic functionality tests for the project's core features
 
 With the project setup and environment configuration complete, the Raspberry Pi 3B+ is now ready for further development and implementation of the project's specific features and functionalities.
+
+## Dev log 20/03/2024
+- Finished the code for Buzzer
+  - Buzzer can give sounds of different frequencies
+  - The buzzer serves well as one of the alarm units
+- Testing the readout of the Pressure Sensor
+  - Correctly produced bool value based on the existence of the pressure
+  - Cannot read the value of pressure due to lack of ADC  
