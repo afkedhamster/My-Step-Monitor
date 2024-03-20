@@ -15,23 +15,19 @@ void wiringPi_st()
     }
 }
 
-void testFunctionNewBrunch() {
-    std::cout << "It's main branch";
-}
-
 void setup()
 {
     pinMode(BUZZER_PIN, OUTPUT); // 输出
 }
 
 // 发声
-void loop(int frequency, int duration)
+void Beep(int frequency, int duration)
 {
     for (int i = 0; i < duration / 2; i++) {
         digitalWrite(BUZZER_PIN, LOW); // 发声音
-        delay(1000 / frequency); // 延时1ms 
+        delay( 1000 / frequency ); // 延时1ms 
         digitalWrite(BUZZER_PIN, HIGH); // 不发声音
-        delay(1000 / frequency); // 延时1ms 
+        delay( 1000 / frequency ); // 延时1ms 
     }
 }
 
@@ -39,6 +35,6 @@ int main()
 {
     wiringPi_st();
     setup();
-    loop(1000, 3000); // 1000Hz，1秒
+    Beep(1000, 3000); // 1000Hz，3000ms
     return 0;
 }
