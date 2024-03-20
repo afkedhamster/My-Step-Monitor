@@ -3,10 +3,10 @@
 #include <thread>
 #include <wiringPi.h> 
 
-// 引脚
-#define BUZZER_PIN 0 // 板子
+// Set GPIO Pin for buzzer
+#define BUZZER_PIN 0 // 0 stands for the GPIO No.
 
-// 初始化
+// Initialization of wiringPi function
 void wiringPi_st()
 {
     if (wiringPiSetup() == -1) {
@@ -17,17 +17,17 @@ void wiringPi_st()
 
 void setup()
 {
-    pinMode(BUZZER_PIN, OUTPUT); // 输出
+    pinMode(BUZZER_PIN, OUTPUT); //Set Pin mode > output 
 }
 
-// 发声
+// Generate high frequency square wave to drive the buzzer
 void Beep(int frequency, int duration)
 {
     for (int i = 0; i < duration / 2; i++) {
-        digitalWrite(BUZZER_PIN, LOW); // 发声音
-        delay( 1000 / frequency ); // 延时1ms 
-        digitalWrite(BUZZER_PIN, HIGH); // 不发声音
-        delay( 1000 / frequency ); // 延时1ms 
+        digitalWrite(BUZZER_PIN, LOW); // low voltage
+        delay( 1000 / frequency ); // delay for 1 ms 
+        digitalWrite(BUZZER_PIN, HIGH); // high voltage
+        delay( 1000 / frequency ); // delay for 1 ms
     }
 }
 
@@ -35,7 +35,7 @@ int main()
 {
     wiringPi_st();
     setup();
-    Beep(1000, 1000); // 1000Hz，3000ms
+    Beep(1000,1000); // set frequency = 1000Hz，duration = 3000 ms
     Beep(1500,1000);
     Beep(1800,2000);
     return 0;
