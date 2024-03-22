@@ -1,86 +1,38 @@
-#include <wiringPi.h>
-#include <iostream>
-#include <wiringPiI2C.h>
-#include <unistd.h>
-#include <stdio.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
-#define LCD_ADDR 0x00
-#define LCD_INIT_CMD 0x38
-#define LCD_DISP_ON 0x0C
-#define LCD_CLR_CMD 0x01
+// Set the LCD address
+const int LCD_ADDRESS = 0x27;
 
-class LCD12864 {
-private:
-    int fd;
+// Set the LCD dimensions
+const int LCD_COLUMNS = 16;
+const int LCD_ROWS = 2;
 
-    void lcdCommand(unsigned char value) {
-        unsigned char buffer[2];
-        buffer[0] = 0x00;
-        buffer[1] = value;
+// Create an instance of the LiquidCrystal_I2C class
+LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 
-        if (write(fd, buffer, 2) != 2) {
-            std::cerr << "I2C write failed" << std::endl;
-        }
-        usleep(1000);
-    }
+void setup() {
+    // Initialize the LCD
+    lcd.begin(LCD_COLUMNS, LCD_ROWS);
+    lcd.backlight();
+}
 
-    void lcdData(unsigned char value) {
-        unsigned char buffer[2];
-        buffer[0] = 0x40;
-        buffer[1] = value;
-        write(fd, buffer, 2);
-        usleep(1000);
-    }
-
-public:
-    LCD12864() {
-        if (wiringPiSetup() == -1) {
-            std::cerr << "Failed to initialize WiringPi library." << std::endl;
-            exit(1);
-        }
-
-        if ((fd = wiringPiI2CSetup(LCD_ADDR)) == -1) {
-            std::cerr << "Failed to open I2C device." << std::endl;
-            exit(1);
-        }
-
-        lcdCommand(0x33);
-        lcdCommand(0x32);
-        lcdCommand(0x28);
-        lcdCommand(LCD_DISP_ON);
-        lcdCommand(LCD_CLR_CMD);
-        delay(2000);
-    }
-
-    void writeString(const char* str) {
-        while (*str) {
-            lcdData(*str++);
-        }
-    }
-
-    void clear() {
-        lcdCommand(LCD_CLR_CMD);
-    }
-
-    void setCursor(unsigned char pos) {
-        lcdCommand(pos);
-    }
-};
-
-int main() {
-    LCD12864 lcd;
-
-    lcd.setCursor(0x80);
-    lcd.writeString("LCD12864 Test");
-    lcd.setCursor(0xC0);
-    lcd.writeString("Hello, world!");
-
-    delay(5000);
-
+void loop() {
+    // Clear the LCD screen
     lcd.clear();
 
-    lcd.setCursor(0x80);
-    lcd.writeString("Test Passed!");
+    // Set the cursor to the first column of the first row
+    lcd.setCursor(0, 0);
 
-    return 0;
+    // Print a message on the LCD
+    lcd.print("Hello, LCD12864!");
+
+    // Set the cursor to the first column of the second row
+    lcd.setCursor(0, 1);
+
+    // Print another message on the LCD
+    lcd.print("This is a test.");
+
+    // Delay for a while
+    delay(2000);
 }
