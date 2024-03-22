@@ -49,3 +49,10 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Tested the LCD12864 monitor module
   - Constantly errors "implicit declaration of function ‘WriteCmd’"
   - haven't located the library file that contains "WriteCmd" function
+ 
+## Dev log 21/03/2024
+- Tested the LCD12864 monitor module
+  - Reconfigure the Pin
+  - Successfully initiated the LCD 12864 monitor
+- Preparation for Intranet Penetration using Tailscale
+  - Setup Tailscale client on PC of Jiewen Tan
