@@ -19,7 +19,7 @@ int main(){
         //The pin reads LOW when there is pressure
              puts("有压力...");
              delay(1000);
-             //vaule = analogread(pin)
+             //vaule = analogRead(pin)
              //puts(vaule);
         }
 	}
