@@ -1,5 +1,6 @@
 #ifndef I2C_h
 #define I2C_h
+#include <stdint.h>
 
 void I2C_init(void);
 uint8_t I2C_start(void);

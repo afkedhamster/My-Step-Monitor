@@ -2,7 +2,7 @@ extern "C" {
 	#include <stdlib.h>
 	#include <string.h>
 	#include <inttypes.h>
-	#include "utility/I2C.h"
+	#include "I2C.h"
 }
 
 #include "RSCG12864B.h"
