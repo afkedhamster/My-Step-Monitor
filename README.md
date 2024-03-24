@@ -55,4 +55,8 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   - Reconfigure the Pin
   - Successfully initiated the LCD 12864 monitor
 - Preparation for Intranet Penetration using Tailscale
-  - Setup Tailscale client on PC of Jiewen Tan
+  - Setup Tailscale client on PC of Jiewen Tan and Zhiyue Lu
+ 
+## Dev log 23/03/2024
+- Debuging Lcd contorl class
+  - Current code show partial success as it does display part of the intented text message, however the rest of the text message seems in wrong format
