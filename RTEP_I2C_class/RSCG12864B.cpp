@@ -1,5 +1,8 @@
 extern "C" {
 	#include <stdlib.h>
+	#include <iostream>
+	#include <unistd.h>
+	#include <stdio.h>
 	#include <string.h>
 	#include <inttypes.h>
 	#include "I2C.h"
@@ -755,4 +758,13 @@ void RAYLIDLCD::print_string_8x16_xy(U8 x,U8 y,CCHAR *ptr)
 }
 
 
-RAYLIDLCD RSCG12864B=RAYLIDLCD();
+
+
+int main(){
+	RAYLIDLCD RSCG12864B=RAYLIDLCD();
+	RSCG12864B.clear();
+	RSCG12864B.print_string_16_xy(30,30,"hello world!!!");
+	delay(5000);
+	RSCG12864B.clear();
+	return 0;
+}
