@@ -1,0 +1,21 @@
+Report
+
+# Background
+
+# Introduction
+
+# Conponents
+The entire device comprises four modules: Monitoring, Transmission, Processing, and Output.
+The pivotal module is the monitoring module, which equips with a six-axis sensor and a set of pressure sensors. The six-axis sensor operates as gyroscope and acceleration sensor, capturing data on angular velocity and acceleration, while the pressure sensors collects information on stress variations, during movements and directional changes.
+The transmission module comprises a Bluetooth module to receive data from the monitoring module, passing it to the processing module in real time. The processing module undertakes the analysis of the wearers movement status after the data is in position, maintaining a continuous monitor for changes indicative of alterations in subject posture or potential falls.
+If any such changes are detected during monitoring, the device promptly dispatches message to the output module, which autonomously allocates tasks to the display unit and alarm unit based on the received message. 
+This coordination realizes the functionality of continuous posture changing detection and fall alarms.
+
+# Internal Logic
+
+
+# Function
+As illustrated in the image, the six-axis sensor MPU6050 is equipped with a serial clock signal pin, enabling real-time motion sensing.
+With its embedded gyroscope and acceleration sensors, angular velocity and acceleration along the x, y, and z directions are able to be calculated.
+Additionally, the MPU6050 integrates a thermometer and a digital motion processor. The collected data is stored in the internal registers and can be conveniently accessed through the serial data portal.
+Since the working frequencies of the gyroscope and acceleration sensor, reaching a maximum of 8,000 Hz and 1,000 Hz respectively, contribute to the minimal delay, which facilitating a real-time monitoring and ensuring an accurate processing of motion-related information.

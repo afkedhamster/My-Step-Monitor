@@ -61,3 +61,9 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 23/03/2024
 - Debuging Lcd contorl class
   - Current code show partial success as it does display part of the intented text message, however the rest of the text message seems in wrong format
+
+## Dev log 30/03/2024
+- Add control class for the MPU6050 six-axis gryoscope module
+
+## Dev log 05/04/2024
+- Add test code for LCD 12864 module 
