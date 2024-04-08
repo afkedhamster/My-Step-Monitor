@@ -13,10 +13,6 @@
 #define GYRO_YOUT_H 0x45
 #define GYRO_ZOUT_H 0x47
 
-// Define Thresholds
-const float ACCELERATION_THRESHOLD = 2.0; // m/s^2
-const float ANGULAR_RATE_THRESHOLD = 5.0;  // degrees/s
-
 // Convert Functions
 double convertAccel(int16_t raw) 
 {
