@@ -44,11 +44,11 @@ void i2c_start(void)
 {
     gpioSetMode(config.SDA, PI_OUTPUT);
     gpioSetMode(config.SCL, PI_OUTPUT);
-	gpioWrite(config.SDA, 1);
+    gpioWrite(config.SDA, 1);
     gpioWrite(config.SCL, 1);
     gpioDelay(Time);
     // SCL=1 SDA=0
-	gpioWrite(config.SDA, 0);
+    gpioWrite(config.SDA, 0);
     gpioDelay(Time);
 }
 
@@ -82,7 +82,7 @@ unsigned char i2c_read_ack(void)
 
 void i2c_send_ack(void)
 {
-     // SCL=0 SDA=0
+    // SCL=0 SDA=0
     gpioWrite(config.SCL, 0);
     gpioSetMode(config.SDA, PI_OUTPUT);
     gpioDelay(Time);
@@ -112,33 +112,33 @@ void i2c_send_noack(void)
 // I2C Byte Read/Write
 unsigned char i2c_read_byte(void)
 {  
-	int i;  
-	unsigned char r = 0; 
-
-	gpioWrite(config.SCL, 0);
+    int i;  
+    unsigned char r = 0; 
+    
+    gpioWrite(config.SCL, 0);
     gpioDelay(Time);
     gpioSetMode(config.SDA, PI_INPUT);
-
-	for (i=7; i>=0; i--) 
+    
+    for (i=7; i>=0; i--) 
     {  
-		gpioWrite(config.SCL, 1); // Read
+        gpioWrite(config.SCL, 1); // Read
         gpioDelay(Time);
         // Read from 7 to 0
         r = (r << 1) | gpioRead(config.SDA);
         gpioWrite(config.SCL, 0); // Reset
         gpioDelay(Time);
-	}
+    }
     // Finish Reading; Send NoACK 
-	i2c_send_noack(); 
-
-	return r;  
+    i2c_send_noack(); 
+    
+    return r;  
 }
 
 void i2c_write_byte(unsigned char b)
 {  
-	int i;
-
-	gpioSetMode(config.SDA, PI_OUTPUT);
+    int i;
+    
+    gpioSetMode(config.SDA, PI_OUTPUT);
     gpioDelay(Time);
 
     for (i = 7; i >= 0; i--)
@@ -164,37 +164,37 @@ void i2c_write_byte(unsigned char b)
 // I2C Read/Write
 void i2c_read(unsigned char addr, unsigned char* buf, int len)
 {  
-	int i;  
-	unsigned char t;
-	i2c_start();
+    int i;  
+    unsigned char t;
+    i2c_start();
     // Address
-	i2c_write_byte(0xD0); // Set 0 to Write (11010000)
-	t = addr;
-	i2c_write_byte(t); // Address
+    i2c_write_byte(0xD0); // Set 0 to Write (11010000)
+    t = addr;
+    i2c_write_byte(t); // Address
     // Restart
-	i2c_start();
+    i2c_start();
     // Read Buffer
-	i2c_write_byte(0xD1); // Set 1 to Read (11010001)
-	for (i=0; i<len; i++)
+    i2c_write_byte(0xD1); // Set 1 to Read (11010001)
+    for (i=0; i<len; i++)
     {
-		buf[i] = i2c_read_byte(); // Data
+        buf[i] = i2c_read_byte(); // Data
     }
-	i2c_stop();
+    i2c_stop();
 }
 
 void i2c_write(unsigned char addr, unsigned char buf)
 {  
-	unsigned char t;  
-	i2c_start();
+    unsigned char t;  
+    i2c_start();
     // Address
-	i2c_write_byte(0xD0); // Set 0 to Write
-	t = addr;
+    i2c_write_byte(0xD0); // Set 0 to Write
+    t = addr;
     // Write Buffer
-	i2c_write_byte(t); // Address
-	i2c_write_byte(buf); // Data
+    i2c_write_byte(t); // Address
+    i2c_write_byte(buf); // Data
     // Send ACK to Read
-	i2c_send_ack(); 
-	i2c_stop(); 
+    i2c_send_ack(); 
+    i2c_stop(); 
 }
 
 
@@ -226,12 +226,12 @@ static uint8 MPU6050_Init(void)
     gpioDelay(100);
     //Accelerometer
     i2c_read(0x1c, &d, 1);
-	d = d & 0xE7; // 11100111; +-2g
-	i2c_write(0x1c, d); // Rewrite
+    d = d & 0xE7; // 11100111; +-2g
+    i2c_write(0x1c, d); // Rewrite
     gpioDelay(10);
     // Gyroscope
-	i2c_write(0x1b, e); // +-250 deg
-	return(1);
+    i2c_write(0x1b, e); // +-250 deg
+    return(1);
 }
 
 
