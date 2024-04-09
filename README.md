@@ -1,5 +1,6 @@
 # Raspberry Pi Project: [My Step Monitor]
 - Ins: https://www.instagram.com/mystepmonitor/
+- Check Wiki page for detailed description of the project!
   
 ## Priliminary RPi & Environment Setup
 
