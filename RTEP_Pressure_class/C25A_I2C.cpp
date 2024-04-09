@@ -12,6 +12,7 @@
 #define ADS1115_ADDRESS 0x48 
 #define ADS1115_REG_POINTER_CONVERT 0x00
 #define ADS1115_REG_POINTER_CONFIG  0x01
+// Parameters
 #define ADS1115_REG_CONFIG_DEFAULT \
     (ADS1115_REG_CONFIG_CQUE_NONE | \
      ADS1115_REG_CONFIG_CLAT_NONLAT | \
@@ -89,7 +90,7 @@ int main()
         printf("ADS1115 voltage: %g\n\r", voltage);
         usleep(1000000); // Delay
     }
-    
+
     i2cClose();
     return 0;
 }
