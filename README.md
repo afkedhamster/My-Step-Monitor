@@ -67,3 +67,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 05/04/2024
 - Add test code for LCD 12864 module 
+
+## Dev log 08/04/2024
+- Added multiple control classes (based on different languages and header files) for MPU6050
+- Override the function of MPU6050 with Pigpio.h
