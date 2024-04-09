@@ -106,11 +106,11 @@ int main()
 
     while (true) 
     {
-        // Set (change)
+        // Set (Different Channels)
         int ret0 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
                                 ADS1115_REG_CONFIG_PGA_4_096V, 
                                 ADS1115_REG_CONFIG_DR_128SPS);
-        int ret1 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
+        int ret1 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_1, 
                                 ADS1115_REG_CONFIG_PGA_4_096V, 
                                 ADS1115_REG_CONFIG_DR_128SPS);
         ret0 = ret0 > 32768 ? 0 : ret0;
