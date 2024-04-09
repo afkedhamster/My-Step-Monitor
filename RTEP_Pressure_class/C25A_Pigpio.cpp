@@ -2,25 +2,9 @@
 #include <pigpio.h>
 #include <chrono>
 #include <thread>
+#include <ads1115.h>
 
-// Define Address and Registers
-#define ADS_ADDR 0x48 
-#define ADS_REG_POINTER_CONVERT 0x00
-#define ADS_REG_POINTER_CONFIG  0x01
-// Book
-#define ADS1015_REG_CONFIG_CQUE_NONE    (0x0003)
-#define ADS1015_REG_CONFIG_CLAT_NONLAT  (0x0000)
-#define ADS1015_REG_CONFIG_CPOL_ACTVLOW (0x0000)
-#define ADS1015_REG_CONFIG_CMODE_TRAD   (0x0000)
-#define ADS1015_REG_CONFIG_DR_860SPS    (0x0080)
-#define ADS1015_REG_CONFIG_MODE_SINGLE  (0x0100)
-#define ADS1015_REG_CONFIG_PGA_4_096V   (0x0200)
-#define ADS1015_REG_CONFIG_MUX_SINGLE_0 (0x4000)
-#define ADS1015_REG_CONFIG_MUX_SINGLE_1 (0x5000)
-#define ADS1015_REG_CONFIG_MUX_SINGLE_2 (0x6000)
-#define ADS1015_REG_CONFIG_MUX_SINGLE_3 (0x7000)
-#define ADS1015_REG_CONFIG_OS_SINGLE    (0x8000)
-
+// Define Address and Registers in ads1115.h
 // Variable
 int i2c_handle;
 // Pins
@@ -36,9 +20,6 @@ int ADS_init()
         std::cerr << "Failed to initialize pigpio." << std::endl;
         return 1;
     }
-    // Prepare
-    gpioSetMode(SDA_PIN, PI_INPUT);
-    gpioSetMode(SCL_PIN, PI_INPUT);
     // Initialize I2C
     i2c_handle = i2cOpen(1, ADS_ADDR, 0);
     if (i2c_handle < 0) 
@@ -79,41 +60,25 @@ int ADS_writeReg(unsigned char reg, unsigned int value)
 }
 
 // Parameters
-int ADS_measure(int chan) 
+int ADS_measure(uint16_t mux, uint16_t pga, uint16_t dr) 
 {
     // Default
-    int config = ADS1015_REG_CONFIG_CQUE_NONE    |
-                 ADS1015_REG_CONFIG_CLAT_NONLAT  |
-                 ADS1015_REG_CONFIG_CPOL_ACTVLOW |
-                 ADS1015_REG_CONFIG_CMODE_TRAD   |
-                 ADS1015_REG_CONFIG_DR_860SPS   |
-                 ADS1015_REG_CONFIG_MODE_SINGLE |
-                 ADS1015_REG_CONFIG_PGA_4_096V;
-    // Input Channel
-    switch (chan) 
-    {
-        case (0):
-            config |= ADS1015_REG_CONFIG_MUX_SINGLE_0;
-            break;
-        case (1):
-            config |= ADS1015_REG_CONFIG_MUX_SINGLE_1;
-            break;
-        case (2):
-            config |= ADS1015_REG_CONFIG_MUX_SINGLE_2;
-            break;
-        case (3):
-            config |= ADS1015_REG_CONFIG_MUX_SINGLE_3;
-            break;
-    }
+    int config = ADS1115_REG_CONFIG_CQUE_NONE    |
+                 ADS1115_REG_CONFIG_CLAT_NONLAT  |
+                 ADS1115_REG_CONFIG_CPOL_ACTVLOW |
+                 ADS1115_REG_CONFIG_CMODE_TRAD   |
+                 ADS1115_REG_CONFIG_MODE_SINGLE  |
+                 mux                             |
+                 dr                              |
+                 pga;
     // Bit
-    config |= ADS1015_REG_CONFIG_OS_SINGLE;
-    // Send Config
-    config = ((config >> 8) & 0x00FF) | ((config << 8) & 0xFF00);
-    ADS_writeReg(ADS1015_REG_POINTER_CONFIG, config);
+    config |= ADS1115_REG_CONFIG_OS_SINGLE;
+    // Send
+    ADS_writeReg(ADS1115_REG_POINTER_CONFIG, config);
     // Wait
-    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    std::this_thread::sleep_for(std::chrono::milliseconds(8));
     // Read
-    ADS_writeReg(ADS_REG_POINTER_CONVERT, 0); // Start conversion
+    ADS_writeReg(ADS1115_REG_POINTER_CONVERT, 0); // Convert
     char data[2];
     if (i2cReadDevice(i2c_handle, data, 2) != 2) 
     {
@@ -124,7 +89,9 @@ int ADS_measure(int chan)
     if (value > 0x7FFF) 
     {
         return (value - 0xFFFF);
-    } else {
+    } 
+    else 
+    {
         return value;
     }
 }
@@ -139,11 +106,15 @@ int main()
 
     while (true) 
     {
-        // Read
-        int ret0 = ADS_measure(0);
-        int ret1 = ADS_measure(1);
+        // Set (change)
+        int ret0 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
+                                ADS1115_REG_CONFIG_PGA_4_096V, 
+                                ADS1115_REG_CONFIG_DR_128SPS);
+        int ret1 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
+                                ADS1115_REG_CONFIG_PGA_4_096V, 
+                                ADS1115_REG_CONFIG_DR_128SPS);
         ret0 = ret0 > 32768 ? 0 : ret0;
-        double ret_v0 = ret0 / 32768.0 * 6.144;
+        double ret_v0 = ret0 / 32768.0 * 6.144; // Change
         ret1 = ret1 > 32768 ? 0 : ret1;
         double ret_v1 = ret1 / 32768.0 * 6.144;
         // Display
