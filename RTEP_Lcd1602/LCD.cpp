@@ -41,7 +41,7 @@ void LCD::lcd_init(){
     lcd_byte(0x0C, LCD_CMD); // 0x0F On, Blink Off
     lcd_byte(0x28, LCD_CMD); // Data length, number of lines, font size
     lcd_byte(0x01, LCD_CMD); // Clear display
-    delayMicroseconds(500);
+    gpioDelay(500);
 }
 
 void LCD::lcd_byte(int bits, int mode)   {
@@ -66,11 +66,11 @@ void LCD::lcd_byte(int bits, int mode)   {
 
 void LCD::lcd_toggle_enable(int bits)   {
     // Toggle enable pin on LCD display
-    delayMicroseconds(500);
+    gpioDelay(500);
     i2cReadByteData(fd, (bits | ENABLE));
-    delayMicroseconds(500);
+    gpioDelay(500);
     i2cReadByteData(fd, (bits & ~ENABLE));
-    delayMicroseconds(500);
+    gpioDelay(500);
 }
 
 void LCD::set_location(int line){
@@ -85,7 +85,7 @@ void LCD::set_location(int line){
 
 void LCD::clear(int pause){
     if(pause > 0)
-        delay(pause);
+        gpioDelay(pause);
 
     lcd_byte(0x01, LCD_CMD);
     lcd_byte(0x02, LCD_CMD);
@@ -97,7 +97,7 @@ void LCD::printNum(int number){
     for(char c: temp){
         lcd_byte(c, LCD_CHR);
         if(pause > 0 && c != ' ');
-            delay(pause);
+            gpioDelay(pause);
     }
 }
 
@@ -107,7 +107,7 @@ void LCD::printNum(float number){
     for(char c: temp){
         lcd_byte(c, LCD_CHR);
         if(pause > 0 && c != ' ')
-            delay(pause);
+            gpioDelay(pause);
     }
 }
 
@@ -120,7 +120,7 @@ void LCD::print(const string& message){
         for(int i{0}; i < 16; ++i){
                 lcd_byte(temp_m.at(i), LCD_CHR);
                 if(pause > 0 && temp_m.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
         }
 
         temp_m = "";
@@ -145,7 +145,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < message.length(); ++i){
                 lcd_byte(message.at(i), LCD_CHR);
                 if(pause > 0 && message.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }
         }
 
@@ -164,7 +164,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < temp.length(); ++i){
                 lcd_byte(temp.at(i), LCD_CHR);
                 if(i > getspaces  && temp.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }    
         }
 
@@ -183,7 +183,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < temp.length(); ++i){
                 lcd_byte(temp.at(i), LCD_CHR);
                 if(i > getspaces && temp.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }   
         }
     }

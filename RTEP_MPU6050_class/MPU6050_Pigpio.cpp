@@ -48,7 +48,7 @@ int main()
     }
 
     // Enable MPU6050
-    i2cWriteByteData(fd, 0x6B, 0x00);
+    i2cWriteByteData(fd, 0x68, 0x00);
 
     // Main
     while (true)
