@@ -28,7 +28,7 @@
 - Installed required development tools and libraries:
   - Python 3.x
   - Git
-  - [Other specific tools or libraries for your project]
+  - Pigpio.h library
 - Configured the development environment:
   - Set up a virtual environment for the project
   - Installed project dependencies using pip
