@@ -28,7 +28,7 @@
 - Installed required development tools and libraries:
   - Python 3.x
   - Git
-  - [Other specific tools or libraries for your project]
+  - Pigpio.h library
 - Configured the development environment:
   - Set up a virtual environment for the project
   - Installed project dependencies using pip
@@ -72,6 +72,9 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 08/04/2024
 - Added multiple control classes (based on different languages and header files) for MPU6050
 - Override the function of MPU6050 with Pigpio.h
+
+## Dev log 09/04/2024
+- Added multiple control classes (based on different languages and header files) for C25A
 
 ## Dev log 10/04/2024
 - use pigpio.h library to replace wiringPi.h and wiringPiI2C.h

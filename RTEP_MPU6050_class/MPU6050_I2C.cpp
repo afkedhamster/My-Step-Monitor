@@ -37,7 +37,7 @@ int main()
     }
     
     // Enable MPU6050
-    wiringPiI2CWriteReg8(fd, 0x6B, 0x00);
+    wiringPiI2CWriteReg8(fd, 0x68, 0x00);
 
     // Main
     while (true) 
