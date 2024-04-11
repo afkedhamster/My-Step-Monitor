@@ -6,7 +6,7 @@ class Threads{
 public:
     int i = 0;
     void start(){
-        thr = std::thread(&Threads::doSomething, this);
+        thread = std::thread(&Threads::doSomething, this);
     };
     // void stop();
     // void pause();
@@ -15,5 +15,5 @@ public:
     // void setPriority();
     // void setAffinity();
     void doSomething();
-    std::thread thr;
+    std::thread thread;
 };
