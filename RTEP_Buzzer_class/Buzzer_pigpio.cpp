@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 // Pin
-#define BUZZER_PIN 0 // GPIO number
+#define BUZZER_PIN 27 // GPIO number
 
 // Initialize
 int setup()
