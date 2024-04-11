@@ -85,3 +85,4 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Creat threads functions along with unit test
 - Adding header files to several control classes
 - All above dev are done in the MainProto2 branch
+- Add condition judgment to the main function to implement functionality
