@@ -5,7 +5,7 @@
 #include <ads1115.h>
 
 // Define Address and Registers in ads1115.h
-// Variable
+// Communication handle
 int i2c_handle;
 // Pins
 const int SDA_PIN = 2; 
@@ -21,7 +21,7 @@ int ADS_init()
         return 1;
     }
     // Initialize I2C
-    i2c_handle = i2cOpen(1, ADS_ADDR, 0);
+    i2c_handle = i2cOpen(1, ADS1115_ADDRESS, 0);
     if (i2c_handle < 0) 
     {
         std::cerr << "Failed to initialize I2C communication." << std::endl;
