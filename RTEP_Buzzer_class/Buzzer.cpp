@@ -1,5 +1,8 @@
 #include <pigpio.h>
 #include <unistd.h>
+#include <stdexcept>
+#include <iostream>
+#include <string>
 #define PIN 0
 
 class Buzzer {
