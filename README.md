@@ -82,6 +82,8 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 11/04/2024
 - Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests
+- Edit the Buzzer and LCD1602 into classes to implement function encapsulation
+- Simplify the code structure of the project
 - Creat threads functions along with unit test
 - Adding header files to several control classes
 - All above dev are done in the MainProto2 branch
