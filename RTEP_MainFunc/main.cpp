@@ -19,8 +19,9 @@ void Threads::doSomething(){
 }
 
 int main(){
-    Threads thr1;
-    thr1.start();
+    Threads tid_mpu;
+    tid_mpu.start();
+    
     while(1){
         cout << "Main thread is running" << endl;
         this_thread::sleep_for(chrono::seconds(1));
