@@ -4,6 +4,7 @@
 #include "../RTEP_I2C_class/I2C.h"
 #include "../RTEP_Lcd1602/LCD.h"
 #include "./Threads.h"
+#include "./Self_defined_classes.h"
 
 using namespace std;
 
@@ -17,8 +18,8 @@ void Threads::doSomething(){
 }
 
 int main(){
-    Threads t;
-    t.start();
+    Threads thr1;
+    thr1.start();
     while(1){
         cout << "Main thread is running" << endl;
         this_thread::sleep_for(chrono::seconds(1));

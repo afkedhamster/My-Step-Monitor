@@ -5,7 +5,7 @@
 #include <thread>
 #include <chrono>
 
-Threads{
+class Threads{
     public:    
     void start();
     // void stop();

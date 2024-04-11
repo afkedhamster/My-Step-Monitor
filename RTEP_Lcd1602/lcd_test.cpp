@@ -1,4 +1,7 @@
-#include "LCD.h"
+#include <pigpio.h>
+#include "./LCD.h"
+#include <iostream>
+
 using namespace std;
 
 int main(){

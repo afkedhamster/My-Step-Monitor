@@ -1,7 +1,7 @@
-#ifndef LCD_H
-#define LCD_H
+#ifndef LCD_h
+#define LCD_h
 
-#include <pigpio.h>
+//#include <pigpio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
