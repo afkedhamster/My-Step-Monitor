@@ -5,7 +5,7 @@
 #include <ads1115.h>
 
 // Define Address and Registers in ads1115.h
-// Variable
+// Communication handle
 int i2c_handle;
 // Pins
 const int SDA_PIN = 2; 
