@@ -10,6 +10,7 @@ using namespace std;
 
 void Threads::doSomething(){
     bool running = true;
+    int i = 0;
     while(running){
         cout << "Thread " << i << " is running" << endl;
         i++;
