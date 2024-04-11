@@ -17,11 +17,11 @@ enum Pos_change{
     STAND2LAY,
     LAY2STAND
 };
-class Threads{
+class Threads_Display{
 public: 
     int i = 0;
     void start(){
-        thread = std::thread(&Threads::doSomething, this);
+        thread = std::thread(&Threads_Display::doSomething, this);
     };
     typedef void (*CallbackFunc)();   
     //virtual void eventhandler() = 0;
@@ -36,7 +36,7 @@ public:
     void stop(){
         thread.join();};
     void restart(){
-        thread = std::thread(&Threads::doSomething, this);
+        thread = std::thread(&Threads_Display::doSomething, this);
     };
     void trigger_buzz_lcd(enum Pos_change posChange){
         if (buzzer != nullptr && lcd !=nullptr && posChange == FALL){
