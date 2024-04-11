@@ -3,28 +3,42 @@
 #include <stdexcept>
 #include <iostream>
 #include <string>
-#define PIN 0
+
+#define BUZZER_PIN 0// 物理引脚27
 
 class Buzzer {
-private:
-    int pin;
-
 public:
-    Buzzer(int pin) : pin(pin) {
-        if (gpioInitialise() < 0) {
-            throw std::runtime_error("GPIO initialization failed");
-        }
-        gpioSetMode(pin, PI_OUTPUT);
-    }
-
-    ~Buzzer() {
-        gpioTerminate();
-    }
-
-    void buzz(int durationMicroseconds) {
-        gpioWrite(pin, 0);
-        usleep(durationMicroseconds);
-        gpioWrite(pin, 1);
-        usleep(durationMicroseconds);
-    }
+    Buzzer();
+    void Buzzer_init();
+    ~Buzzer();
+    void Beep(int frequency, int duration);
 };
+
+Buzzer::Buzzer(){
+    Buzzer_init();
+}
+
+void Buzzer::Buzzer_init(){
+    // Initialize Pigpio
+    if (gpioInitialise() < 0)
+    {
+        std::cerr << "Failed to initialize pigpio." << std::endl;
+    }
+    // Set
+    gpioSetMode(BUZZER_PIN, PI_OUTPUT);
+}
+
+Buzzer::~Buzzer() {
+    gpioTerminate();
+}
+
+void Buzzer::Beep(int frequency, int duration){
+    int halfPeriod = 500000 / frequency; // half period in microseconds
+    int iterations = duration * 1000 / (2 * halfPeriod); // number of iterations
+    for (int i = 0; i < iterations; i++) {
+        gpioWrite(BUZZER_PIN, 0); // Low voltage
+        gpioDelay(halfPeriod); // Delay
+        gpioWrite(BUZZER_PIN, 1); // High voltage
+        gpioDelay(halfPeriod); // Delay
+    }
+}

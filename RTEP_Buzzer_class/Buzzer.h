@@ -2,12 +2,11 @@
 #define Buzzer_h
 
 class Buzzer {
-private:
-    int pin;
 public:
-    Buzzer(int pin);
+    Buzzer();
+    void Buzzer_init();
     ~Buzzer();
-    void buzz(int durationMicroseconds);
+    void Beep(int frequency, int duration);
 };
 
 #endif
