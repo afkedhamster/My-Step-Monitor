@@ -17,19 +17,9 @@ int main()
 
     while (true) 
     {
-        // Set (Different Channels)
-        int ret0 = ads.measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
-                               ADS1115_REG_CONFIG_PGA_4_096V, 
-                               ADS1115_REG_CONFIG_DR_128SPS,
-                               std::chrono::milliseconds(8));
-        int ret1 = ads.measure(ADS1115_REG_CONFIG_MUX_SINGLE_1, 
-                               ADS1115_REG_CONFIG_PGA_4_096V, 
-                               ADS1115_REG_CONFIG_DR_128SPS,
-                               std::chrono::milliseconds(8));
-        ret0 = ret0 > 32768 ? 0 : ret0;
-        double ret_v0 = ret0 / (4.096 / 32768); // Change
-        ret1 = ret1 > 32768 ? 0 : ret1;
-        double ret_v1 = ret1 / (4.096 / 32768);
+        // Process
+        ads.Process(ret0, ret_v0, ret1, ret_v1);
+        
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
         std::cout << "ret_v0 = " << ret_v0 << std::endl;

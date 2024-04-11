@@ -17,6 +17,7 @@ public:
     int readReg(unsigned char reg); // Read
     int writeReg(unsigned char reg, unsigned int value); // Write
     int measure(uint16_t mux, uint16_t pga, uint16_t dr); // Parameters
+    int Process(int ret0, double ret_v0, int ret1, double ret_v1); // Process
 
 private:
     int i2c_handle; // Communication Handle
