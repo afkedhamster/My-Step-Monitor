@@ -4,8 +4,8 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "../RTEP_Buzzer_class/Buzzer.h"
-#include "../RTEP_Lcd1602/LCD.h"
+#include "../RTEP_Buzzer_class/Buzzer.cpp"
+#include "../RTEP_Lcd1602/LCD.cpp"
 
 enum Pos_change{
     FALL,
@@ -19,7 +19,6 @@ enum Pos_change{
 };
 class Threads_Display{
 public: 
-    int i = 0;
     void start(){
         thread = std::thread(&Threads_Display::doSomething, this);
     };
@@ -90,6 +89,22 @@ private:
     Buzzer* buzzer = nullptr;
     LCD* lcd = nullptr;
     CallbackFunc callbackFunc = nullptr;
+};
+
+class Threads_Read{
+public:
+    void start(){
+        thread = std::thread(&Threads_Read::doSomething, this);
+    };
+    void stop(){
+        thread.join();};
+    void restart(){
+        thread = std::thread(&Threads_Read::doSomething, this);
+    };
+    void doSomething();
+    std::thread thread;
+private:
+
 };
 
 #endif
