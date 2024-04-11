@@ -84,3 +84,4 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests
 - Creat threads functions along with unit test
 - Adding header files to several control classes
+- All above dev are done in the MainProto2 branch
