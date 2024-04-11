@@ -13,11 +13,13 @@ int main(){
         lcd.clear(0);
         lcd.set_location(1);
         lcd.set_delay(500);
-
         lcd << hello;
+        
+        lcd.set_location(2);
+        lcd.set_delay(500);
         lcd << "This is a test";
 
-        delay(1000);
+        gpioDelay(1000);
     }
 
     return 0;

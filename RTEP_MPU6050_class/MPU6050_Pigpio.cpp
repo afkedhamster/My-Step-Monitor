@@ -25,7 +25,7 @@ double convertGyro(int16_t raw)
 // Reading Function
 void readMPU6050(int fd, uint8_t reg, uint8_t *data, int len)
 {
-    i2cWriteByte(fd, reg);
+    i2cWriteByteData(fd, reg, 0);
     i2cReadI2CBlockData(fd, reg, reinterpret_cast<char*>(data), len);
 }
 
@@ -48,7 +48,7 @@ int main()
     }
 
     // Enable MPU6050
-    i2cWriteByteData(fd, 0x6B, 0x00);
+    i2cWriteByteData(fd, 0x68, 0x00);
 
     // Main
     while (true)

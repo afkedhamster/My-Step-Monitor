@@ -1,8 +1,7 @@
 #ifndef LCD_H
 #define LCD_H
 
-#include <wiringPiI2C.h>
-#include <wiringPi.h>
+#include <pigpio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>

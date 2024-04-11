@@ -1,6 +1,5 @@
 #include "LCD.h"
-#include <wiringPiI2C.h>
-#include <wiringPi.h>
+#include <pigpio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -11,8 +10,8 @@ using namespace std;
 
 LCD::LCD(const char& alignment, int pause): alignment{alignment}, pause{pause} {
 
-    if (wiringPiSetup () == -1) 
-        throw runtime_error("WiringPiSetup failed.");
+    if (gpioInitialise () < 0) 
+        throw runtime_error("Gpio Initialise failed.");
 
     if(alignment != 'l' && alignment != 'm' && alignment != 'r')
         throw runtime_error("LCD::LCD: alignment has no valid value. (l, m, r).");
@@ -32,7 +31,7 @@ void LCD::set_variables(){
     LCD_Backlight = 0x08;
     ENABLE = 0b00000100;
 
-    fd = wiringPiI2CSetup(I2C_ADDR);
+    fd = i2cOpen(1, I2C_ADDR, 0);
 }
 
 void LCD::lcd_init(){
@@ -42,7 +41,7 @@ void LCD::lcd_init(){
     lcd_byte(0x0C, LCD_CMD); // 0x0F On, Blink Off
     lcd_byte(0x28, LCD_CMD); // Data length, number of lines, font size
     lcd_byte(0x01, LCD_CMD); // Clear display
-    delayMicroseconds(500);
+    gpioDelay(500);
 }
 
 void LCD::lcd_byte(int bits, int mode)   {
@@ -57,21 +56,21 @@ void LCD::lcd_byte(int bits, int mode)   {
     bits_low = mode | ((bits << 4) & 0xF0) | LCD_Backlight ;
 
     // High bits
-    wiringPiI2CReadReg8(fd, bits_high);
+    i2cReadByteData(fd, bits_high);
     lcd_toggle_enable(bits_high);
 
     // Low bits
-    wiringPiI2CReadReg8(fd, bits_low);
+    i2cReadByteData(fd, bits_low);
     lcd_toggle_enable(bits_low);
 }
 
 void LCD::lcd_toggle_enable(int bits)   {
     // Toggle enable pin on LCD display
-    delayMicroseconds(500);
-    wiringPiI2CReadReg8(fd, (bits | ENABLE));
-    delayMicroseconds(500);
-    wiringPiI2CReadReg8(fd, (bits & ~ENABLE));
-    delayMicroseconds(500);
+    gpioDelay(500);
+    i2cReadByteData(fd, (bits | ENABLE));
+    gpioDelay(500);
+    i2cReadByteData(fd, (bits & ~ENABLE));
+    gpioDelay(500);
 }
 
 void LCD::set_location(int line){
@@ -86,7 +85,7 @@ void LCD::set_location(int line){
 
 void LCD::clear(int pause){
     if(pause > 0)
-        delay(pause);
+        gpioDelay(pause);
 
     lcd_byte(0x01, LCD_CMD);
     lcd_byte(0x02, LCD_CMD);
@@ -98,7 +97,7 @@ void LCD::printNum(int number){
     for(char c: temp){
         lcd_byte(c, LCD_CHR);
         if(pause > 0 && c != ' ');
-            delay(pause);
+            gpioDelay(pause);
     }
 }
 
@@ -108,7 +107,7 @@ void LCD::printNum(float number){
     for(char c: temp){
         lcd_byte(c, LCD_CHR);
         if(pause > 0 && c != ' ')
-            delay(pause);
+            gpioDelay(pause);
     }
 }
 
@@ -121,7 +120,7 @@ void LCD::print(const string& message){
         for(int i{0}; i < 16; ++i){
                 lcd_byte(temp_m.at(i), LCD_CHR);
                 if(pause > 0 && temp_m.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
         }
 
         temp_m = "";
@@ -146,7 +145,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < message.length(); ++i){
                 lcd_byte(message.at(i), LCD_CHR);
                 if(pause > 0 && message.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }
         }
 
@@ -165,7 +164,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < temp.length(); ++i){
                 lcd_byte(temp.at(i), LCD_CHR);
                 if(i > getspaces  && temp.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }    
         }
 
@@ -184,7 +183,7 @@ void LCD::print(const string& message){
             for(int i{0}; i < temp.length(); ++i){
                 lcd_byte(temp.at(i), LCD_CHR);
                 if(i > getspaces && temp.at(i) != ' ')
-                    delay(pause);
+                    gpioDelay(pause);
             }   
         }
     }
