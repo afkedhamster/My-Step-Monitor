@@ -2,6 +2,7 @@
 #include <pigpio.h>
 #include <chrono>
 #include <thread>
+#include <cstdlib>
 
 // Pin
 #define BUZZER_PIN 0 // GPIO number
@@ -23,13 +24,15 @@ int setup()
 // High Frequency Square Wave
 void Beep(int frequency, int duration)
 {
-    int halfPeriod = 500000 / frequency; // half period in microseconds
-    int iterations = duration * 1000 / (2 * halfPeriod); // number of iterations
-    for (int i = 0; i < iterations; i++) {
-        gpioWrite(BUZZER_PIN, PI_LOW); // Low voltage
-        std::this_thread::sleep_for(std::chrono::microseconds(halfPeriod)); // Delay
-        gpioWrite(BUZZER_PIN, PI_HIGH); // High voltage
-        std::this_thread::sleep_for(std::chrono::microseconds(halfPeriod)); // Delay
+    float halfPeriod = 500000.0f / frequency; // Half Period
+    int iterations = duration * 1000 / (2 * halfPeriod); // Iterations
+    
+    for (int i = 0; i < iterations; i++) 
+    {
+        gpioWrite(BUZZER_PIN, PI_LOW); // Low Voltage
+        std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(halfPeriod))); // Delay
+        gpioWrite(BUZZER_PIN, PI_HIGH); // High Voltage
+        std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(halfPeriod))); // Delay
     }
 }
 
