@@ -5,9 +5,8 @@
 #include <thread>
 #include <chrono>
 
-class Threads{
-public:
-    int i = 0;
+Threads{
+    public:    
     void start();
     // void stop();
     // void pause();
@@ -16,7 +15,6 @@ public:
     // void setPriority();
     // void setAffinity();
     void doSomething();
-    std::thread thr;
 };
 
 #endif

@@ -2,22 +2,61 @@
 #include <unistd.h>
 #define PIN 0
 
+
+
 int main() {
     if (gpioInitialise() < 0) {
-        // ³õÊ¼»¯Ê§°Ü
+        // ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½ï¿½
         return 1;
     }
 
-    gpioSetMode(PIN, PI_OUTPUT); // ÉèÖÃGPIOÒý½ÅÎªÊä³öÄ£Ê½
+    gpioSetMode(PIN, PI_OUTPUT); // ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ä£Ê½
 
     for (;;) {
-        gpioWrite(PIN, 0); // ÉèÖÃGPIOÒý½ÅÎªµÍµçÆ½
-        usleep(1000);      // ÑÓ³Ù1ºÁÃë£¨1000Î¢Ãë£©
-        gpioWrite(PIN, 1); // ÉèÖÃGPIOÒý½ÅÎª¸ßµçÆ½
-        usleep(1000);      // ÑÓ³Ù1ºÁÃë£¨1000Î¢Ãë£©
+        gpioWrite(PIN, 0); // ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½Îªï¿½Íµï¿½Æ½
+        usleep(1000);      // ï¿½Ó³ï¿½1ï¿½ï¿½ï¿½ë£¨1000Î¢ï¿½ë£©
+        gpioWrite(PIN, 1); // ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½Îªï¿½ßµï¿½Æ½
+        usleep(1000);      // ï¿½Ó³ï¿½1ï¿½ï¿½ï¿½ë£¨1000Î¢ï¿½ë£©
     }
 
-    gpioTerminate(); // ÇåÀípigpio¿â
+    gpioTerminate(); // ï¿½ï¿½ï¿½ï¿½pigpioï¿½ï¿½
+    return 0;
+}
+
+class Buzzer {
+private:
+    int pin;
+
+public:
+    Buzzer(int pin) : pin(pin) {
+        if (gpioInitialise() < 0) {
+            throw std::runtime_error("GPIO initialization failed");
+        }
+        gpioSetMode(pin, PI_OUTPUT);
+    }
+
+    ~Buzzer() {
+        gpioTerminate();
+    }
+
+    void buzz(int durationMicroseconds) {
+        gpioWrite(pin, 0);
+        usleep(durationMicroseconds);
+        gpioWrite(pin, 1);
+        usleep(durationMicroseconds);
+    }
+};
+
+int main() {
+    try {
+        Buzzer buzzer(PIN);
+        for (;;) {
+            buzzer.buzz(1000);
+        }
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 
