@@ -88,3 +88,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Adding header files to several control classes
 - All above dev are done in the MainProto2 branch
 - Add condition judgment to the main function to implement functionality
+
+## Dev log 12/04/2024
+- Merged new features into master branch
+- (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json 
