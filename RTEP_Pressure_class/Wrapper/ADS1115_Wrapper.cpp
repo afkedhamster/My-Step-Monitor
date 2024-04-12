@@ -52,7 +52,7 @@ int ADS1115_Wrapper::readReg(unsigned char reg)
 
 int ADS1115_Wrapper::writeReg(unsigned char reg, unsigned int value) 
 {
-    char buf[3] = {reg, value >> 8, value & 0xFF};
+    char buf[3] = {reg, static_cast<char>(value >> 8), static_cast<char>(value & 0xFF)};
     return i2cWriteDevice(i2c_handle, buf, 3);
 }
 
@@ -106,9 +106,9 @@ int ADS1115_Wrapper::Process(int ret0, double ret_v0, int ret1, double ret_v1)
                                std::chrono::milliseconds(8));
     
     ret0 = ret0 > 32768 ? 0 : ret0;
-    ret_v0 = ret0 / (4.096 / 32768); // Change
+    ret_v0 = (ret0 * 4.096) / 32768; // Change
     ret1 = ret1 > 32768 ? 0 : ret1;
-    ret_v1 = ret1 / (4.096 / 32768);
+    ret_v1 = (ret1 * 4.096) / 32768;
     
     return 0; 
 }

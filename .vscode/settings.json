@@ -49,6 +49,9 @@
         "variant": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
+      
+        "mpu6050_commu": "c"
+      
         "thread": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
