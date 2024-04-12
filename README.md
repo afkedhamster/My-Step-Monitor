@@ -77,4 +77,14 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Added multiple control classes (based on different languages and header files) for C25A
 
 ## Dev log 10/04/2024
-- use pigpio.h library to replace wiringPi.h and wiringPiI2C.h
+- Use pigpio.h library to replace wiringPi.h and wiringPiI2C.h
+- Correct LCD1602, add some test part for mpu6050
+
+## Dev log 11/04/2024
+- Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests
+- Edit the Buzzer and LCD1602 into classes to implement function encapsulation
+- Simplify the code structure of the project
+- Creat threads functions along with unit test
+- Adding header files to several control classes
+- All above dev are done in the MainProto2 branch
+- Add condition judgment to the main function to implement functionality

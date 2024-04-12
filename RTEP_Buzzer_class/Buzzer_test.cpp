@@ -7,9 +7,11 @@
 
 int main() {
     try {
-        Buzzer buzzer(PIN);
-        for (;;) {
-            buzzer.buzz(1000);
+        Buzzer buzzer;
+        while(1){
+            buzzer.Beep(1000, 1000);
+            buzzer.Beep(1500, 1000);
+            buzzer.Beep(1800, 2000);
         }
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
