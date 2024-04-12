@@ -22,7 +22,7 @@ public:
 
     int MPU6050_Init(); // On
     int MPU6050_Stop(); // Off
-    void readMPU6050(uint8_t reg, uint8_t *data, int len); // Read
+    // void readMPU6050(uint8_t reg, uint8_t *data, int len); // Read
     void Data_Process(); // Process
     double convertAccel(int16_t raw); // Convert
     double convertGyro(int16_t raw); 

@@ -30,13 +30,18 @@ MPU6050::~MPU6050()
 }
 
 // MPU On/Off
-int MPU6050::MPU6050 _Init()
+int MPU6050::MPU6050_Init()
 {
     // Enable MPU6050
-    i2cWriteByteData(fd, 0x68, 0x00);
+    if (i2cWriteByteData(fd, 0x6B, 0) < 0)
+    {
+        std::cerr << "Failed to enable MPU6050." << std::endl;
+        return -1;
+    }
+    return 0;
 }
 
-int MPU6050::MPU6050 _Stop()
+int MPU6050::MPU6050_Stop()
 {
     i2cClose(fd);
     gpioTerminate();
