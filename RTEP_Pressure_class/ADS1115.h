@@ -88,13 +88,3 @@
     #define ADS1115_REG_CONFIG_CQUE_NONE    (0x0003)  // Disable the comparator and put ALERT/RDY in high state (default)
 /*=========================================================================*/
 
-#ifdef __cplusplus
-extern "c" {
-#endif
-
-extern int ads1115Setup(int pinBase, int id);
-
-#ifdef __cplusplus
-}
-#endif
-
