@@ -92,3 +92,5 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 12/04/2024
 - Merged new features into master branch
 - (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json 
+- back to previous version
+- Implement the testing of pressure-sensitive sensors and digital-to-analog conversion modules (ads1115)

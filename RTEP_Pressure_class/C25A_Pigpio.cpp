@@ -2,7 +2,7 @@
 #include <pigpio.h>
 #include <chrono>
 #include <thread>
-#include <ads1115.h>
+#include "ADS1115.h"
 
 // Define Address and Registers in ads1115.h
 // Communication handle
@@ -55,7 +55,7 @@ int ADS_readReg(unsigned char reg)
 
 int ADS_writeReg(unsigned char reg, unsigned int value) 
 {
-    char buf[3] = {reg, static_cast<char>(value >> 8), static_cast<char>(value & 0xFF)};
+    char buf[3] = {reg, static_cast<char>(value >> 8),static_cast<char>( value & 0xFF)};
     return i2cWriteDevice(i2c_handle, buf, 3);
 }
 
@@ -114,16 +114,16 @@ int main()
                                 ADS1115_REG_CONFIG_PGA_4_096V, 
                                 ADS1115_REG_CONFIG_DR_128SPS);
         ret0 = ret0 > 32768 ? 0 : ret0;
-        double ret_v0 = (ret0 * 4.096) / 32768; // Change
+        double ret_v0 = (ret0*4.096)/32768;
         ret1 = ret1 > 32768 ? 0 : ret1;
-        double ret_v1 = (ret1 * 4.096) / 32768;
+        double ret_v1 = (ret1*4.096)/32768;
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
         std::cout << "ret_v0 = " << ret_v0 << std::endl;
         std::cout << "ret1 = " << ret1 << std::endl;
         std::cout << "ret_v1 = " << ret_v1 << std::endl;
         // Delay
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
     ADS_stop();

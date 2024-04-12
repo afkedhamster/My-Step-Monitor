@@ -8,7 +8,7 @@
     CONVERSION DELAY (in mS)
     -----------------------------------------------------------------------*/
     #define ADS1115_CONVERSIONDELAY         (1)
-    #define ADS1115_CONVERSIONDELAY         (8)
+    //#define ADS1115_CONVERSIONDELAY         (8)
 /*=========================================================================*/
 
 /*=========================================================================
@@ -87,4 +87,6 @@
     #define ADS1115_REG_CONFIG_CQUE_4CONV   (0x0002)  // Assert ALERT/RDY after four conversions
     #define ADS1115_REG_CONFIG_CQUE_NONE    (0x0003)  // Disable the comparator and put ALERT/RDY in high state (default)
 /*=========================================================================*/
+
+
 
