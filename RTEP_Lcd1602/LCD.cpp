@@ -28,7 +28,7 @@ class LCD {
     int fd;
 
     public:
-        LCD(const char& alignment = 'l', int pause = 0);
+        LCD(const char& alignment = 'l', int pause = 0, bool mock = false);
         void clear(int pause);
         //Note: this changes currentln value
         void set_location(int line);
@@ -42,10 +42,12 @@ class LCD {
         void operator<<(const string& s);
 };
 
-LCD::LCD(const char& alignment, int pause): alignment{alignment}, pause{pause} {
+LCD::LCD(const char& alignment, int pause, bool mock): alignment{alignment}, pause{pause}, mockMode{mock} {
 
-    if (gpioInitialise () < 0) 
-        throw runtime_error("Gpio Initialise failed.");
+    if (!mockMode) {
+        if (gpioInitialise () < 0) 
+            throw runtime_error("Gpio Initialise failed.");
+    }
 
     if(alignment != 'l' && alignment != 'm' && alignment != 'r')
         throw runtime_error("LCD::LCD: alignment has no valid value. (l, m, r).");
@@ -69,13 +71,15 @@ void LCD::set_variables(){
 }
 
 void LCD::lcd_init(){
-    lcd_byte(0x33, LCD_CMD); // Initialise
-    lcd_byte(0x32, LCD_CMD); // Initialise
-    lcd_byte(0x06, LCD_CMD); // Cursor move direction
-    lcd_byte(0x0C, LCD_CMD); // 0x0F On, Blink Off
-    lcd_byte(0x28, LCD_CMD); // Data length, number of lines, font size
-    lcd_byte(0x01, LCD_CMD); // Clear display
-    gpioDelay(500);
+    if (!mockMode) {
+        lcd_byte(0x33, LCD_CMD); // Initialise
+        lcd_byte(0x32, LCD_CMD); // Initialise
+        lcd_byte(0x06, LCD_CMD); // Cursor move direction
+        lcd_byte(0x0C, LCD_CMD); // 0x0F On, Blink Off
+        lcd_byte(0x28, LCD_CMD); // Data length, number of lines, font size
+        lcd_byte(0x01, LCD_CMD); // Clear display
+        gpioDelay(500);
+    }
 }
 
 void LCD::lcd_byte(int bits, int mode)   {
