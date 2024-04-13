@@ -5,7 +5,7 @@
 #include <thread>
 #include <chrono>
 
-enum Pos_change{
+enum POSTURE{
     FALL,
     RISE,
     WALKING,
@@ -85,28 +85,28 @@ public:
             {
                 if((accelX_g > acc_threshold && accelY_g > acc_threshold) || (accelY_g > acc_threshold && accelZ_g > acc_threshold) || (accelX_g > acc_threshold && accelZ_g > acc_threshold))
                 {
-                    posChange = FALL;  // if the acceleration is greater than the threshold and the pressure is greater than the threshold, then the posChange is FALL
+                    POS = FALL;  // if the acceleration is greater than the threshold and the pressure is greater than the threshold, then the posChange is FALL
                 }
             }
             if (pressure1 > pressure_threshold || pressure2 > pressure_threshold)
             {
                 if((gyroX_degPerSec > 0.8 * gyro_threshold && gyroY_degPerSec > 0.8 * gyro_threshold) || (gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold) || (gyroX_degPerSec> 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold))
                 {
-                    posChange = FALL;
+                    POS = FALL;
                 }
             }
             if((accelX_g > acc_threshold && accelY_g > acc_threshold) || (accelY_g > acc_threshold && accelZ_g > acc_threshold) || (accelX_g > acc_threshold && accelZ_g > acc_threshold))
             {
                 if((gyroX_degPerSec > gyro_threshold && gyroY_degPerSec > gyro_threshold) || (gyroY_degPerSec > gyro_threshold && gyroZ_degPerSec > gyro_threshold) || (gyroX_degPerSec > gyro_threshold && gyroZ_degPerSec > gyro_threshold))
                 {
-                    posChange = FALL;
+                    POS = FALL;
                 }
             }
             
             // if the acceleration is less than the threshold and the pressure is greater than the threshold
             if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 > pressure_threshold && pressure2 > pressure_threshold)
             {
-                posChange = RISE; // if the acceleration is less than the threshold and the pressure is greater than the threshold, then the posChange is RISE
+                POS = RISE; // if the acceleration is less than the threshold and the pressure is greater than the threshold, then the posChange is RISE
             }
 
             // if the acceleration is greater than the threshold and the pressure is greater than the threshold
@@ -115,20 +115,20 @@ public:
                 usleep(1000000); // sleep for 1s
                 if((pressure1 > 0.4 * pressure_threshold && pressure2 > 0.4*pressure_threshold))
                 {
-                    posChange = WALKING;  // if the acceleration is greater than the threshold and the pressure is greater than the threshold, then the posChange is WALKING
+                    POS = WALKING;  // if the acceleration is greater than the threshold and the pressure is greater than the threshold, then the posChange is WALKING
                 }
             }
 
             // if the acceleration is less than the threshold and the pressure is less than the threshold
             if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 < 0.5 * pressure_threshold && pressure2 < 0.5 * pressure_threshold)
             {
-                posChange = SITDOWN; // if the acceleration is less than the threshold and the pressure is less than the threshold, then the posChange is SITDOWN
+                POS = SITDOWN; // if the acceleration is less than the threshold and the pressure is less than the threshold, then the posChange is SITDOWN
             }
 
             // if the acceleration is less than the threshold and the pressure is less than the threshold
             if((pressure1 < 0.2 * pressure_threshold && pressure2 < 0.2 * pressure_threshold) && ((gyroX_degPerSec > 0.8 * gyro_threshold && gyroY_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)) && (accelX_g < acc_threshold && accelY_g < acc_threshold && accelZ_g < acc_threshold))
             {
-                posChange = LAYDOWN; // if the acceleration is less than the threshold and the pressure is less than the threshold, then the posChange is LAYDOWN
+                POS = LAYDOWN; // if the acceleration is less than the threshold and the pressure is less than the threshold, then the posChange is LAYDOWN
             }
 
             // sleep for 100ms
@@ -137,7 +137,7 @@ public:
     };
     std::thread thread;  // the thread
 public:
-    enum Pos_change posChange;                     // the posChange
+    enum POSTURE POS;                     // the posChange
     float accelX_g = 0, accelY_g = 0, accelZ_g = 0;         // acceleration
     float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;      // angular velocity
     float pressure1 = 0, pressure2 = 0;            // pressure

@@ -7,7 +7,7 @@
 #include "../RTEP_Buzzer_class/Buzzer.cpp"
 #include "../RTEP_Lcd1602/LCD.cpp"
 
-enum Pos_change{
+enum POSTURE{
     FALL,
     RISE,
     WALKING,
@@ -33,7 +33,7 @@ public:
     void restart(){
         thread = std::thread(&Threads_Response::doSomething, this);
     };
-    void trigger_buzz_lcd(enum Pos_change posChange){
+    void trigger_buzz_lcd(enum POSTURE posChange){
         if (buzzer != nullptr && lcd !=nullptr && posChange == FALL){
             buzzer->buzz(50000);
             lcd->print("Emergengcy!!! Fall detected!!!");
@@ -50,10 +50,6 @@ public:
             buzzer->buzz(3000);
             lcd->print("Lay to sit detected!");
         }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == SIT2STAND){
-            buzzer->buzz(3000);
-            lcd->print("Sit to stand detected!");
-        }
         if (buzzer != nullptr && lcd !=nullptr && posChange == STAND2SIT){
             buzzer->buzz(3000);
             lcd->print("Stand to sit detected!");
@@ -62,9 +58,6 @@ public:
             buzzer->buzz(3000);
             lcd->print("Stand to lay detected!");
         }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == LAY2STAND){
-            buzzer->buzz(3000);
-            lcd->print("Lay to stand detected!");
         }
     }
     // void pause();
