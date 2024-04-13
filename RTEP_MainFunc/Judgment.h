@@ -14,7 +14,6 @@ public:
     {
         FALL,
         STAND,
-        WALKING,
         SITDOWN,
         LAYDOWN
     };
@@ -29,8 +28,9 @@ public:
     void posEstimation();
     std::thread thread;
     std::string previous_pose;
-
+    std::string poseChange;
     POSTURE POS;
+    
     float accelX_g = 0, accelY_g = 0, accelZ_g = 0;
     float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;
     float pressure1 = 0;
