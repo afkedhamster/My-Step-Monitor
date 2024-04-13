@@ -14,8 +14,8 @@
 class MPU6050 
 {
 public:
-    double accelX_g, accelY_g, accelZ_g;
-    double gyroX_degPerSec, gyroY_degPerSec, gyroZ_degPerSec;
+    float accelX_g, accelY_g, accelZ_g;
+    float gyroX_degPerSec, gyroY_degPerSec, gyroZ_degPerSec;
 public:
     MPU6050(); // Constructor
     ~MPU6050(); // Destructor
