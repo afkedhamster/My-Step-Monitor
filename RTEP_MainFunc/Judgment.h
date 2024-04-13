@@ -7,7 +7,8 @@
 #include <string>
 #include "IPC.h"
 
-class Judgment {
+class Judgment 
+{
 public:
     enum POSTURE 
     {
