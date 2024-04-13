@@ -7,7 +7,7 @@
 
 enum POSTURE{
     FALL,
-    RISE,
+    STAND,
     WALKING,
     SITDOWN,
     LAYDOWN
@@ -144,7 +144,7 @@ public:
                 posChange = "SIT2STAND";
             }
             if (previous_pose == "STAND" && current_pose == "SITDOWN") {
-                posChange = "STAND2SITDOWN";
+                posChange = "STAND2SIT";
             }
             if (previous_pose == "SITDOWN" && current_pose == "LAYDOWN") {
                 posChange = "SIT2LAY";
