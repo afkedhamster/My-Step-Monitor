@@ -8,7 +8,7 @@ ADS1115::ADS1115(){
     if (ADS_init() != 0) 
     {
         std::cerr << "Initialization failed" << std::endl;
-        return -1;
+        //return -1;
     }
 }
 

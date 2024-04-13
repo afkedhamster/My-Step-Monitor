@@ -7,11 +7,11 @@
 int main() 
 {
     ADS1115 ADS;
-    
+    ADS.ADS_init();
     while (true) 
     {
         // Set (Different Channels)
-        int ret0 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
+        int ret0 = ADS.ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
                                 ADS1115_REG_CONFIG_PGA_2_048V, 
                                 ADS1115_REG_CONFIG_DR_860SPS);
         /* int ret1 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_1, 
@@ -30,7 +30,7 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
-    ADS_stop();
+    ADS.ADS_stop();
 
     return 0;
 }
