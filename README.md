@@ -100,3 +100,4 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Realize the packaging of ads1115 (adc module) and C25A pressure sensor unit
 - Add the abandon folder and organize the test units before ads1115
 - Few refactor within 'Threads.h' & 'Threads.cpp'
+- Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'
