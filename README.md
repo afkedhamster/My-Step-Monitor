@@ -102,4 +102,5 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Few refactor within 'Threads.h' & 'Threads.cpp'
 - Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'
 - Create a new Abandon folders to manage temporarily unnecessary files
--Test the communication of mpu pipeline
+- Test the communication of mpu pipeline
+- Complete and modify judgment threads, create variables to detect prevous posture compare with current posture to monitor dynamic movement
