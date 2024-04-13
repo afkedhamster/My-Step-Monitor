@@ -6,46 +6,24 @@
 #include "MPU6050_test.h"
 #include "IPC.h"
 
-// Define Message
-struct Message 
-{
-    int16_t accelX_g;
-    int16_t accelY_g;
-    int16_t accelZ_g;
-    int16_t gyroX_degPerSec;
-    int16_t gyroY_degPerSec;
-    int16_t gyroZ_degPerSec;
-};
-
 
 int main() 
 {
     MPU6050 MPU;
     MPU.MPU6050_Init();
 
-    // Access Queue
-    int msgid = getOrCreateMessageQueue("/tmp", 'A'); // Mark A
-    if (msgid == -1) 
-    {
-        std::cerr << "Failed to create or access message queue." << std::endl;
-        return -1;
-    }
+    IPC mark("/tmp", 'A'); 
 
     while (true) 
     {
         MPU.Data_Process();
 
         // Perpare Message
-        Message message;
-        message.accelX_g = accelX_g;
-        message.accelY_g = accelY_g;
-        message.accelZ_g = accelZ_g;
-        message.gyroX_degPerSec = gyroX_degPerSec;
-        message.gyroY_degPerSec = gyroY_degPerSec;
-        message.gyroZ_degPerSec = gyroZ_degPerSec;
+        std::vector<float> data = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
+        Message message = createMessage(data);
 
         // Send
-        if (msgsnd(msgid, &message, sizeof(message) - sizeof(long), 0) == -1) 
+        if (!mark.send(message)) 
         {
             std::cerr << "Failed to send message to message queue." << std::endl;
             return -1;
