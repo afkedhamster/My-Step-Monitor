@@ -40,7 +40,8 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 // Send
 bool IPC::send(const Message& message)
 {
-    if (msgrcv(msgid, message.values.data(), message.values.size() * sizeof(float), 0, 0) == -1)
+    std::vector<float> Sto(message.values.size());
+    if (msgrcv(msgid, Sto.data(), message.values.size() * sizeof(float), 0, 0) == -1) 
     {
         return false;
     }
