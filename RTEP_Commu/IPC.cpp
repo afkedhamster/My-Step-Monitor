@@ -2,6 +2,19 @@
 #include "IPC.h"
 
 
+// Define Message
+Message::Message(int i)
+{
+    values.resize(i);
+}
+
+Message createMessage(const std::vector<float>& data)
+{
+    Message msg(data.size());
+    msg.values = data;
+    return msg;
+}
+
 // Constructor
 IPC::IPC(const char* filepath, int proj_id) 
 {
