@@ -1,3 +1,5 @@
+#ifndef ADS1115_H
+#define ADS1115_H
 /*=========================================================================
     I2C ADDRESS/BITS
     -----------------------------------------------------------------------*/
@@ -88,5 +90,19 @@
     #define ADS1115_REG_CONFIG_CQUE_NONE    (0x0003)  // Disable the comparator and put ALERT/RDY in high state (default)
 /*=========================================================================*/
 
+class ADS1115
+{
+private:
+    int i2c_handle;
+public:
+    ADS1115(/* args */);
+    ~ADS1115();
+    int ADS_init();
+    void ADS_stop();
+    int ADS_readReg(unsigned char reg);
+    int ADS_writeReg(unsigned char reg, unsigned int value);
+    int ADS_measure(uint16_t mux, uint16_t pga, uint16_t dr);
+};
 
+#endif
 

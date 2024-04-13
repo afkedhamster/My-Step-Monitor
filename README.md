@@ -90,7 +90,12 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Add condition judgment to the main function to implement functionality
 
 ## Dev log 12/04/2024
+- master branch back to previous version
 - Merged new features into master branch
 - (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json 
-- back to previous version
 - Implement the testing of pressure-sensitive sensors and digital-to-analog conversion modules (ads1115)
+
+## Dev log 13/04/2024
+- Correct ads1115 (adc module) and C25A pressure sensor, and complete unit testing
+- Realize the packaging of ads1115 (adc module) and C25A pressure sensor unit
+- Add the abandon folder and organize the test units before ads1115

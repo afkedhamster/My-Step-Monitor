@@ -1,3 +1,7 @@
+/*
+未经封装的ads1115（adc模块）与C25A压力传感器测试单元
+Unpackaged ads1115 (adc module) and C25A pressure sensor test unit
+*/
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

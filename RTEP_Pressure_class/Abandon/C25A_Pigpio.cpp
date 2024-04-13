@@ -1,3 +1,7 @@
+/*
+未经封装的ads1115（adc模块）与C25A压力传感器测试单元
+Unpackaged ads1115 (adc module) and C25A pressure sensor test unit
+*/
 #include <iostream>
 #include <pigpio.h>
 #include <chrono>
@@ -108,15 +112,15 @@ int main()
     {
         // Set (Different Channels)
         int ret0 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
-                                ADS1115_REG_CONFIG_PGA_4_096V, 
-                                ADS1115_REG_CONFIG_DR_128SPS);
+                                ADS1115_REG_CONFIG_PGA_2_048V, 
+                                ADS1115_REG_CONFIG_DR_860SPS);
         int ret1 = ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_1, 
-                                ADS1115_REG_CONFIG_PGA_4_096V, 
-                                ADS1115_REG_CONFIG_DR_128SPS);
+                                ADS1115_REG_CONFIG_PGA_2_048V, 
+                                ADS1115_REG_CONFIG_DR_860SPS);
         ret0 = ret0 > 32768 ? 0 : ret0;
-        double ret_v0 = (ret0*4.096)/32768;
+        double ret_v0 = (ret0*2.048)/32768;
         ret1 = ret1 > 32768 ? 0 : ret1;
-        double ret_v1 = (ret1*4.096)/32768;
+        double ret_v1 = (ret1*2.048)/32768;
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
         std::cout << "ret_v0 = " << ret_v0 << std::endl;
