@@ -4,7 +4,8 @@
 #include "../RTEP_Buzzer_class/Buzzer.cpp"
 #include "../RTEP_Lcd1602/LCD.cpp"
 
-enum POS_CHANGE{
+enum POS_CHANGE
+{
     FALL,
     RISE,
     SIT2LAY,
@@ -12,8 +13,9 @@ enum POS_CHANGE{
     STAND2LAY
 };
 
-class Threads_Response{
-public: 
+class Threads_Response
+{
+public:
     // void pause();
     // void resume();
     // void setPriority();
@@ -23,38 +25,46 @@ public:
     // void restart(){
     //     thread = std::thread(&Threads_Response::doSomething, this);
     // };
-    void start(Buzzer* bobj, LCD* lobj){
+    void start(Buzzer *bobj, LCD *lobj)
+    {
         buzzer = bobj;
         lcd = lobj;
         thread = std::thread(&Threads_Response::trigger_buzz_lcd, this);
     };
 
-    void trigger_buzz_lcd(enum POS_CHANGE  posChange){
-        while(1){
+    void trigger_buzz_lcd(enum POS_CHANGE posChange)
+    {
+        while (1)
+        {
 
-            if (buzzer != nullptr && lcd !=nullptr && posChange == FALL){
-            buzzer->Beep(5000, 20000)
-            lcd->print("Emergengcy!!! Fall detected!!!");
-            }
-         
-            if (buzzer != nullptr && lcd !=nullptr && posChange == RISE){
-            buzzer->Beep(3000, 1500)
-            lcd->print("Rise detected!");
-            }
-        
-            if (buzzer != nullptr && lcd !=nullptr && posChange == SIT2LAY){
-            buzzer->Beep(2000, 1000);
-            lcd->print("Sit to lay detected!");
+            if (buzzer != nullptr && lcd != nullptr && posChange == FALL)
+            {
+                buzzer->Beep(5000, 20000)
+                    lcd->print("Emergengcy!!! Fall detected!!!");
             }
 
-            if (buzzer != nullptr && lcd !=nullptr && posChange == STAND2SIT){
-            buzzer->Beep(2000, 1000);
-            lcd->print("Stand to sit detected!");
+            if (buzzer != nullptr && lcd != nullptr && posChange == RISE)
+            {
+                buzzer->Beep(3000, 1500)
+                    lcd->print("Rise detected!");
             }
-        
-            if (buzzer != nullptr && lcd !=nullptr && posChange == STAND2LAY){
-            buzzer->Beep(2000, 1000);
-            lcd->print("Stand to lay detected!");
+
+            if (buzzer != nullptr && lcd != nullptr && posChange == SIT2LAY)
+            {
+                buzzer->Beep(2000, 1000);
+                lcd->print("Sit to lay detected!");
+            }
+
+            if (buzzer != nullptr && lcd != nullptr && posChange == STAND2SIT)
+            {
+                buzzer->Beep(2000, 1000);
+                lcd->print("Stand to sit detected!");
+            }
+
+            if (buzzer != nullptr && lcd != nullptr && posChange == STAND2LAY)
+            {
+                buzzer->Beep(2000, 1000);
+                lcd->print("Stand to lay detected!");
             }
         }
     }
@@ -62,8 +72,6 @@ public:
     std::thread thread;
 
 private:
-
-    Buzzer* buzzer = nullptr;
-    LCD* lcd = nullptr;
-
+    Buzzer *buzzer = nullptr;
+    LCD *lcd = nullptr;
 };
