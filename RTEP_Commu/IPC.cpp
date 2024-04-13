@@ -40,7 +40,7 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 // Send
 bool IPC::send(const Message& message)
 {
-    if (msgsnd(msgid, &message, sizeof(message) - sizeof(long), 0) == -1) 
+    if (msgsnd(msgid, message.values.data(), message.values.size() * sizeof(float), 0) == -1) 
     {
         return false;
     }
@@ -50,7 +50,7 @@ bool IPC::send(const Message& message)
 // Receive
 bool IPC::receive(Message& message)
 {
-    if (msgrcv(msgid, &message, sizeof(message) - sizeof(long), 0, 0) == -1) 
+    if (msgrcv(msgid, message.values.data(), message.values.size() * sizeof(float), 0) == -1) 
     {
         return false;
     }

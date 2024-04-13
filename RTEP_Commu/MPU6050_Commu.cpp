@@ -12,7 +12,13 @@ int main()
     MPU6050 MPU;
     MPU.MPU6050_Init();
 
+    // Mark A
     IPC mark("/tmp", 'A'); 
+    if (!mark.MsgID("/tmp", 'A')) 
+    {
+        std::cerr << "Failed to set message queue identifier." << std::endl;
+        return -1;
+    }
 
     while (true) 
     {
