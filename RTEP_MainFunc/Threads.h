@@ -33,4 +33,31 @@ private:
     //CallbackFunc callbackFunc = nullptr;
 }
 
+class Threads_Read{
+public:
+    void start();
+    void stop();
+    void restart();
+    void doSomething();
+    std::thread thread;
+private:
+    float accelX_g = 0, accelY_g = 0, accelZ_g = 0;     // acceleration
+    float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;  // angular velocity
+    float pressure1 = 0, pressure2 = 0;        // pressure
+}   
+
+class Threads_posEstimation{
+public:
+    void start();
+    void stop();
+    void restart();
+    void doSomething();
+    std::thread thread;
+private:
+    float accelX_g = 0, accelY_g = 0, accelZ_g = 0;     // acceleration
+    float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;  // angular velocity
+    float pressure1 = 0, pressure2 = 0;        // pressure
+}
+
+
 #endif
