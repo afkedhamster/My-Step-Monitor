@@ -14,6 +14,7 @@ enum Pos_change{
     SITDOWN,
     LAYDOWN
 };
+
 class Threads_Response{
 public: 
     void start(){
@@ -21,11 +22,11 @@ public:
     };
     //typedef void (*CallbackFunc)();   
     //virtual void eventhandler() = 0;
-    void regInf_Buzzer(Buzzer* obj){
-        buzzer = obj;
+    void regInf_Buzzer(Buzzer* bobj){
+        buzzer = bobj;
     };
-    void regInf_LCD(LCD* obj){
-        lcd = obj;
+    void regInf_LCD(LCD* lobj){
+        lcd = lobj;
     };
     void stop(){
         thread.join();};
