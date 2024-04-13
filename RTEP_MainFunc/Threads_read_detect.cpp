@@ -8,7 +8,6 @@
 enum POSTURE{
     FALL,
     STAND,
-    WALKING,
     SITDOWN,
     LAYDOWN
 };
@@ -73,12 +72,7 @@ public:
     };
     
     // Add a string to store the previous pose
-    std::string previous_pose;
-
-    // Add a method to update the previous pose
-    void updatePose(std::string new_pose) {
-        previous_pose = new_pose;
-    }
+   std::string previous_pose = "UNKNOWN";
 
     // the function that the thread will run
     void doSomething()
@@ -86,6 +80,9 @@ public:
         // the loop that will run forever
         while(1)
         {
+            // Save the current pose
+             previous_pose = POS;
+            
             // the conditions that will trigger the pos
             // if the acceleration is greater than the threshold and the pressure is greater than the threshold
             if (pressure1 > pressure_threshold)
@@ -116,16 +113,6 @@ public:
                 POS = STAND; // if the acceleration is less than the threshold and the pressure is greater than the threshold, then the pos is STAND
             }
 
-            // if the acceleration is greater than the threshold and the pressure is greater than the threshold
-            if((accelX_g > acc_threshold || accelY_g > acc_threshold || accelZ_g > acc_threshold) && (pressure1 > 0.4 * pressure_threshold))
-            {
-                usleep(1000000); // sleep for 1s
-                if((pressure1 > 0.4 * pressure_threshold))
-                {
-                    POS = WALKING;  // if the acceleration is greater than the threshold and the pressure is greater than the threshold, then the pos is WALKING
-                }
-            }
-
             // if the acceleration is less than the threshold and the pressure is less than the threshold
             if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 < 0.5 * pressure_threshold && pressure2 < 0.5 * pressure_threshold)
             {
@@ -139,36 +126,30 @@ public:
             }
 
             // Check for pose change
-            std::string current_pose = getCurrentPose(); // You need to implement this method
-            if (previous_pose == "SITDOWN" && current_pose == "STAND") {
+            std::string poseChange = "NO_CHANGE";
+            if (previous_pose != POS) {
+            if (previous_pose == "SITDOWN" && POS == "STAND") {
                 posChange = "SIT2STAND";
             }
-            if (previous_pose == "STAND" && current_pose == "SITDOWN") {
+            if (previous_pose == "STAND" && POS == "SITDOWN") {
                 posChange = "STAND2SIT";
             }
-            if (previous_pose == "SITDOWN" && current_pose == "LAYDOWN") {
+            if (previous_pose == "SITDOWN" && POS == "LAYDOWN") {
                 posChange = "SIT2LAY";
             }
-            if (previous_pose == "LAYDOWN" && current_pose == "SITDOWN") {
-                posChange = "LAY2SIT";
-            }
-            if (previous_pose == "LAYDOWN" && current_pose == "STAND") {
-                posChange = "LAY2STAND";
-            }
-            if (previous_pose == "STAND" && current_pose == "LAYDOWN") {
+            if (previous_pose == "STAND" && POS == "LAYDOWN") {
                 posChange = "STAND2LAY";
             }
-            if (previous_pose == "FALL" && current_pose == "STAND") {
+            if (previous_pose == "FALL" && POS == "STAND") {
                 posChange = "RISE";
             }
-            if (previous_pose == "FALL" && current_pose == "SITDOWN") {
+            if (previous_pose == "FALL" && POS == "SITDOWN") {
                 posChange = "FALL";
             }
-            if (previous_pose == "FALL" && current_pose == "LAYDOWN") {
+            if (previous_pose == "FALL" && POS == "LAYDOWN") {
                 posChange = "FALL";
             }
-            // Update the previous pose at the end of the method
-            updatePose(current_pose);
+            }
 
             // sleep for 100ms
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
