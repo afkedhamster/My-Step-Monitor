@@ -7,104 +7,30 @@
 #include "../RTEP_Buzzer_class/Buzzer.cpp"
 #include "../RTEP_Lcd1602/LCD.cpp"
 
-enum Pos_change{
+enum POS_CHANGE{
     FALL,
     RISE,
     SIT2LAY,
-    LAY2SIT,
-    SIT2STAND,
     STAND2SIT,
-    STAND2LAY,
-    LAY2STAND
+    STAND2LAY
 };
-class Threads_Display{
-public: 
-    void start(){
-        thread = std::thread(&Threads_Display::doSomething, this);
-    };
-    typedef void (*CallbackFunc)();   
-    //virtual void eventhandler() = 0;
-    void regInf_Buzzer(Buzzer* obj,CallbackFunc callbackFunc){
-        buzzer = obj;
-        this->callbackFunc = callbackFunc;
-    };
-    void regInf_LCD(LCD* obj,CallbackFunc callbackFunc){
-        lcd = obj;
-        this->callbackFunc = callbackFunc;
-    };
-    void stop(){
-        thread.join();};
-    void restart(){
-        thread = std::thread(&Threads_Display::doSomething, this);
-    };
-    void trigger_buzz_lcd(enum Pos_change posChange){
-        if (buzzer != nullptr && lcd !=nullptr && posChange == FALL){
-            buzzer->buzz(50000);
-            lcd->print("Emergengcy!!! Fall detected!!!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == RISE){
-            buzzer->buzz(3000);
-            lcd->print("Rise detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == SIT2LAY){
-            buzzer->buzz(3000);
-            lcd->print("Sit to lay detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == LAY2SIT){
-            buzzer->buzz(3000);
-            lcd->print("Lay to sit detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == SIT2STAND){
-            buzzer->buzz(3000);
-            lcd->print("Sit to stand detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == STAND2SIT){
-            buzzer->buzz(3000);
-            lcd->print("Stand to sit detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == STAND2LAY){
-            buzzer->buzz(3000);
-            lcd->print("Stand to lay detected!");
-            callbackFunc();
-        }
-        if (buzzer != nullptr && lcd !=nullptr && posChange == LAY2STAND){
-            buzzer->buzz(3000);
-            lcd->print("Lay to stand detected!");
-            callbackFunc();
-        }
-    }
-    // void pause();
-    // void resume();
-    // void setPriority();
-    // void setAffinity();
+
+class Threads_Response{
+public:    
+    void start();
+    //typedef void (*CallbackFunc)();   
+    void regInf_Buzzer(Buzzer* bobj);
+    void regInf_LCD(LCD* lobj);
+    void stop();
+    void restart();
+    void trigger_buzz_lcd(enum POS_CHANGE  posChange);
     void doSomething();
     std::thread thread;
 private:
+    private:
     Buzzer* buzzer = nullptr;
     LCD* lcd = nullptr;
-    CallbackFunc callbackFunc = nullptr;
-};
-
-class Threads_Read{
-public:
-    void start(){
-        thread = std::thread(&Threads_Read::doSomething, this);
-    };
-    void stop(){
-        thread.join();};
-    void restart(){
-        thread = std::thread(&Threads_Read::doSomething, this);
-    };
-    void doSomething();
-    std::thread thread;
-private:
-
-};
+    //CallbackFunc callbackFunc = nullptr;
+}
 
 #endif
