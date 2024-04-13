@@ -99,3 +99,4 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Correct ads1115 (adc module) and C25A pressure sensor, and complete unit testing
 - Realize the packaging of ads1115 (adc module) and C25A pressure sensor unit
 - Add the abandon folder and organize the test units before ads1115
+- Few refactor within 'Threads.h' & 'Threads.cpp'
