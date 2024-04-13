@@ -17,17 +17,12 @@ enum POS_CHANGE{
 
 class Threads_Response{
 public:    
-    void start();
-    //typedef void (*CallbackFunc)();   
-    void regInf_Buzzer(Buzzer* bobj);
-    void regInf_LCD(LCD* lobj);
-    void stop();
-    void restart();
+    // void stop();
+    // void restart();
+    void start(Buzzer* bobj, LCD* lobj);
     void trigger_buzz_lcd(enum POS_CHANGE  posChange);
-    void doSomething();
     std::thread thread;
 private:
-    private:
     Buzzer* buzzer = nullptr;
     LCD* lcd = nullptr;
     //CallbackFunc callbackFunc = nullptr;
