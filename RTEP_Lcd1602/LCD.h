@@ -9,7 +9,7 @@
 #include <stdexcept>
 
 using namespace std;
-
+// To bypass the real LCD, just use "LCD lcd('l', 0, true);" when implementing 
 class LCD {
     int I2C_ADDR;
     int LCD_CHR;
@@ -23,6 +23,7 @@ class LCD {
     char alignment;
     int pause;
 
+    bool mockMode;  // For bypassing real LCD module
     void set_variables();
     void lcd_init();
     void lcd_byte(int bits, int mode);
@@ -31,7 +32,8 @@ class LCD {
     int fd;
 
     public:
-        LCD(const char& alignment = 'l', int pause = 0);
+        LCD(const char& alignment = 'l', int pause = 0, bool mock = false)  // For bypassing real LCD module
+            : alignment(alignment), pause(pause), mockMode(mock);// For bypassing real LCD module
         void clear(int pause);
         //Note: this changes currentln value
         void set_location(int line);
