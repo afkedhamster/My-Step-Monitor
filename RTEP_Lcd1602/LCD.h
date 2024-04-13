@@ -9,7 +9,7 @@
 #include <stdexcept>
 
 using namespace std;
-
+// To bypass the real LCD, just use "LCD lcd('l', 0, true);" when implementing 
 class LCD {
     int I2C_ADDR;
     int LCD_CHR;
