@@ -5,7 +5,6 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <vector>
-#include "MPU6050_test.h"
 
 // Define Message
 struct Message 
