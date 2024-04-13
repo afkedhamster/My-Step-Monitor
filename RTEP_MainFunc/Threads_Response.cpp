@@ -25,11 +25,11 @@ public:
     // void restart(){
     //     thread = std::thread(&Threads_Response::doSomething, this);
     // };
-    void start(Buzzer *bobj, LCD *lobj)
+    void start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
     {
         buzzer = bobj;
         lcd = lobj;
-        thread = std::thread(&Threads_Response::trigger_buzz_lcd, this);
+        thread = std::thread(&Threads_Response::trigger_buzz_lcd, this, posChange);
     };
 
     void trigger_buzz_lcd(enum POS_CHANGE posChange)

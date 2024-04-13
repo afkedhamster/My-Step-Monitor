@@ -21,7 +21,7 @@ class Threads_Response
 public:
     // void stop();
     // void restart();
-    void start(Buzzer *bobj, LCD *lobj);
+    void start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange);
     void trigger_buzz_lcd(enum POS_CHANGE posChange);
     std::thread thread;
 

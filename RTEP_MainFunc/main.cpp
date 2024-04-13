@@ -13,9 +13,9 @@ int main()
     Threads_Response t_res;
     Buzzer buzzer;
     LCD lcd;
-    std::thread tid_res_thread(&Threads_Response::start, &t_res, &buzzer, &lcd);
+    std::thread tid_res_thread(&Threads_Response::start, &t_res, &buzzer, &lcd, &posChange);
     tid_res_thread.join();
-    
+
     return 0;
 }
 // Path: RTEP_MainFunc/Threads.cpp
