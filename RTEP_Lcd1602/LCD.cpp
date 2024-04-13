@@ -20,8 +20,6 @@ class LCD {
     char alignment;
     int pause;
 
-  
-
     void set_variables();
     void lcd_init();
     void lcd_byte(int bits, int mode);
