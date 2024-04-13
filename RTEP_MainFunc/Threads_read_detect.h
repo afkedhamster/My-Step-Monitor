@@ -24,7 +24,7 @@ public:
         MPU6050 mpu6050(1, 0x68);
         if (!mpu6050.initialize())
         {
-            cout << "MPU6050 initialize failed" << endl;
+            std::cout << "MPU6050 initialize failed" << std::endl;
             return NULL;
         }
         // initialize the sensors Pressure
@@ -32,13 +32,13 @@ public:
         Pressure pressure2_sensor(1, 0x49);
         if (!pressure1_sensor.initialize() || !pressure2_sensor.initialize())
         {
-            cout << "Pressure initialize failed" << endl;
+            std::cout << "Pressure initialize failed" << std::endl;
             return NULL;
         }
         // read the data from the sensors
         while (1)
         {
-            mpu6050.readAcceleration(acccelX_g, accelY_g, accelZ_g);  // read the acceleration
+            mpu6050.readAcceleration(accelX_g, accelY_g, accelZ_g);  // read the acceleration
             mpu6050.readGyroscope(gyroX_degPerSec, gyroY_degPerSec, gyroZ_degPerSec);  // read the angular velocity
             pressure1_sensor.readPressure(pressure1);    // read the pressure
             pressure2_sensor.readPressure(pressure2);    // read the pressure
