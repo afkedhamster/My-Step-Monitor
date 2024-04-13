@@ -5,6 +5,14 @@
 #include <thread>
 #include <chrono>
 
+enum Pos_change{
+    FALL,
+    RISE,
+    WALKING,
+    SITDOWN,
+    LAYDOWN
+};
+
 class Threads_Read{
 public:
     // start the thread
@@ -50,14 +58,6 @@ public:
     float accelX_g = 0, accelY_g = 0, accelZ_g = 0;     // acceleration
     float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;  // angular velocity
     float pressure1 = 0, pressure2 = 0;        // pressure
-};
-
-enum Pos_change{
-    FALL,
-    RISE,
-    WALKING,
-    SITDOWN,
-    LAYDOWN
 };
 
 class Threads_posEstimation{
