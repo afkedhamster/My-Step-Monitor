@@ -2,19 +2,6 @@
 #include "IPC.h"
 
 
-// Define Message
-Message::Message(int i)
-{
-    values.resize(i);
-}
-
-Message createMessage(const std::vector<float>& data)
-{
-    Message msg(data.size());
-    msg.values = data;
-    return msg;
-}
-
 // Constructor
 IPC::IPC(const char* filepath, int proj_id) 
 {
@@ -53,8 +40,9 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 // Send
 bool IPC::send(const Message& message)
 {
-    std::vector<float> Sto(message.values.size());
-    if (msgrcv(msgid, Sto.data(), message.values.size() * sizeof(float), 0, 0) == -1) 
+    //convert
+    const void* Poi = static_cast<const void*>(message.values.data());
+    if (msgsnd(msgid, Poi, message.values.size()*sizeof(float),IPC_NOWAIT) == -1)
     {
         return false;
     }
@@ -63,10 +51,16 @@ bool IPC::send(const Message& message)
 
 // Receive
 bool IPC::receive(Message& message)
-{
+{   
     if (msgrcv(msgid, message.values.data(), message.values.size() * sizeof(float), 0, 0) == -1)
     {
         return false;
     }
     return true;
 }
+
+Message createMessage(const std::vector<float>& data){
+    Message msg(data.size());
+    msg.values = data;
+    return msg;
+};

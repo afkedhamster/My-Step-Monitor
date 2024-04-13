@@ -19,6 +19,7 @@ struct Message
 
 Message createMessage(const std::vector<float>& data);
 
+
 // Message Queue
 class IPC
 {
