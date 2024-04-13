@@ -12,7 +12,8 @@ int main()
 {
     Threads_Response t_res;
     Buzzer buzzer;
-    LCD lcd;
+    //LCD lcd;
+    LCD lcd('l', 0, true); // Have to use this line to bypass the real LCD module
     std::thread tid_res_thread(&Threads_Response::start, &t_res, &buzzer, &lcd, &posChange);
     tid_res_thread.join();
 
