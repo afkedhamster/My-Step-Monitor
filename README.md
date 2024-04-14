@@ -58,13 +58,15 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Pitch Session
 
 ## Dev log 08/02/2024
-- Discusses sequence and various subclasses of the program and the general structure of the program
+- Discuss sequence and various subclasses of the program and the general structure of the program
 
-## Dev log 15/02/2024 [MPU & Pressure-15-02-2024](#MPU & Pressure-15-02-2024)
+## Dev log 15/02/2024
 - Create the first version of the code for sensor data reading and processing
+  link: [MPU & Pressure-15-02-2024](#MPU-Pressure-15-02-2024) (Uploaded 14/04)
 
-## Dev log 20/02/2024 [Buzzer & Screen-20-02-2024](#Buzzer & Screen-20-02-2024)
+## Dev log 20/02/2024 
 - Create the first version of the code about the response class, including the LCD and buzzer
+  link: [Buzzer & Screen-20-02-2024](#Buzzer-Screen-20-02-2024) (Uploaded 14/04)
 
 ## Dev log 25/02/2024
 - Learn more about callback functions, threads, and more
@@ -73,46 +75,62 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Set up of Raspberry Pi, download librarirs
 
 ## Dev log 20/03/2024
- - Finished the code for Buzzer
-  - Buzzer can give sounds of different frequencies
+ - Finish the code for Buzzer
+   link: [RTEP_Buzzer_class\Buzzer.cpp](#Buzzer.cpp)
+  - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
-- Testing the readout of the Pressure Sensor
+- Test the readout of the Pressure Sensor
+  link: [RTEP_MPU6050_class\Abandon\main.cpp](#main.cpp)
   - Correctly produced bool value based on the existence of the pressure
   - Cannot read the value of pressure due to lack of ADC
-- Tested the LCD12864 monitor module
+- Tesd the LCD12864 monitor module
+  link: [RTEP_Lcd1602\lcd_test.cpp](#lcd_test.cpp)
   - Constantly errors "implicit declaration of function ‘WriteCmd’"
   - haven't located the library file that contains "WriteCmd" function
  
 ## Dev log 21/03/2024
-- Tested the LCD12864 monitor module
+- Test the LCD12864 monitor module _(Code Abandoned)_
   - Reconfigure the Pin
   - Successfully initiated the LCD 12864 monitor
-- Preparation for Intranet Penetration using Tailscale
-  - Setup Tailscale client on PC of Jiewen Tan and Zhiyue Lu
+- Preparation for Intranet Penetration using Tailscale **_(Hardware)_**
+  - Setup Tailscale client on PC
  
 ## Dev log 23/03/2024
-- Debuging Lcd contorl class
+- Debug Lcd contorl class
+  link: [RTEP_Lcd1602\LCD.cpp](#LCD.cpp); [RTEP_Lcd1602\LCD.h](#LCD.h)
   - Current code show partial success as it does display part of the intented text message, however the rest of the text message seems in wrong format
 
 ## Dev log 30/03/2024
-- Add control class for the MPU6050 six-axis gryoscope module
+- Add control class for the MPU6050 six-axis gryoscope module 
 
-## Dev log 05/04/2024
+## Dev log 05/04/2024 _(Code Abandoned)_
 - Add test code for LCD 12864 module 
 
 ## Dev log 08/04/2024
-- Added multiple control classes (based on different languages and header files) for MPU6050
+- Add multiple control classes for MPU6050
+  I2C control class with WringPi _(Code Abandoned)_
+  GPIO simulate I2C _(Code Abandoned)_
 - Override the function of MPU6050 with Pigpio.h
+  link: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](#MPU6050_Pigpio.cpp)
 
 ## Dev log 09/04/2024
-- Added multiple control classes (based on different languages and header files) for C25A
+- Add test code for C25A and ADS1115 module _(Code Abandoned)_
+  link: [RTEP_Pressure_class\Abandon\adcPressure.cpp](#adcPressure.cpp); [RTEP_Pressure_class\Abandon\adcPressure.cpp](#adcPressure.cpp)
+- Add multiple control classes for C25A and ADS1115
+  I2C control class with WringPi _(Code Abandoned)_
+  link: [RTEP_Pressure_class\Abandon\C25A_I2C.cpp](#C25A_I2C.cpp)
+- I2C control class with Pigpio
+  link: [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](#C25A_Pigpio.cpp)
 
 ## Dev log 10/04/2024
 - Use pigpio.h library to replace wiringPi.h and wiringPiI2C.h
-- Correct LCD1602, add some test part for mpu6050
+  link: [RTEP_Lcd1602\lcd_test.cpp](#lcd_test.cpp)
+- Correct LCD1602
+- Add some test part for mpu6050
 
 ## Dev log 11/04/2024
 - Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests
+  Link: [RTEP_Buzzer_class\Buzzer_test.cpp](#Buzzer_test.cpp); [RTEP_Buzzer_class\Buzzer.h](#Buzzer.h)
 - Edit the Buzzer and LCD1602 into classes to implement function encapsulation
 - Simplify the code structure of the project
 - Creat threads functions along with unit test
