@@ -1,28 +1,22 @@
 #include <stdexcept>
-#include <cstring>
 #include "IPC.h"
 
+
 // Define Message
-Message createFloatMessage(char type, const std::vector<float>& data)
+Message::Message(int i)
 {
-    Message msg;
-    msg.type = type;
-    msg.dataType = Message::DataType::Float;
-    msg.data.floatN = data;
-    return msg;
+    values.resize(i);
 }
 
-Message createStringMessage(char type, const std::string& data)
+Message createMessage(const std::vector<float>& data)
 {
-    Message msg;
-    msg.type = type;
-    msg.dataType = Message::DataType::String;
-    msg.data.strN = data;
+    Message msg(data.size());
+    msg.values = data;
     return msg;
 }
 
 // Constructor
-IPC::IPC(const char* filepath, int proj_id) : msgid(-1) 
+IPC::IPC(const char* filepath, char proj_id) 
 {
     // Mark
     if (!MsgID(filepath, proj_id)) 
@@ -35,8 +29,7 @@ IPC::IPC(const char* filepath, int proj_id) : msgid(-1)
 IPC::~IPC()
 {
     // Remove
-    if (msgid != -1)
-        msgctl(msgid, IPC_RMID, NULL);
+    msgctl(msgid, IPC_RMID, NULL);
 }
 
 // Mark
@@ -60,9 +53,10 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 // Send
 bool IPC::send(const Message& message)
 {
-    size_t size = sizeof(message);
-    const void* dataPtr = static_cast<const void*>(&message);
-    if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
+    // Convert
+    const void* Poi = reinterpret_cast<const void*>(message.values.data());
+
+    if (msgsnd(msgid, Poi, message.values.size() * sizeof(float), IPC_NOWAIT) == -1) 
     {
         return false;
     }
@@ -72,8 +66,7 @@ bool IPC::send(const Message& message)
 // Receive
 bool IPC::receive(Message& message)
 {
-    ssize_t receivedSize = msgrcv(msgid, &message, sizeof(message.data), 0, 0);
-    if (receivedSize == -1)
+    if (msgrcv(msgid, message.values.data(), message.values.size() * sizeof(float), 0, 0) == -1)
     {
         return false;
     }
