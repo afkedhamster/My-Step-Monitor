@@ -41,16 +41,18 @@ void Judgment::Receive_Send()
         if (message_B.type == 'B') 
         {
             pressure1 = message_B.data[1]; 
+        }
 
         std::string posChange = posEstimation();
 
+        // Send C
         Message msg_C('C', posChange);
         if (!ipc_C.send(msg_C)) 
         {
             std::cerr << "Failed to send message C." << std::endl;
             continue;
         }
-    }
+    }    
 }
 
 void Judgment::start_posEstimation() 
