@@ -153,9 +153,9 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Simplify the code structure of the project
   * Wrap C25A\
     From: [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/C25A_Pigpio.cpp); [RTEP_Pressure_class\ADS1115.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/ADS1115.h); [RTEP_Pressure_class\ADS1115.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/ADS1115.cpp)\
-    Link:[RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
+    Link: [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
   * Wrap MPU6050\
-    From: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp);
+    From: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp); \
     Link: [RTEP_MPU6050_class\Wrapper\MPU6050.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050.h); [RTEP_MPU6050_class\Wrapper\MPU6050_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_Wrapper.h); [RTEP_MPU6050_class\Wrapper\MPU6050_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_Wrapper.cpp); [RTEP_MPU6050_class\Wrapper\MPU6050_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_main.cpp)
 - Creat threads functions along with unit test\
   Link: [RTEP_MainFunc\Abandon\judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/judgment.cpp); [RTEP_MainFunc\Abandon\Threads.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads.h); [RTEP_MainFunc\Abandon\Threads_1.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_1.h); 
@@ -202,12 +202,12 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   Link: [RTEP_MainFunc\Abandon\Threads_read_detect.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_read_detect.cpp)
 
 ## Dev log 14/04/2024
-- Adjust code to fit\ 
+- Adjust code to fit \
   Link: [RTEP_MPU6050_class\MPU6050_test.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test.h); [RTEP_MPU6050_class\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Mpu6050_test.cpp); [RTEP_MPU6050_class\MPU6050_test_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test_main.cpp); \
   [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
 - Debug IPC
   * Add code for different data type
-  * Implement IPC with MPU6050 and ADS1115
+  * Implement IPC with MPU6050 and ADS1115\
   Link: [RTEP_Commu\IPC.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.h); [RTEP_Commu\IPC.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.cpp); [RTEP_Commu\MPU6050_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/MPU6050_Commu.cpp);[RTEP_Commu\C25A_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/C25A_Commu.cpp)
 - Create Judgment Function\
   From: [RTEP_MainFunc\Abandon\Threads_read_detect.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_read_detect.cpp); \
@@ -215,7 +215,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   * Reconstruct
   * Add IPC
 - Reconstruct Response Function\
-  From: [RTEP_MainFunc\Abandon\Threads_Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_Response.cpp)
+  From: [RTEP_MainFunc\Abandon\Threads_Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_Response.cpp) \
   Link: [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp)
   * Reconstruct
   * Add IPC
@@ -226,7 +226,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Creat *_Num branch_* to avoid the issues of different data type involving IPC
 
 # Dev log 15/04/2024
-- Debug Judgment Function, Response Function, and Main Function.
+- Debug Judgment Function, Response Function, and Main Function.\
   Link: [RTEP_MainFunc\Judgment.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.h); [RTEP_MainFunc\Judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.cpp); \
   [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp); \
   [RTEP_MainFunc\Main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Main.cpp)
