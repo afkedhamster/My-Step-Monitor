@@ -252,7 +252,7 @@ Team #6
 
 ## Jiahui Tang (2855848T)
 
-## Jiewen Tan (2934324T) \
+## Jiewen Tan (2934324T) 
 Github Link: [Afked Hamster](https://github.com/afkedhamster)
 - One of the testor of the devices
 - Control class for buzzer
@@ -263,7 +263,7 @@ Github Link: [Afked Hamster](https://github.com/afkedhamster)
 - Github Management & Pull Request handling
 - Early Dev log & Wiki
 
-## Shuaifei Wang (2936142W) \
+## Shuaifei Wang (2936142W) 
 Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
 - Code and debug MPU6050 and C25A & ADS1115
 - Code and debug communication function of IPC
