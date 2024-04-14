@@ -34,6 +34,7 @@ public:
     bool MsgID(const char* filepath, char proj_id); 
     bool send(const Message& message);
     bool receive(Message& message);
+    
 };
 
 #endif

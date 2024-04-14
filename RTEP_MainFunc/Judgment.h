@@ -23,6 +23,8 @@ public:
         STAND2LAY = 7,
     };
 
+    Judgment();
+
     void start_RS();
     void stop_RS();
     void restart_RS();
