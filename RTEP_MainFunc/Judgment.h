@@ -10,13 +10,17 @@
 class Judgment 
 {
 public:
-    enum POSTURE 
-    {
-        FALL,
-        STAND,
-        SITDOWN,
-        LAYDOWN
-    };
+    enum POS_CHANGE{
+    FALL,
+    STAND,
+    // WALKING,
+    SIT,
+    LAY,
+    RISE,
+    SIT2LAY,
+    STAND2SIT,
+    STAND2LAY,
+};
 
     void start_Read();
     void stop_Read();
@@ -26,10 +30,10 @@ public:
     void restart_posEstimation();
     void Read();
     void posEstimation();
+    void updatePose(std::string new_pose)
     std::thread thread;
     std::string previous_pose;
-    std::string poseChange;
-    POSTURE POS;
+    POS_CHANGE posChange;
     
     float accelX_g = 0, accelY_g = 0, accelZ_g = 0;
     float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;
