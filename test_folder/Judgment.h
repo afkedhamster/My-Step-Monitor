@@ -29,8 +29,9 @@ public:
     void start_posEstimation();
     void stop_posEstimation();
     void restart_posEstimation();
+    float posEstimation();
     void Receive_Send();
-    std::string posEstimation();
+    
 
 private:
     std::thread thread_RS; 
