@@ -225,7 +225,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   Link: [RTEP_MainFunc\Abandon](https://github.com/afkedhamster/My-Step-Monitor/tree/master/RTEP_MainFunc/Abandon)
 - Creat *_Num branch_* to avoid the issues of different data type involving IPC
 
-# Dev log 15/04/2024
+## Dev log 15/04/2024
 - Debug Judgment Function, Response Function, and Main Function.\
   Link: [RTEP_MainFunc\Judgment.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.h); [RTEP_MainFunc\Judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.cpp); \
   [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp); \
@@ -234,3 +234,21 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Merge with _*master branch*_
 - Finish Wiki Page\
   Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
+
+
+
+### Member Responsibility
+Team #6
+
+Zhiyue Lu (2931528L)
+
+Jiahui Tang (2855848T)
+
+Jiewen Tan (2934324T)
+
+Shuaifei Wang (2936142W) \
+Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
+- Code and debug MPU6050 and C25A & ADS1115
+- Code and debug communication function of IPC
+- Code main function and settle Judgmen and Response 
+- Part of the report
