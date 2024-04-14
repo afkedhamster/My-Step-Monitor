@@ -261,6 +261,7 @@ Github Link: [Afked Hamster](https://github.com/afkedhamster)
 - Fundamental main function
 - Global debug
 - Github Management & Pull Request handling
+- Early Dev log & Wiki
 
 ## Shuaifei Wang (2936142W) \
 Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
@@ -268,5 +269,3 @@ Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview
 - Code and debug communication function of IPC
 - Code main function and settle Judgmen and Response 
 - Part of the report
-
-Jiewen Tan (2934324T)
