@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Response.h"
+#include "IPC.h"
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 {
