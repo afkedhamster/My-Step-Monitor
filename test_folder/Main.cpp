@@ -10,7 +10,7 @@
 #include "Response.h"
 
 
-void main_MPU6050()
+int main_MPU6050()
 {
     MPU6050 MPU;
     MPU.MPU6050_Init();
@@ -23,9 +23,9 @@ void main_MPU6050()
         MPU.Data_Process();
 
         // Perpare Message
-        std::vector<float> data = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
-        Message message('A', data); // Type A
-
+        std::vector<float> DataResult = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
+        Message message = createMessage(DataResult);
+        
         // Send
         if (!mark.send(message)) 
         {
@@ -41,11 +41,10 @@ void main_MPU6050()
         // Delay
         gpioDelay(100000);
     }
-
     return 0;
 }
 
-void main_C25A()
+int main_C25A()
 {
     ADS1115 ADS;
     ADS.ADS_init();
@@ -68,8 +67,8 @@ void main_C25A()
         float ret_v1 = (ret1*2.048)/32768; */
 
         // Perpare Message
-        std::vector<float> data = {ret0, ret_v0};
-        Message message('B', data); // Type B
+        std::vector<float> DataResult = {ret0, ret_v0};
+        Message message = createMessage(DataResult);
 
         // Send
         if (!ipc.send(message)) 

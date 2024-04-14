@@ -27,7 +27,7 @@ void Judgment::Receive_Send()
 
     while (true) 
     {
-        Message message_A;
+        Message message_A(6);
         if (!ipc_A.receive(message_A)) 
         {
             std::cerr << "Failed to receive message from A." << std::endl;
@@ -41,7 +41,7 @@ void Judgment::Receive_Send()
         gyroY_degPerSec = message_A.DataResult[4];
         gyroZ_degPerSec = message_A.DataResult[5];
 
-        Message message_B;
+        Message message_B(2);
         if (!ipc_B.receive(message_B)) 
         {
             std::cerr << "Failed to receive message from B." << std::endl;
@@ -55,10 +55,10 @@ void Judgment::Receive_Send()
 
         // Perpare Message
         std::vector<float> DataResult = {posChange};
-        Message message = createMessage(DataResult);
+        Message message_C = createMessage(DataResult);
 
         // Send C
-        if (!ipc_C.send(message)) 
+        if (!ipc_C.send(message_C)) 
         {
             std::cerr << "Failed to send message C." << std::endl;
             continue;
