@@ -119,7 +119,8 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 08/04/2024
 - Add multiple control classes for MPU6050
   * I2C control class with WringPi _(Code Abandoned)_
-  * GPIO simulate I2C _(Code Abandoned)_
+  * GPIO simulate I2C\
+    Link: [RTEP_MPU6050_class\Abandon\pigpio.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Abandon/pigpio.cpp)
 - Override the function of MPU6050 with Pigpio.h\
   Link: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp)
 - Test LCD1602\
