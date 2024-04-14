@@ -62,11 +62,19 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 15/02/2024
 - Create the first version of the code for sensor data reading and processing
+<<<<<<< HEAD
   * link: [Dev_Doc\MPU & Pressure_15_02](#dev_docmpu--pressure_15_02) (Uploaded 14/04)
 
 ## Dev log 20/02/2024 
 - Create the first version of the code about the response class, including the LCD and buzzer
   * link: [Dev_Doc\Buzzer & Screen_20_02](#dev_docbuzzer--screen_20_02) (Uploaded 14/04)
+=======
+  * link: [MPU & Pressure-15-02-2024](#dev_doc-mpu-pressure-15-02-2024) _(Uploaded 14/04)_
+
+## Dev log 20/02/2024 
+- Create the first version of the code about the response class, including the LCD and buzzer
+  * link: [Buzzer & Screen-20-02-2024](#dev-doc-buzzer-screen-20-02-2024) _(Uploaded 14/04)_
+>>>>>>> 494293fa66c73e14c582a37b9c7acb59e627de3d
 
 ## Dev log 25/02/2024
 - Learn more about callback functions, threads, and more
@@ -75,8 +83,13 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Set up of Raspberry Pi, download librarirs
 
 ## Dev log 20/03/2024
+<<<<<<< HEAD
  - Finish the code for Buzzer\
   link: [RTEP_Buzzer_class\Buzzer.cpp](#rtep_buzzer_classbuzzer.cpp)
+=======
+ - Finish the code for Buzzer
+   link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
+>>>>>>> 494293fa66c73e14c582a37b9c7acb59e627de3d
   - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
 - Test the readout of the Pressure Sensor\
