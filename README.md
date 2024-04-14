@@ -62,11 +62,11 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 15/02/2024
 - Create the first version of the code for sensor data reading and processing
-  link: [MPU & Pressure-15-02-2024](#MPU-Pressure-15-02-2024) (Uploaded 14/04)
+  * link: [MPU & Pressure-15-02-2024](Dev_Doc\MPU & Pressure-15-02-2024) (Uploaded 14/04)
 
 ## Dev log 20/02/2024 
 - Create the first version of the code about the response class, including the LCD and buzzer
-  link: [Buzzer & Screen-20-02-2024](#Buzzer-Screen-20-02-2024) (Uploaded 14/04)
+  * link: [Buzzer & Screen-20-02-2024](Dev_Doc\Buzzer & Screen-20-02-2024) (Uploaded 14/04)
 
 ## Dev log 25/02/2024
 - Learn more about callback functions, threads, and more
