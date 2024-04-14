@@ -1,0 +1,294 @@
+        
+ 
+
+
+
+
+	
+//库文件	
+#include <math.h>
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
+
+//MPU6050地址
+#define MPU6050_ADDR 0x68
+//MPU6050寄存器地址
+#define SMPLRT_DIV 0x19
+#define CONFIG 0x1A
+#define GYRO_CONFIG 0x1B
+#define ACCEL_CONFIG 0x1C
+#define INT_PIN_CFG 0x37
+#define ACCEL_XOUT_H 0x3B
+#define PWR_MGMT_1 0x6B
+#define WHO_AM_I 0x75
+//MPU6050数据
+int16_t ax,ay,az,gx,gy,gz;
+//MPU6050校准数据
+int16_t ax_cl,ay_cl,az_cl,gx_cl,gy_cl,gz_cl;
+//MPU6050数据缓存
+unsigned char IIC_buf[14];
+
+
+//IIC_Write
+void IIC_Write(unsigned char addr,unsigned char reg,unsigned char data)
+{
+    wiringPiI2CWriteReg8(addr,reg,data);
+}
+
+
+//IIC_Read
+void IIC_Read(unsigned char addr,unsigned char reg,unsigned char *buf,unsigned char len)
+{
+    int i;
+    for(i=0;i<len;i++)
+    {
+        buf[i]=wiringPiI2CReadReg8(addr,reg+i);
+    }
+}
+
+//MPU6050初始化
+void MPU6050_Init()
+{
+    IIC_Write(MPU6050_ADDR, PWR_MGMT_1, 0x00); ////解除休眠状态
+    IIC_Write(MPU6050_ADDR, SMPLRT_DIV, 0x07); //陀螺仪采样率，典型值：0xe7（125Hz)
+    IIC_Write(MPU6050_ADDR, CONFIG, 0x06); //低通滤波频率，典型值：0x06(5Hz)
+    IIC_Write(MPU6050_ADDR, GYRO_CONFIG, 0x18); //陀螺仪量程，典型值：0x18(2000deg/s)
+    IIC_Write(MPU6050_ADDR, ACCEL_CONFIG, 0x01); //加速度计量程，典型值：0x01(±4g)
+    IIC_Write(MPU6050_ADDR, INT_PIN_CFG, 0x02); //设置INT引脚低电平有效
+    IIC_Write(MPU6050_ADDR, INT_ENABLE, 0x01); //使能数据准备好中断
+}
+
+
+//获取数据
+Void MPU6050_Get(void)
+{
+	IIC_Read(MPU6050_ADDR, ACCEL_XOUT_H, IIC_buf, 14);
+	Ax=(IIC_buf[0]<<8) + IIC_buf[1]; //x轴加速度
+	Ax=(IIC_buf[2]<<8) + IIC_buf[3]; //y轴加速度
+	Ax=(IIC_buf[4]<<8) + IIC_buf[5]; //z轴加速度
+
+	Gx=(IIC_buf[8]<<8) + IIC_buf[9]; //x轴角速度
+	Gx=(IIC_buf[10]<<8) + IIC_buf[11]; //y轴角速度
+	Gx=(IIC_buf[12]<<8) + IIC_buf[13]; //z轴角速度
+}
+
+//校准
+Void MPU6050_calibrate()
+{
+	Unsigned short i;
+	Signed int temp[6] = {0};
+	For(i=0; i<CL_cnt; i++)
+	{
+		HAL_Delay(10);
+		MPU6050_Get();
+		Temp[0] += ax;
+		Temp[1] += ax;
+		Temp[2] += ax;
+		Temp[3] += ax;
+		Temp[4] += ax;
+		Temp[5] += ax;
+	}
+Ax_cl = temp[0]/CL_cnt;
+Ay_cl = temp[1]/CL_cnt;
+Az_cl = temp[2]/CL_cnt - G; //减去重力加速度
+Gx_cl = temp[3]/CL_cnt;
+Gy_cl = temp[4]/CL_cnt;
+Gz_cl = temp[5]/CL_cnt;
+}
+
+//获取校准后数据：
+
+Void MPU6050_Get(void)
+{
+	IIC_Read(MPU6050_ADDR, ACCEL_XOUT_H, IIC_buf, 14);
+	Ax=(IIC_buf[0]<<8) + IIC_buf[1] – ax_cl; //x轴加速度
+	Ay=(IIC_buf[2]<<8) + IIC_buf[3] – ay_cl; //y轴加速度
+	Az=(IIC_buf[4]<<8) + IIC_buf[5] – az_cl; //z轴加速度
+
+	Gx=(IIC_buf[8]<<8) + IIC_buf[9] – gx_cl; //x轴角速度
+	Gy=(IIC_buf[10]<<8) + IIC_buf[11] – gy_cl; //y轴角速度
+	Gz=(IIC_buf[12]<<8) + IIC_buf[13] – gz_cl; //z轴角速度
+}
+
+//SVM：
+Double roll_all;
+Double pitch_all;
+Double yaw_all;
+Short ax, ay, az;
+Void EulerAngles(double ax, double ay, double az, double gx, double gy, double gz) 
+{
+	double roll = atan2(ay, az);
+	double pitch = atan2(-ax, sqrt(ay * ay + az * az));
+	double yaw;
+	if (gz >= 0) 
+	{
+		yaw = atan(gy / sqrt(gx * gx + gz * gz));
+	} 
+	else 
+	{
+		yaw = M_PI - atan(gy / sqrt(gx * gx + gz * gz));
+	}
+	roll_all = roll * 180.0 / M_PI;
+	pitch_all = pitch * 180.0 / M_PI;
+	yaw_all = yaw * 180.0 / M_PI;
+}
+Double A;
+Double S;
+Void SVM(ax, ay, az)
+{
+	A= pow(ax,2) + pow(ay,2) + pow(az,2);
+	S = sqrt(A);
+}
+
+//HX711引脚
+#define HX711_DOUT 0
+#define HX711_SCK 1
+//HX711数据
+unsigned long HX711_Buffer;
+//HX711初始化
+void HX711_Init(void)
+{
+    pinMode(HX711_DOUT, INPUT);
+    pinMode(HX711_SCK, OUTPUT);
+    digitalWrite(HX711_SCK, 0);
+}
+//Delay_us
+void Delay_us(unsigned int nus)
+{
+    delayMicroseconds(nus);
+}
+
+获取数据：
+u32 HX711_Read(void)	//增益128
+{
+	Unsigned long count;
+	Unsigned char i;
+	HX711_DOUT=1;
+	Delay_us(1);
+	HX711_SCK=0;
+	count=0;
+	while(HX711_DOUT);
+	for(i=0;i<24;i++)
+	{
+		HX711_SCK=1;
+		count=count<<1;
+		delay_us(1);
+		HX711_SCK=0;
+		if(HX711_DOUT)
+			count++;
+		delay_us(1);
+	}
+	HX711_SCK=1;
+	count=count^0x800000; //第25个脉冲下降沿来时，转换数据
+	delay_us(1);
+	HX711_SCK=0;  
+	return(count);
+}
+
+
+计算：
+
+void Get_Maopi(void)
+{
+	Weight_Maopi = HX711_Read();
+}
+
+void Get_Weight(void)
+{
+	HX711_Buffer = HX711_Read();
+	If(HX711_Buffer > Weight_Maopi)			
+	{
+		Weight_Shiwu = HX711_Buffer;
+		Weight_Shiwu = Weight_Shiwu - Weight_Maopi; //采样数值
+		Weight_Shiwu = (s32)((float)Weight_Shiwu/GapValue)-478; // -皮重
+	}
+}
+
+
+
+//重量最大值
+unsigned long Weight_MAX = 30;
+int main( )
+{
+    wiringPiSetup();//初始化
+    MPU6050_Init();
+    HX711_Init();
+    Get_Maopi();
+    Get_Weight();
+    MPU6050_Get();
+
+    //SVM
+    EulerAngles(ax, ay, az, gx, gy, gz);
+           SVM = sqrt(pow(ax,2)+  pow(ay,2) + pow(az,2));	
+    Angles(roll_all, pitch_all, yaw_all);
+  
+    //站立，持续一小段时间判断为站立
+    if(Weight_Shiwu == Weight_MAX)
+    {
+        Delay_us(1000000); //延时1s
+        while(Weight_Shiwu == Weight_MAX)
+        {
+            printf("Standing");
+        }
+    }
+
+        //行走
+   else if(S > 12000 && S < 22000)
+    {
+        //同时满足压力在阈值范围波动
+        if(Weight_Shiwu > 0.2*Weight_MAX && Weight_Shiwu <    0.8*Weight_MAX)
+        {
+            printf("Walking");
+        }
+    }
+
+    //坐下
+    else if(Weight_Shiwu < 0.2*Weight_MAX)
+    {
+        printf("Sitting");
+    }
+
+    //躺下
+    else if(Weight_Shiwu < 0.2*Weight_MAX)
+    {
+        {
+        Delay_us(1000000); //延时1s
+        while((pitch_all >80 || roll_all >80 || yaw_all >80 ) & (Weight_Shiwu < 0.01*Weight_MAX))
+        {
+            printf("Laying");
+        }    
+}
+}
+
+    else
+    {
+        If(( pitch_all >80 || roll_all >80 || yaw_all >80 ) & ( S>23000 || S<12000 ));
+                     {        
+            Delay_us(1000000); //延时1s
+            while(Weight_Shiwu < 0.01*Weight_MAX))
+        {
+            printf("Falling");
+}
+}
+}
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

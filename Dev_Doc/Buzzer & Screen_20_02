@@ -1,0 +1,153 @@
+以下部分是class定义
+  1. // Screen
+  2. #ifndef SCREEN_H
+  3. #define SCREEN_H
+  4.  
+  5. #include <string>
+  6.  
+  7. class Screen {
+  8. public:
+  9.     Screen();
+ 10.     void displayText(const std::string& text);
+ 11.     void bmp_read(int address);
+ 12.     void display_bmp(int bmp);
+ 13. };
+ 14.  
+ 15. #endif // SCREEN_H
+ 16.  
+ 17. // PostureMonitor
+ 18. #ifndef POSTURE_MONITOR_H
+ 19. #define POSTURE_MONITOR_H
+ 20.  
+ 21. class PostureMonitor {
+ 22. public:
+ 23.     PostureMonitor(Screen& screen);
+ 24.     void handlePostureChange();
+ 25. private:
+ 26.     Screen& screen;
+ 27. };
+ 28.  
+ 29. #endif // POSTURE_MONITOR_H
+ 30.  
+ 31. // Posture_change
+ 32. #ifndef POS_CHANGE_H
+ 33. #define POS_CHANGE_H
+ 34.  
+ 35. class PostureChange{
+ 36. public:
+ 37. 	PostureChange();
+ 38.     int previous_data;
+ 39.     int current_data;
+ 40.     // compare function, need to be modified 
+ 41.     void Compare(PostureMonitor monitor) {
+ 42.        bool res = ((current_data - previous_data) / 100) > 1;
+ 43.         if (res) {
+ 44.             std::string text = "posture changed";
+ 45.             monitor.handlePostureChange();
+ 46.         }
+ 47.             
+ 48.     }
+ 49.  
+ 50. private:
+ 51.  
+ 52. };
+ 53. #endif // !POS_CHANGE_H
+ 54.  
+ 55. // Buzzer
+ 56. #ifndef BUZZER_H
+ 57. #define BUZZER_H
+ 58.  
+ 59. class Buzzer{
+ 60. public:
+ 61.     Buzzer();
+ 62.     void alarm();
+ 63.     void close();
+ 64.     bool ring;
+ 65. };
+ 66.  
+ 67. void Buzzer::alarm() {
+ 68.     this->ring = true;
+ 69.     close();
+ 70. }
+ 71.  
+ 72. void Buzzer::close() {
+ 73.     Timer timer(500);
+ 74.     timer.countdown();
+ 75.     this->ring = false;
+ 76. }
+ 77. #endif // !BUZZER_H
+ 78.  
+ 79. #ifndef TIMER_H
+ 80. #define TIMER_H
+ 81.  
+ 82. class Timer
+ 83. {
+ 84. public:
+ 85.     Timer(int n);
+ 86.     void countdown();
+ 87.     int count;
+ 88. private:
+ 89.  
+ 90. };
+ 91.  
+ 92. Timer::Timer(int n)
+ 93. {
+ 94.     count = n;
+ 95. }
+ 96.  
+ 97. void Timer::countdown()
+ 98. {
+ 99.     if (this->count != 0) {
+100.         this->count--;
+101.         if (count == 0)
+102.             return;
+103.     }
+104.  
+105. }
+106.  
+107. #endif // !TIMER_H
+108.  
+
+以下部分为主函数
+ 1. #include <wiringPi.h>
+ 2. #include "Self_defined_classes.h"
+ 3. #include <iostream>
+ 4.  
+ 5. Screen::Screen() {
+ 6. 	// Initialization
+ 7. 	std::cout << "Screen initialized" << std::endl;
+ 8. }
+ 9.  
+10. void Screen::displayText(const std::string& text) {
+11. 	// Display the text
+12. 	std::cout << "Displaying text: " << text << std::endl;
+13. }
+14.  
+15. void Screen::bmp_read(int address) {
+16. 	// read BMP file
+17. 	readbmp();//伪函数
+18. }
+19.  
+20. void Screen::display_bmp(int bmp) {
+21. 	displaybmp();//伪函数
+22. }
+23.  
+24. PostureMonitor::PostureMonitor(Screen& screen) : screen(screen) {}
+25.  
+26. void PostureMonitor::handlePostureChange(Buzzer& buzzer) {
+27. 	bool postureChanged = true;
+28. 	if (postureChanged) {
+29. 		screen.displayText("Posture change");
+30. 		buzzer.alarm();
+31. 	}
+32. }
+33.  
+34. int main(void)
+35. {
+36. 	class Screen led();
+37. 	class Buzzer Buz();
+38. 	class PostureMonitor Pos_change_sender();
+39. 	class PostureChange Pos_change_detector();
+40. }
+41.  
+
