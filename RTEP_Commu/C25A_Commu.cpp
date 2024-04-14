@@ -12,11 +12,6 @@ int main()
 
     // Mark B
     IPC ipc("/tmp", 'B'); 
-    if (!ipc.MsgID("/tmp", 'B')) 
-    {
-        std::cerr << "Failed to set message queue identifier." << std::endl;
-        return -1;
-    }
 
     while (true) 
     {
@@ -34,7 +29,7 @@ int main()
 
         // Perpare Message
         std::vector<float> data = {ret0, ret_v0};
-        Message message = createMessage(data);
+        Message message('B', data); // Type B
 
         // Send
         if (!ipc.send(message)) 

@@ -22,44 +22,29 @@ void Judgment::Receive_Send()
 {
     IPC ipc_A("/tmp", 'A');
     IPC ipc_B("/tmp", 'B');
+    IPC ipc_C("/tmp", 'C');
 
     while (true) 
     {
         Message message_A;
-        message_A.type = 'A';
-        if (!ipc_A.receive(message_A)) {
-            std::cerr << "Failed to receive message from A." << std::endl;
-            continue;
-        }
-        
         if (message_A.type == 'A') 
         {
-            accelX_g = message_A.values[0];
-            accelY_g = message_A.values[1];
-            accelZ_g = message_A.values[2];
-            gyroX_degPerSec = message_A.values[3];
-            gyroY_degPerSec = message_A.values[4];
-            gyroZ_degPerSec = message_A.values[5];
+            accelX_g = message_A.data[0]; 
+            accelY_g = message_A.data[1];
+            accelZ_g = message_A.data[2];
+            gyroX_degPerSec = message_A.data[3];
+            gyroY_degPerSec = message_A.data[4];
+            gyroZ_degPerSec = message_A.data[5];
         }
 
         Message message_B;
-        message_B.type = 'B';
-        if (!ipc_B.receive(message_B)) 
-        {
-            std::cerr << "Failed to receive message from B." << std::endl;
-            continue;
-        }
-        
         if (message_B.type == 'B') 
         {
-            pressure1 = message_B.values[1]; // ret_v0
-        }
+            pressure1 = message_B.data[1]; 
 
-        posEstimation();
+        std::string posChange = posEstimation();
 
-        IPC ipc_C("/tmp", 'C');
-        std::vector<float> message_C = {static_cast<float>(POS)};
-        Message msg_C = createMessage('C', message_C);
+        Message msg_C('C', posChange);
         if (!ipc_C.send(msg_C)) 
         {
             std::cerr << "Failed to send message C." << std::endl;
@@ -155,5 +140,7 @@ void Judgment::posEstimation()
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+        return posChange;
     }
 }
