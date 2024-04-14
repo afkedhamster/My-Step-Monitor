@@ -30,7 +30,7 @@ public:
     void restart_posEstimation();
     void Read();
     void posEstimation();
-    void updatePose(std::string new_pose)
+    void updatePose(std::string new_pose);
     std::thread thread;
     std::string previous_pose;
     POS_CHANGE posChange;
