@@ -1,3 +1,4 @@
+// Judgment.h
 #ifndef JUDGMENT_H
 #define JUDGMENT_H
 
@@ -18,17 +19,16 @@ public:
         LAYDOWN
     };
 
-    void start_Read();
-    void stop_Read();
-    void restart_Read();
+    void start_RS();
+    void stop_RS();
+    void restart_RS();
     void start_posEstimation();
     void stop_posEstimation();
     void restart_posEstimation();
-    void Read();
+    void Receive_Send();
     void posEstimation();
     std::thread thread;
-    std::string previous_pose;
-    std::string poseChange;
+    POSTURE previous_pose;
     POSTURE POS;
     
     float accelX_g = 0, accelY_g = 0, accelZ_g = 0;
