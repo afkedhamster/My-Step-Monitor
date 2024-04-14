@@ -1,0 +1,38 @@
+#ifndef RESPONSE_H
+#define RESPONSE_H
+
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include "IPC.h"
+#include "Buzzer.h"
+#include "LCD.h"
+
+class Response
+{
+public:
+    enum POS_CHANGE
+    {
+        FALL = 0,
+        STAND = 1,
+        // WALKING
+        SIT = 2,
+        LAY = 3,
+        RISE = 4,
+        SIT2LAY = 5,
+        STAND2SIT = 6,
+        STAND2LAY = 7,
+    };
+
+    void start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange);
+    void Read();
+    void trigger_buzz_lcd(enum POS_CHANGE posChange);
+
+    std::thread thread;
+
+private:
+    Buzzer *buzzer = nullptr;
+    LCD *lcd = nullptr;
+};
+
+#endif
