@@ -1,6 +1,7 @@
 # Raspberry Pi Project: [My Step Monitor]
 - Ins: https://www.instagram.com/mystepmonitor/
-- Check Wiki page for detailed description of the project!
+- Check _*Wiki page*_ for detailed description of the project!
+  Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
   
 ## Priliminary RPi & Environment Setup
 
@@ -107,7 +108,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   Link: [RTEP_MPU6050_class\Abandon\6050.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Abandon/6050.cpp); [RTEP_MPU6050_class\Abandon\mpu6050.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Abandon/mpu6050.cpp)
 
 ## Dev log 05/04/2024 
-- Add test code for LCD 12864 module _(Code Abandoned)_
+- Test LCD 12864 module _(Code Abandoned)_
 
 ## Dev log 07/04/2024
 - Add Function code for MPU6050\
@@ -157,7 +158,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
     Resource: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp);
     Link: [RTEP_MPU6050_class\Wrapper\MPU6050.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050.h); [RTEP_MPU6050_class\Wrapper\MPU6050_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_Wrapper.h); [RTEP_MPU6050_class\Wrapper\MPU6050_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_Wrapper.cpp); [RTEP_MPU6050_class\Wrapper\MPU6050_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Wrapper/MPU6050_main.cpp)
 - Creat threads functions along with unit test\
-  Link: 
+  Link: [RTEP_MainFunc\Abandon\judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/judgment.cpp); [RTEP_MainFunc\Abandon\Threads.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads.h); [RTEP_MainFunc\Abandon\Threads_1.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_1.h); 
 - Adding header files to several control classes
 - All above dev are done in the *MainProto2 branch*
 - Add condition judgment to the main function to implement functionality
@@ -173,6 +174,13 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json\
   Link: [.vscode\settings.json](https://github.com/afkedhamster/My-Step-Monitor/blob/master/.vscode/settings.json)
 - Implement the testing of pressure-sensitive sensors and digital-to-analog conversion modules (ads1115)
+- Code Threads functions\
+  Link: [RTEP_MainFunc\Abandon\judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/judgment.cpp); [RTEP_MainFunc\Abandon\Threads.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads.h); [RTEP_MainFunc\Abandon\Threads_1.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_1.h); 
+- Reunit Threads functions\
+  Resource: [RTEP_MainFunc\Abandon\Threads.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads.h); [RTEP_MainFunc\Abandon\Threads_1.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_1.h); \
+  Link: [RTEP_MainFunc\Abandon\Threads_Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_Response.cpp); [RTEP_MainFunc\Abandon\Threads_read_detect.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_read_detect.cpp)
+- Wrap buzzer for Threads\
+  Link: [RTEP_MainFunc\Abandon\thread_buzzer.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/thread_buzzer.h)
 
 ## Dev log 13/04/2024
 - Correct ads1115 (adc module) and C25A pressure sensor, and complete unit testing; Realize the packaging of ads1115 (adc module) and C25A pressure sensor unit\
@@ -181,7 +189,8 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Add the Abandon folder and organize the test units before ads1115 and MPU6050\
   Link: [RTEP_Pressure_class\Abandon](https://github.com/afkedhamster/My-Step-Monitor/tree/master/RTEP_Pressure_class/Abandon); [RTEP_MPU6050_class\Abandon](https://github.com/afkedhamster/My-Step-Monitor/tree/master/RTEP_MPU6050_class/Abandon);
   [RTEP_Commu\Abandon](https://github.com/afkedhamster/My-Step-Monitor/tree/master/RTEP_Commu/Abandon);
-- Few refactor within 'Threads.h' & 'Threads.cpp'
+- Few refactor within 'Threads.h' & 'Threads.cpp'\
+  Link: [RTEP_MainFunc\Abandon\Threads.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads.h); [RTEP_MainFunc\Abandon\Threads_Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_Response.cpp)
 - Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'\
   Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/lcd_test.cpp); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.cpp); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.h)
 - Code communication of IPC\
@@ -189,10 +198,37 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   * Wrapper IPC
   * Add communication function to MPU6050 and C25A
 - Complete and modify judgment threads, create variables to detect prevous posture compare with current posture to monitor dynamic movement
+- Debug Judgment\
+  Link: [RTEP_MainFunc\Abandon\Threads_read_detect.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_read_detect.cpp)
 
 ## Dev log 14/04/2024
-- Adjust to fit 
+- Adjust code to fit 
   Link: [RTEP_MPU6050_class\MPU6050_test.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test.h); [RTEP_MPU6050_class\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Mpu6050_test.cpp); [RTEP_MPU6050_class\MPU6050_test_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test_main.cpp); \
   [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
 - Debug IPC
-  Link: 
+  * Add code for different data type
+  * Implement IPC with MPU6050 and ADS1115
+  Link: [RTEP_Commu\IPC.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.h); [RTEP_Commu\IPC.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.cpp); [RTEP_Commu\MPU6050_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/MPU6050_Commu.cpp);[RTEP_Commu\C25A_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/C25A_Commu.cpp)
+- Create Judgment Function\
+  Resource: [RTEP_MainFunc\Abandon\Threads_read_detect.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_read_detect.cpp); \
+  Link: [RTEP_MainFunc\Judgment.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.h); [RTEP_MainFunc\Judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.cpp)
+  * Reconstruct
+  * Add IPC
+- Reconstruct Response Function\
+  Resource: [RTEP_MainFunc\Abandon\Threads_Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Abandon/Threads_Response.cpp)
+  Link: [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp)
+  * Reconstruct
+  * Add IPC
+- Main Function\
+  Link: [RTEP_MainFunc\Main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Main.cpp)
+- Add Abandon folder and organize the test units\
+  Link: [RTEP_MainFunc\Abandon](https://github.com/afkedhamster/My-Step-Monitor/tree/master/RTEP_MainFunc/Abandon)
+- Creat *Num branch* to avoid the issues of different data type involving IPC
+
+# Dev log 15/04/2024
+- Debug Judgment Function, Response Function, and Main Function.
+  Link: [RTEP_MainFunc\Judgment.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.h); [RTEP_MainFunc\Judgment.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Judgment.cpp); \
+  [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp); \
+  [RTEP_MainFunc\Main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Main.cpp)
+- Finish Wiki Page
+  Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
