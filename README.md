@@ -62,11 +62,11 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 15/02/2024
 - Create the first version of the code for sensor data reading and processing
-  * link: [MPU & Pressure-15-02-2024](#Dev_Doc-MPU-Pressure-15-02-2024) (Uploaded 14/04)
+  * link: [Dev_Doc\MPU & Pressure_15_02](#dev_docmpu--pressure_15_02) (Uploaded 14/04)
 
 ## Dev log 20/02/2024 
 - Create the first version of the code about the response class, including the LCD and buzzer
-  * link: [Buzzer & Screen-20-02-2024](#Dev-Doc-Buzzer-Screen-20-02-2024) (Uploaded 14/04)
+  * link: [Dev_Doc\Buzzer & Screen_20_02](#dev_docbuzzer--screen_20_02) (Uploaded 14/04)
 
 ## Dev log 25/02/2024
 - Learn more about callback functions, threads, and more
@@ -75,15 +75,15 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Set up of Raspberry Pi, download librarirs
 
 ## Dev log 20/03/2024
- - Finish the code for Buzzer
-   link: [RTEP_Buzzer_class\Buzzer.cpp](#Buzzer.cpp)
+ - Finish the code for Buzzer\
+  link: [RTEP_Buzzer_class\Buzzer.cpp](#rtep_buzzer_classbuzzer.cpp)
   - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
-- Test the readout of the Pressure Sensor
+- Test the readout of the Pressure Sensor\
   link: [RTEP_MPU6050_class\Abandon\main.cpp](#main.cpp)
   - Correctly produced bool value based on the existence of the pressure
   - Cannot read the value of pressure due to lack of ADC
-- Tesd the LCD12864 monitor module
+- Tesd the LCD12864 monitor module\
   link: [RTEP_Lcd1602\lcd_test.cpp](#lcd_test.cpp)
   - Constantly errors "implicit declaration of function ‘WriteCmd’"
   - haven't located the library file that contains "WriteCmd" function
