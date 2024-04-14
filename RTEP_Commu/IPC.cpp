@@ -60,55 +60,22 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 // Send
 bool IPC::send(const Message& message)
 {
-    if (message.dataType == Message::DataType::Float)
+    size_t size = sizeof(message);
+    const void* dataPtr = static_cast<const void*>(&message);
+    if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
     {
-        const std::vector<float>& values = message.data.floatN;
-        size_t size = values.size() * sizeof(float);
-        const void* dataPtr = static_cast<const void*>(values.data());
-        if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
-        {
-            return false;
-        }
-    } 
-    else if (message.dataType == Message::DataType::String)
-    {
-        const std::string& str = message.data.strN;
-        size_t size = str.size() + 1;
-        const void* dataPtr = static_cast<const void*>(str.c_str());
-        if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
-        {
-            return false;
-        }
+        return false;
     }
     return true;
 }
 
 // Receive
 bool IPC::receive(Message& message)
-{   
-    // Receive
-    ssize_t receivedSize = msgrcv(msgid, &message.data, sizeof(message.data), 0, 0);
+{
+    ssize_t receivedSize = msgrcv(msgid, &message, sizeof(message.data), 0, 0);
     if (receivedSize == -1)
     {
         return false;
     }
-
-    // Judge Type
-    std::visit([&](auto& arg) 
-    {
-        using T = std::decay_t<decltype(arg)>;
-        if constexpr (std::is_same_v<T, std::vector<float>>) 
-        {
-            std::vector<float> values(std::get<std::vector<float>>(message.data).size());
-            std::memcpy(values.data(), std::get<std::vector<float>>(message.data).data(), receivedSize);
-            arg = std::move(values);
-        } 
-        else if constexpr (std::is_same_v<T, std::string>) 
-        {
-            arg = std::get<std::string>(message.data);
-        }
-    }, 
-    message.data);
-
     return true;
 }

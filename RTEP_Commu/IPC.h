@@ -27,8 +27,40 @@ struct Message
         
         Data() {}
         ~Data() {}
+    };    
+        // Constructor
+        Data(const Data& other) 
+        {
+            switch (other.dataType) 
+            {
+                case DataType::Float:
+                    new (&floatN) std::vector<float>(other.floatN);
+                    break;
+                case DataType::String:
+                    new (&strN) std::string(other.strN);
+                    break;
+            }
+        }
+        
+        // Destructor
+        ~Data() 
+        {
+            switch (dataType) 
+            {
+                case DataType::Float:
+                    floatN.~vector<float>();
+                    break;
+                case DataType::String:
+                    strN.~basic_string<char>();
+                    break;
+            }
+        }
     } data;
+    
+    // Copy Constructor
+    Message(const Message& other) : type(other.type), dataType(other.dataType), data(other.data) {}
 };
+
 
 Message createFloatMessage(char type, const std::vector<float>& data);
 Message createStringMessage(char type, const std::string& data);
