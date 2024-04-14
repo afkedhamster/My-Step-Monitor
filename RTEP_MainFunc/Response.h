@@ -33,6 +33,8 @@ public:
 private:
     Buzzer *buzzer = nullptr;
     LCD *lcd = nullptr;
+
+    IPC ipc_C;
 };
 
 #endif

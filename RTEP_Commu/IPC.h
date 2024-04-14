@@ -10,6 +10,9 @@
 struct Message 
 {
     std::vector<float> DataResult;
+
+    Message() {}
+    
     // i Messages
     Message(int i) 
     {
