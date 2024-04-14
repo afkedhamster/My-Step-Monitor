@@ -25,8 +25,8 @@ int main()
         MPU.Data_Process();
 
         // Perpare Message
-        std::vector<float> data = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
-        Message message = createMessage(data);
+        std::vector<float> DataResult = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
+        Message message = createMessage(DataResult);
 
         // Send
         if (!mark.send(message)) 

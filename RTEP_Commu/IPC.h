@@ -9,15 +9,15 @@
 // Define Message
 struct Message 
 {
-    std::vector<float> data;
+    std::vector<float> DataResult;
     // i Messages
     Message(int i) 
     {
-        data.resize(i);
+        DataResult.resize(i);
     }
 };
 
-Message createMessage(const std::vector<float>& data);
+Message createMessage(const std::vector<float>& DataResult);
 
 // Message Queue
 class IPC
@@ -26,9 +26,9 @@ private:
     int msgid;
 
 public:
-    IPC(const char* filepath, int proj_id);
+    IPC(const char* filepath, char proj_id);
     ~IPC();
-    bool MsgID(const char* filepath, int proj_id); 
+    bool MsgID(const char* filepath, char proj_id); 
     bool send(const Message& message);
     bool receive(Message& message);
 };

@@ -34,12 +34,12 @@ void Judgment::Receive_Send()
         }
         if (message_A.type == 'A') 
         {
-            accelX_g = message_A.data[0]; 
-            accelY_g = message_A.data[1];
-            accelZ_g = message_A.data[2];
-            gyroX_degPerSec = message_A.data[3];
-            gyroY_degPerSec = message_A.data[4];
-            gyroZ_degPerSec = message_A.data[5];
+            accelX_g = message_A.DataResult[0]; 
+            accelY_g = message_A.DataResult[1];
+            accelZ_g = message_A.DataResult[2];
+            gyroX_degPerSec = message_A.DataResult[3];
+            gyroY_degPerSec = message_A.DataResult[4];
+            gyroZ_degPerSec = message_A.DataResult[5];
         }
 
         Message message_B;
@@ -50,7 +50,7 @@ void Judgment::Receive_Send()
         }
         if (message_B.type == 'B') 
         {
-            pressure1 = message_B.data[1]; 
+            pressure1 = message_B.DataResult[1]; 
         }
 
         float posChange = posEstimation();

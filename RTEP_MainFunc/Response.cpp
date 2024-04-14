@@ -22,7 +22,7 @@ void Response::Read()
         }
         // Pos_Change
         enum POS_CHANGE posChange;
-        posChange = value.message_C.data;
+        posChange = value.message_C.DataResult;
 
         trigger_buzz_lcd(posChange);
     }    

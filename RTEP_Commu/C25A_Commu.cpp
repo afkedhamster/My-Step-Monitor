@@ -33,8 +33,8 @@ int main()
         float ret_v1 = (ret1*2.048)/32768; */
 
         // Perpare Message
-        std::vector<float> data = {ret0, ret_v0};
-        Message message = createMessage(data);
+        std::vector<float> DataResult = {ret0, ret_v0};
+        Message message = createMessage(DataResult);
 
         // Send
         if (!ipc.send(message)) 

@@ -8,10 +8,10 @@ Message::Message(int i)
     values.resize(i);
 }
 
-Message createMessage(const std::vector<float>& data)
+Message createMessage(const std::vector<float>& DataResult)
 {
-    Message msg(data.size());
-    msg.values = data;
+    Message msg(DataResult.size());
+    msg.DataResult = DataResult;
     return msg;
 }
 
@@ -33,7 +33,7 @@ IPC::~IPC()
 }
 
 // Mark
-bool IPC::MsgID(const char* filepath, int proj_id) 
+bool IPC::MsgID(const char* filepath, char proj_id) 
 {
     // Key
     key_t key = ftok(filepath, proj_id);
@@ -54,9 +54,9 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 bool IPC::send(const Message& message)
 {
     // Convert
-    const void* Poi = reinterpret_cast<const void*>(message.values.data());
+    const void* Poi = reinterpret_cast<const void*>(message.DataResult.data());
 
-    if (msgsnd(msgid, Poi, message.values.size() * sizeof(float), IPC_NOWAIT) == -1) 
+    if (msgsnd(msgid, Poi, message.DataResult.size() * sizeof(float), IPC_NOWAIT) == -1) 
     {
         return false;
     }
@@ -66,7 +66,7 @@ bool IPC::send(const Message& message)
 // Receive
 bool IPC::receive(Message& message)
 {
-    if (msgrcv(msgid, message.values.data(), message.values.size() * sizeof(float), 0, 0) == -1)
+    if (msgrcv(msgid, message.DataResult.data(), message.DataResult.size() * sizeof(float), 0, 0) == -1)
     {
         return false;
     }
