@@ -11,7 +11,6 @@ void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 void Response::Read()
 {
     IPC ipc_C("/tmp", 'C');
-    IPC ipc_D("/tmp", 'D');
 
     while (true) 
     {
@@ -23,7 +22,7 @@ void Response::Read()
         }
         // Pos_Change
         enum POS_CHANGE posChange;
-        posChange = static_cast<enum POS_CHANGE>(std::get<size_t>(message_C.data));
+        posChange = value.message_C.DataResult;
 
         trigger_buzz_lcd(posChange);
     }    
@@ -37,23 +36,23 @@ void Response::trigger_buzz_lcd(enum POS_CHANGE posChange)
         {
             switch (posChange)
             {
-                case FALL:
+                case 0: // FALL
                     buzzer->Beep(5000, 20000);
                     lcd->print("Emergency!!! Fall detected!!!");
                     break;
-                case RISE:
+                case 4: // RISE
                     buzzer->Beep(3000, 1500);
                     lcd->print("Rise detected!");
                     break;
-                case SIT2LAY:
+                case 5: // SIT2LAY
                     buzzer->Beep(2000, 1000);
                     lcd->print("Sit to lay detected!");
                     break;
-                case STAND2SIT:
+                case 6: // STAND2SIT
                     buzzer->Beep(2000, 1000);
                     lcd->print("Stand to sit detected!");
                     break;
-                case STAND2LAY:
+                case 7: // STAND2LAY
                     buzzer->Beep(2000, 1000);
                     lcd->print("Stand to lay detected!");
                     break;
@@ -61,6 +60,11 @@ void Response::trigger_buzz_lcd(enum POS_CHANGE posChange)
                     break;
             }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Add a small delay to avoid tight loops
+        else
+        {
+            break;
+        }
+        // Delay to avoid tight loops
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
     }
 }

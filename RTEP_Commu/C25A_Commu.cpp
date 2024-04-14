@@ -10,8 +10,13 @@ int main()
     ADS1115 ADS;
     ADS.ADS_init();
 
-    // Mark 4321
-    IPC ipc("/tmp", 4321); 
+    // Mark B
+    IPC ipc("/tmp", 'B'); 
+    if (!ipc.MsgID("/tmp", 'B')) 
+    {
+        std::cerr << "Failed to set message queue identifier." << std::endl;
+        return -1;
+    }
 
     while (true) 
     {
@@ -28,8 +33,8 @@ int main()
         float ret_v1 = (ret1*2.048)/32768; */
 
         // Perpare Message
-        std::vector<float> data = {ret0, ret_v0};
-        Message message= createFloatMessage(4321, data); // Type 431
+        std::vector<float> DataResult = {ret0, ret_v0};
+        Message message = createMessage(DataResult);
 
         // Send
         if (!ipc.send(message)) 

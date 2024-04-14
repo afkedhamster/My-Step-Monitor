@@ -12,15 +12,15 @@ class Judgment
 public:
     enum POS_CHANGE
     {
-        FALL,
-        STAND,
-        // WALKING,
-        SIT,
-        LAY,
-        RISE,
-        SIT2LAY,
-        STAND2SIT,
-        STAND2LAY,
+        FALL = 0,
+        STAND = 1,
+        // WALKING
+        SIT = 2,
+        LAY = 3,
+        RISE = 4,
+        SIT2LAY = 5,
+        STAND2SIT = 6,
+        STAND2LAY = 7,
     };
 
     void start_RS();
@@ -37,7 +37,7 @@ private:
     std::thread thread_posEstimation;
 
     POS_CHANGE previous_pose;
-    POS_CHANGE POS;
+    POS_CHANGE POSE;
     
     float accelX_g, accelY_g, accelZ_g;
     float gyroX_degPerSec, gyroY_degPerSec, gyroZ_degPerSec;

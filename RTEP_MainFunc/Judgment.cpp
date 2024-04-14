@@ -34,12 +34,12 @@ void Judgment::Receive_Send()
         }
         if (message_A.type == 'A') 
         {
-            accelX_g = message_A.data[0]; 
-            accelY_g = message_A.data[1];
-            accelZ_g = message_A.data[2];
-            gyroX_degPerSec = message_A.data[3];
-            gyroY_degPerSec = message_A.data[4];
-            gyroZ_degPerSec = message_A.data[5];
+            accelX_g = message_A.DataResult[0]; 
+            accelY_g = message_A.DataResult[1];
+            accelZ_g = message_A.DataResult[2];
+            gyroX_degPerSec = message_A.DataResult[3];
+            gyroY_degPerSec = message_A.DataResult[4];
+            gyroZ_degPerSec = message_A.DataResult[5];
         }
 
         Message message_B;
@@ -50,11 +50,13 @@ void Judgment::Receive_Send()
         }
         if (message_B.type == 'B') 
         {
-            pressure1 = message_B.data[1]; 
+            pressure1 = message_B.DataResult[1]; 
         }
 
-        std::string posChange = posEstimation();
+        float posChange = posEstimation();
         std::cout << posChange << std::endl;
+
+        Message message = createMessage(posChange);
 
         // Send C
         Message msg_C('C', posChange);
@@ -82,17 +84,21 @@ void Judgment::restart_posEstimation()
     start_posEstimation();
 }
 
-std::string Judgment::posEstimation()
+int Judgment::posEstimation()
 {   
+    POS_CHANGE previousPose = 1;
+    POS_CHANGE currentPose = 1;
+    float posChange = 1.0;
+
     while(true)
     {
-        previous_pose = POS;
+        previousPose = currentPose;
         
         if (pressure1 > pressure_threshold)
         {
             if((accelX_g > acc_threshold && accelY_g > acc_threshold) || (accelY_g > acc_threshold && accelZ_g > acc_threshold) || (accelX_g > acc_threshold && accelZ_g > acc_threshold))
             {
-                POS = FALL;
+                currentPose = 0; // FALL
             }
         }
         
@@ -100,7 +106,7 @@ std::string Judgment::posEstimation()
         {
             if((gyroX_degPerSec > 0.8 * gyro_threshold && gyroY_degPerSec > 0.8 * gyro_threshold) || (gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold) || (gyroX_degPerSec> 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold))
             {
-                POS = FALL;
+                currentPose = 0; // FALL
             }
         }
         
@@ -108,52 +114,58 @@ std::string Judgment::posEstimation()
         {
             if((gyroX_degPerSec > gyro_threshold && gyroY_degPerSec > gyro_threshold) || (gyroY_degPerSec > gyro_threshold && gyroZ_degPerSec > gyro_threshold) || (gyroX_degPerSec > gyro_threshold && gyroZ_degPerSec > gyro_threshold))
             {
-                POS = FALL;
+                currentPose = 0; // FALL
             }
         }
         
         if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 > pressure_threshold)
         {
-            POS = STAND;
+            currentPose = 1; // STAND
         }
 
         if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 < 0.5 * pressure_threshold)
         {
-            POS = SIT;
+            currentPose = 2; // SIT
         }
 
         if((pressure1 < 0.2 * pressure_threshold) && ((gyroX_degPerSec > 0.8 * gyro_threshold && gyroY_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)) && (accelX_g < acc_threshold && accelY_g < acc_threshold && accelZ_g < acc_threshold))
         {
-            POS = LAY;
+            currentPose = 3; // LAY
         }
 
-        std::string posChange = "NO_CHANGE";
-        if (previous_pose != POS) {
-            if (previous_pose == SIT && POS == STAND) {
-                posChange = "SIT2STAND";
+        if (previousPose != currentPose) 
+        {
+            if (previousPose == 2 && currentPose == 1) 
+            {
+                posChange = 4; // RISE
             }
-            if (previous_pose == STAND && POS == SIT) {
-                posChange = "STAND2SIT";
+            if (previousPose == 1 && currentPose == 2) 
+            {
+                posChange = 6; // STAND2SIT
             }
-            if (previous_pose == SIT && POS == LAY) {
-                posChange = "SIT2LAY";
+            if (previousPose == 2 && currentPose == 3) 
+            {
+                posChange = 5; // SIT2LAY
             }
-            if (previous_pose == STAND && POS == LAY) {
-                posChange = "STAND2LAY";
+            if (previousPose == 1 && currentPose == 3) 
+            {
+                posChange = 5; // SIT2LAY
             }
-            if (previous_pose == FALL && POS == STAND) {
-                posChange = "RISE";
+            if (previousPose == 0 && currentPose == 1) 
+            
+            {
+                posChange = 4; // RISE
             }
-            if (previous_pose == FALL && POS == SIT) {
-                posChange = "FALL";
+            if (previousPose == 0 && currentPose == 2) 
+            {
+                posChange = 0; // FALL
             }
-            if (previous_pose == FALL && POS == LAY) {
-                posChange = "FALL";
+            if (previousPose == 0 && currentPose == 3) 
+            {
+                posChange = 0; // FALL
             }
         }
-
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-        return posChange;
     }
+    return posChange;
 }

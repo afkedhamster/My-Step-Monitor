@@ -13,15 +13,15 @@ class Response
 public:
     enum POS_CHANGE
     {
-        FALL,
-        STAND,
-        // WALKING,
-        SIT,
-        LAY,
-        RISE,
-        SIT2LAY,
-        STAND2SIT,
-        STAND2LAY,
+        FALL = 0,
+        STAND = 1,
+        // WALKING
+        SIT = 2,
+        LAY = 3,
+        RISE = 4,
+        SIT2LAY = 5,
+        STAND2SIT = 6,
+        STAND2LAY = 7,
     };
 
     void start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange);
