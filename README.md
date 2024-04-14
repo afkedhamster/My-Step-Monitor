@@ -76,7 +76,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 20/03/2024
  - Finish the code for Buzzer
-   link: [RTEP_Buzzer_class\Buzzer.cpp](#RTEP_Buzzer_class-Buzzer.cpp)
+   link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
   - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
 - Test the readout of the Pressure Sensor
