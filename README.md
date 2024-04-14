@@ -62,19 +62,11 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 15/02/2024
 - Create the first version of the code for sensor data reading and processing
-<<<<<<< HEAD
-  * link: [Dev_Doc\MPU & Pressure_15_02](#dev_docmpu--pressure_15_02) (Uploaded 14/04)
+  * Link: [MPU & Pressure-15-02-2024](#dev_doc-mpu-pressure-15-02-2024) _(Uploaded 14/04)_
 
 ## Dev log 20/02/2024 
 - Create the first version of the code about the response class, including the LCD and buzzer
-  * link: [Dev_Doc\Buzzer & Screen_20_02](#dev_docbuzzer--screen_20_02) (Uploaded 14/04)
-=======
-  * link: [MPU & Pressure-15-02-2024](#dev_doc-mpu-pressure-15-02-2024) _(Uploaded 14/04)_
-
-## Dev log 20/02/2024 
-- Create the first version of the code about the response class, including the LCD and buzzer
-  * link: [Buzzer & Screen-20-02-2024](#dev-doc-buzzer-screen-20-02-2024) _(Uploaded 14/04)_
->>>>>>> 494293fa66c73e14c582a37b9c7acb59e627de3d
+  * Link: [Buzzer & Screen-20-02-2024](#dev-doc-buzzer-screen-20-02-2024) _(Uploaded 14/04)_
 
 ## Dev log 25/02/2024
 - Learn more about callback functions, threads, and more
@@ -83,21 +75,16 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Set up of Raspberry Pi, download librarirs
 
 ## Dev log 20/03/2024
-<<<<<<< HEAD
- - Finish the code for Buzzer\
-  link: [RTEP_Buzzer_class\Buzzer.cpp](#rtep_buzzer_classbuzzer.cpp)
-=======
  - Finish the code for Buzzer
-   link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
->>>>>>> 494293fa66c73e14c582a37b9c7acb59e627de3d
+   Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
   - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
 - Test the readout of the Pressure Sensor\
-  link: [RTEP_MPU6050_class\Abandon\main.cpp](#main.cpp)
+  Link: [RTEP_MPU6050_class\Abandon\main.cpp](#main.cpp)
   - Correctly produced bool value based on the existence of the pressure
   - Cannot read the value of pressure due to lack of ADC
 - Tesd the LCD12864 monitor module\
-  link: [RTEP_Lcd1602\lcd_test.cpp](#lcd_test.cpp)
+  Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/lcd_test.cpp)
   - Constantly errors "implicit declaration of function ‘WriteCmd’"
   - haven't located the library file that contains "WriteCmd" function
  
@@ -105,12 +92,14 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Test the LCD12864 monitor module _(Code Abandoned)_
   - Reconfigure the Pin
   - Successfully initiated the LCD 12864 monitor
+- Test the Pressure unit\
+  Link: [RTEP_Pressure_class\Abandon\Pressure.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/Pressure.cpp)
 - Preparation for Intranet Penetration using Tailscale **_(Hardware)_**
   - Setup Tailscale client on PC
  
 ## Dev log 23/03/2024
-- Debug Lcd contorl class
-  link: [RTEP_Lcd1602\LCD.cpp](#LCD.cpp); [RTEP_Lcd1602\LCD.h](#LCD.h)
+- Debug Lcd contorl class\
+  Link: [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.cpp); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.h)
   - Current code show partial success as it does display part of the intented text message, however the rest of the text message seems in wrong format
 
 ## Dev log 30/03/2024
@@ -121,31 +110,43 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 08/04/2024
 - Add multiple control classes for MPU6050
-  I2C control class with WringPi _(Code Abandoned)_
-  GPIO simulate I2C _(Code Abandoned)_
-- Override the function of MPU6050 with Pigpio.h
-  link: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](#MPU6050_Pigpio.cpp)
+  * Main Function\
+    Link: [RTEP_Pressure_class\Abandon\adcPressure.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L96);
+  * I2C control class with WringPi _(Code Abandoned)_\
+  * GPIO simulate I2C _(Code Abandoned)_
+- Override the function of MPU6050 with Pigpio.h\
+  Link: [RTEP_MPU6050_class\Abandon\MPU6050_Pigpio.cpp](#MPU6050_Pigpio.cpp)
+- Test LCD1602\
+  Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L87); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102)
 
 ## Dev log 09/04/2024
-- Add test code for C25A and ADS1115 module _(Code Abandoned)_
-  link: [RTEP_Pressure_class\Abandon\adcPressure.cpp](#adcPressure.cpp); [RTEP_Pressure_class\Abandon\adcPressure.cpp](#adcPressure.cpp)
+- Add test code for C25A and ADS1115 module
+  Link: [RTEP_Pressure_class\Abandon\adcPressure.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L96); 
 - Add multiple control classes for C25A and ADS1115
-  I2C control class with WringPi _(Code Abandoned)_
-  link: [RTEP_Pressure_class\Abandon\C25A_I2C.cpp](#C25A_I2C.cpp)
-- I2C control class with Pigpio
-  link: [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](#C25A_Pigpio.cpp)
+  * I2C control class with WringPi _(Code Abandoned)_
+    Link: [RTEP_Pressure_class\Abandon\C25A_I2C.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/C25A_I2C.cpp)
+  * I2C control class with Pigpio *(Debug in following days)*
+    Link: [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/C25A_Pigpio.cpp)
 
 ## Dev log 10/04/2024
-- Use pigpio.h library to replace wiringPi.h and wiringPiI2C.h
-  link: [RTEP_Lcd1602\lcd_test.cpp](#lcd_test.cpp)
+- Use pigpio.h library to replace wiringPi.h and wiringPiI2C.h\
+  Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L87)
 - Correct LCD1602
 - Add some test part for mpu6050
+- Code ADS1115 and C25A *(Debug in following days)*\ 
+  Link: [RTEP_Pressure_class\ADS1115.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/ADS1115.h); [RTEP_Pressure_class\ADS1115.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/ADS1115.cpp)
 
 ## Dev log 11/04/2024
-- Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests
-  Link: [RTEP_Buzzer_class\Buzzer_test.cpp](#Buzzer_test.cpp); [RTEP_Buzzer_class\Buzzer.h](#Buzzer.h)
+- Modify the code of Buzzer and LCD1602, seperation class definition, clarification, and unit tests\
+  Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L79); [RTEP_Buzzer_class\Buzzer.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.h); [RTEP_Buzzer_class\Buzzer_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer_test.cpp)\
+  [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L87); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102)
 - Edit the Buzzer and LCD1602 into classes to implement function encapsulation
 - Simplify the code structure of the project
+  * Wrap C25A\
+    Resource: [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L129); [RTEP_Pressure_class\ADS1115.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L137); [RTEP_Pressure_class\ADS1115.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L137)\
+    Link:[RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
+  * Wrap MPU6050\
+    Link:
 - Creat threads functions along with unit test
 - Adding header files to several control classes
 - All above dev are done in the MainProto2 branch
@@ -154,15 +155,21 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 12/04/2024
 - master branch back to previous version
 - Merged new features into master branch
+- Debug Wrapper C25A 
+  Link: [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L144); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L144); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L144)
 - (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json 
 - Implement the testing of pressure-sensitive sensors and digital-to-analog conversion modules (ads1115)
 
 ## Dev log 13/04/2024
-- Correct ads1115 (adc module) and C25A pressure sensor, and complete unit testing
+- Correct ads1115 (adc module) and C25A pressure sensor, and complete unit testing\
+  Resource: [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L144); 
+  Link: [RTEP_Pressure_class\C25A_ADS1115_Pressure_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/C25A_ADS1115_Pressure_test.cpp)
 - Realize the packaging of ads1115 (adc module) and C25A pressure sensor unit
-- Add the Abandon folder and organize the test units before ads1115
+- Add the Abandon folder and organize the test units before ads1115\
+  Link: [RTEP_Pressure_class\Abandon\adcPressure.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L96); [RTEP_Pressure_class\Abandon\C25A_I2C.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/C25A_I2C.cpp); [RTEP_Pressure_class\Abandon\C25A_Pigpio.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Abandon/C25A_Pigpio.cpp)
 - Few refactor within 'Threads.h' & 'Threads.cpp'
-- Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'
+- Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'\
+  Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L87); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/README.md#L102)
 - Create a new Abandon folders to manage temporarily unnecessary files
 - Test the communication of mpu pipeline
 - Complete and modify judgment threads, create variables to detect prevous posture compare with current posture to monitor dynamic movement
