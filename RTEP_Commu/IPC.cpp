@@ -3,11 +3,6 @@
 
 
 // Define Message
-Message::Message(int i)
-{
-    values.resize(i);
-}
-
 Message createMessage(const std::vector<float>& DataResult)
 {
     Message msg(DataResult.size());

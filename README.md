@@ -76,7 +76,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 20/03/2024
  - Finish the code for Buzzer\
-   Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
+  Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp)
   - Buzzer can give sounds of different frequencies 
   - The buzzer serves well as one of the alarm units
 - Test the readout of the Pressure Sensor\
@@ -145,7 +145,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 ## Dev log 11/04/2024
 - Debug Buzzer and LCD1602\
-   Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp); [RTEP_Buzzer_class\Buzzer.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.h); [RTEP_Buzzer_class\Buzzer_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer_test.cpp)\
+  Link: [RTEP_Buzzer_class\Buzzer.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.cpp); [RTEP_Buzzer_class\Buzzer.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer.h); [RTEP_Buzzer_class\Buzzer_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Buzzer_class/Buzzer_test.cpp)\
   [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/lcd_test.cpp); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.cpp); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.h)
   * Modify seperation class definition, clarification, and unit tests
   * Edit classes to implement function encapsulation
@@ -170,7 +170,8 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   Link: [RTEP_MPU6050_class\Abandon\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Abandon/Mpu6050_test.cpp); [RTEP_MPU6050_class\Abandon\mpu6050.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Abandon/mpu6050.cpp); \ [RTEP_MPU6050_class\MPU6050_test.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test.h); [RTEP_MPU6050_class\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Mpu6050_test.cpp); [RTEP_MPU6050_class\MPU6050_test_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test_main.cpp)
 - Debug Wrapper C25A\
   Link: [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
-- (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json 
+- (Important)Adding "mpu6050_commu": "c" at line 52- 54 in settings.json\
+  Link: [.vscode\settings.json](https://github.com/afkedhamster/My-Step-Monitor/blob/master/.vscode/settings.json)
 - Implement the testing of pressure-sensitive sensors and digital-to-analog conversion modules (ads1115)
 
 ## Dev log 13/04/2024
@@ -183,11 +184,15 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 - Few refactor within 'Threads.h' & 'Threads.cpp'
 - Becauese of the shortage of the IO pin, we have to add a 'mockLCD' in the LCD class in order to bypass the need for real LCD to use the mockLCD, simply use 'LCD lcd('l', 0, true);' instead of 'LCD lcd;'\
   Link: [RTEP_Lcd1602\lcd_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/lcd_test.cpp); [RTEP_Lcd1602\LCD.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.cpp); [RTEP_Lcd1602\LCD.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Lcd1602/LCD.h)
-- Test the communication of IPC/
-  Link: [RTEP_Commu\IPC.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.h); [RTEP_Commu\IPC.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.cpp)
-
+- Code communication of IPC\
+  Link: [RTEP_Commu\IPC.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.h); [RTEP_Commu\IPC.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/IPC.cpp); [RTEP_Commu\MPU6050_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/MPU6050_Commu.cpp);[RTEP_Commu\C25A_Commu.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Commu/C25A_Commu.cpp)
+  * Wrapper IPC
+  * Add communication function to MPU6050 and C25A
 - Complete and modify judgment threads, create variables to detect prevous posture compare with current posture to monitor dynamic movement
 
-## Dev log 14/02/2024
-- Change data type of valriables
-  Link: [RTEP_MPU6050_class\MPU6050_test.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test.h); [RTEP_MPU6050_class\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Mpu6050_test.cpp); [RTEP_MPU6050_class\MPU6050_test_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test_main.cpp)
+## Dev log 14/04/2024
+- Adjust to fit 
+  Link: [RTEP_MPU6050_class\MPU6050_test.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test.h); [RTEP_MPU6050_class\Mpu6050_test.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/Mpu6050_test.cpp); [RTEP_MPU6050_class\MPU6050_test_main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MPU6050_class/MPU6050_test_main.cpp); \
+  [RTEP_Pressure_class\Wrapper\C25A_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/C25A_Wrapper.cpp); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.h); [RTEP_Pressure_class\Wrapper\ADS1115_Wrapper.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_Pressure_class/Wrapper/ADS1115_Wrapper.cpp)
+- Debug IPC
+  Link: 
