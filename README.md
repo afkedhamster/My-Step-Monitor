@@ -245,18 +245,28 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 
 
-### Member Responsibility
+# Member Responsibility
 Team #6
 
-Zhiyue Lu (2931528L)
+## Zhiyue Lu (2931528L)
 
-Jiahui Tang (2855848T)
+## Jiahui Tang (2855848T)
 
-Jiewen Tan (2934324T)
+## Jiewen Tan (2934324T) \
+Github Link: [Afked Hamster](https://github.com/afkedhamster)
+- One of the testor of the devices
+- Control class for buzzer
+- Control class for LCD 12864
+- Threads_Response definition & declaration
+- Fundamental main function
+- Global debug
+- Github Management & Pull Request handling
 
-Shuaifei Wang (2936142W) \
+## Shuaifei Wang (2936142W) \
 Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
 - Code and debug MPU6050 and C25A & ADS1115
 - Code and debug communication function of IPC
 - Code main function and settle Judgmen and Response 
 - Part of the report
+
+Jiewen Tan (2934324T)
