@@ -60,10 +60,10 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Dev log 08/02/2024
 - Discusses sequence and various subclasses of the program and the general structure of the program
 
-## Dev log 15/02/2024
+## Dev log 15/02/2024 [MPU & Pressure-15-02-2024](Dev_Doc\MPU & Pressure-15-02-2024)
 - Create the first version of the code for sensor data reading and processing
 
-## Dev log 20/02/2024
+## Dev log 20/02/2024 [Buzzer & Screen-20-02-2024](Dev_Doc\Buzzer & Screen-20-02-2024)
 - Create the first version of the code about the response class, including the LCD and buzzer
 
 ## Dev log 25/02/2024
