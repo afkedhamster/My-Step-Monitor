@@ -65,9 +65,3 @@ bool IPC::receive(Message& message)
     }
     return true;
 }
-
-Message createMessage(const std::vector<float>& data){
-    Message msg(data.size());
-    msg.values = data;
-    return msg;
-};
