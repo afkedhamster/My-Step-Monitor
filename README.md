@@ -41,8 +41,39 @@
 
 With the project setup and environment configuration complete, the Raspberry Pi 3B+ is now ready for further development and implementation of the project's specific features and functionalities.
 
+
+## Dev log 17/01/2024
+- Discuss the idea and the prototype of the project
+
+## Dev log 18/01/2024
+- Discuss the models of sensors that need to be purchased and how they collect human body data, and discuss their effectiveness
+
+## Dev log 22/01/2024
+- Draw the structure of the system and each module, and clearly write out the functions and connection methods of each module，including monitoring, transmission, processing, output modules
+
+## Dev log 26/01/2024
+- Clearly draw a flow chart of the posture judgment process and preliminarily define the preset conditions for each pose
+
+## Dev log 31/03/2024
+- Pitch Session
+
+## Dev log 08/02/2024
+- Discusses sequence and various subclasses of the program and the general structure of the program
+
+## Dev log 15/02/2024
+- Create the first version of the code for sensor data reading and processing
+
+## Dev log 20/02/2024
+- Create the first version of the code about the response class, including the LCD and buzzer
+
+## Dev log 25/02/2024
+- Learn more about callback functions, threads, and more
+
+## Dev log 01/03/2024
+- Set up of Raspberry Pi, download librarirs
+
 ## Dev log 20/03/2024
-- Finished the code for Buzzer
+ - Finished the code for Buzzer
   - Buzzer can give sounds of different frequencies
   - The buzzer serves well as one of the alarm units
 - Testing the readout of the Pressure Sensor
