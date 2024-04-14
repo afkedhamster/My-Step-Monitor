@@ -1,3 +1,4 @@
+// IPC.h
 #ifndef IPC_H
 #define IPC_H
 
@@ -9,15 +10,16 @@
 // Define Message
 struct Message 
 {
-    std::vector<float> values;
-    // i Messages
-    Message(int i) 
+    char type; // Pos
+    std::vector<float> values; // Value
+
+    Message(char t, size_t i) : type(t)
     {
         values.resize(i);
     }
 };
 
-Message createMessage(const std::vector<float>& data);
+Message createMessage(int type, const std::vector<float>& data);
 
 
 // Message Queue
@@ -29,7 +31,7 @@ private:
 public:
     IPC(const char* filepath, int proj_id);
     ~IPC();
-    bool MsgID(const char* filepath, int proj_id); // Changed function name
+    bool MsgID(const char* filepath, int proj_id); 
     bool send(const Message& message);
     bool receive(Message& message);
 };

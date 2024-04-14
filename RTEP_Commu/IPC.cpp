@@ -1,6 +1,13 @@
 #include <stdexcept>
 #include "IPC.h"
 
+// Define Message
+Message createMessage(int type, const std::vector<float>& data)
+{
+    Message msg(type, data.size());
+    msg.values = data;
+    return msg;
+};
 
 // Constructor
 IPC::IPC(const char* filepath, int proj_id) 
