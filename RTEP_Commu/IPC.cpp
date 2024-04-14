@@ -5,12 +5,12 @@
 Message createMessage(int type, const std::vector<float>& data)
 {
     Message msg(type, data.size());
-    msg.values = data;
+    msg.data = data;
     return msg;
-};
+}
 
 // Constructor
-IPC::IPC(const char* filepath, int proj_id) 
+IPC::IPC(const char* filepath, int proj_id) : msgid(-1) 
 {
     // Mark
     if (!MsgID(filepath, proj_id)) 
@@ -23,7 +23,8 @@ IPC::IPC(const char* filepath, int proj_id)
 IPC::~IPC()
 {
     // Remove
-    msgctl(msgid, IPC_RMID, NULL);
+    if (msgid != -1)
+        msgctl(msgid, IPC_RMID, NULL);
 }
 
 // Mark
@@ -49,14 +50,14 @@ bool IPC::send(const Message& message)
 {
     int size = 0;
     const void* dataPtr = nullptr;
-    // Judge Tpye
+    // Judge Type
     if (message.data.index() == 0) // Float
     {
         const auto& values = std::get<std::vector<float>>(message.data);
         size = values.size() * sizeof(float);
         dataPtr = static_cast<const void*>(values.data());
     }
-    else if (message.data.index() == 1) // Char
+    else if (message.data.index() == 1) // String
     {
         const auto& str = std::get<std::string>(message.data);
         size = str.size() + 1; 
@@ -74,7 +75,7 @@ bool IPC::send(const Message& message)
 bool IPC::receive(Message& message)
 {   
     // Receive
-    ssize_t receivedSize = msgrcv(msgid, message.dataPtr(), message.maxSize(), 0, 0);
+    ssize_t receivedSize = msgrcv(msgid, &message, sizeof(message), 0, 0);
     if (receivedSize == -1)
     {
         return false;
@@ -82,14 +83,14 @@ bool IPC::receive(Message& message)
     // Judge type
     if (message.data.index() == 0) // Float
     {
-        if (static_cast<size_t>(receivedSize) != message.values.size() * sizeof(float))
+        if (static_cast<size_t>(receivedSize) != std::get<std::vector<float>>(message.data).size() * sizeof(float))
         {
             return false;
         }
     }
-    else if (message.data.index() == 1) // Char
+    else if (message.data.index() == 1) // String
     {
-        if (static_cast<size_t>(receivedSize) > message.maxSize())
+        if (static_cast<size_t>(receivedSize) > sizeof(message))
         {
             return false; 
         }

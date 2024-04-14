@@ -5,16 +5,17 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <vector>
+#include <string>
 
 // Define Message
 struct Message 
 {
     char type; // Pos
-    std::vector<float> values; // Value
+    std::variant<std::vector<float>, std::string> data; // Value
 
     Message(char t, size_t i) : type(t)
     {
-        values.resize(i);
+        data = std::vector<float>(i);
     }
 };
 
