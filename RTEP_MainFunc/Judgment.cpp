@@ -54,6 +54,7 @@ void Judgment::Receive_Send()
         }
 
         std::string posChange = posEstimation();
+        std::cout << posChange << std::endl;
 
         // Send C
         Message msg_C('C', posChange);
