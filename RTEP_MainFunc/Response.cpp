@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Response.h"
 #include "IPC.h"
+#include "Judgment.h"
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 {
@@ -15,16 +16,15 @@ void Response::Read()
 
     while (true) 
     {
-        Message message_C;
+        Message message_C(1);
         if (!ipc_C.receive(message_C)) 
         {
             std::cerr << "Failed to receive message from B." << std::endl;
             continue;
         }
         // Pos_Change
-        float posChange = value.message_C.DataResult;
-
-        trigger_buzz_lcd(posChange);
+        float posChange = message_C.DataResult[0];
+        trigger_buzz_lcd(static_cast<enum POS_CHANGE>(posChange));
     }    
 }
 
@@ -36,23 +36,23 @@ void Response::trigger_buzz_lcd(enum POS_CHANGE posChange)
         {
             switch (posChange)
             {
-                case 0: // FALL
+                case FALL:
                     buzzer->Beep(5000, 20000);
                     lcd->print("Emergency!!! Fall detected!!!");
                     break;
-                case 4: // RISE
+                case RISE:
                     buzzer->Beep(3000, 1500);
                     lcd->print("Rise detected!");
                     break;
-                case 5: // SIT2LAY
+                case SIT2LAY:
                     buzzer->Beep(2000, 1000);
                     lcd->print("Sit to lay detected!");
                     break;
-                case 6: // STAND2SIT
+                case STAND2SIT:
                     buzzer->Beep(2000, 1000);
                     lcd->print("Stand to sit detected!");
                     break;
-                case 7: // STAND2LAY
+                case STAND2LAY:
                     buzzer->Beep(2000, 1000);
                     lcd->print("Stand to lay detected!");
                     break;

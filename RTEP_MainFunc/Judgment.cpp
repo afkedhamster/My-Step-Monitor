@@ -55,10 +55,10 @@ void Judgment::Receive_Send()
 
         // Perpare Message
         std::vector<float> DataResult = {posChange};
-        Message message = createMessage(DataResult);
+        Message message_C = createMessage(DataResult);
 
         // Send C
-        if (!ipc_C.send(message)) 
+        if (!ipc_C.send(message_C)) 
         {
             std::cerr << "Failed to send message C." << std::endl;
             continue;
