@@ -20,7 +20,7 @@ int main()
 
         // Prepare Message
         std::vector<float> data = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
-        Message message = createFloatMessage('1234', data); // Type 1234
+        Message message = createFloatMessage(1234, data); // Type 1234
 
         // Send
         if (!mark.send(message)) 
