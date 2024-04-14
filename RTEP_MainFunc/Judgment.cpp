@@ -4,12 +4,12 @@
 
 void Judgment::start_RS() 
 {
-    thread = std::thread(&Judgment::RS, this);
+    thread_RS = std::thread(&Judgment::RS, this);
 }
 
 void Judgment::stop_RS() 
 {
-    thread.join();
+    thread_RS.join();
 }
 
 void Judgment::restart_RS() 
@@ -27,6 +27,11 @@ void Judgment::Receive_Send()
     while (true) 
     {
         Message message_A;
+        if (!ipc_A.receive(message_A)) 
+        {
+            std::cerr << "Failed to receive message from A." << std::endl;
+            continue;
+        }
         if (message_A.type == 'A') 
         {
             accelX_g = message_A.data[0]; 
@@ -38,6 +43,11 @@ void Judgment::Receive_Send()
         }
 
         Message message_B;
+        if (!ipc_B.receive(message_B)) 
+        {
+            std::cerr << "Failed to receive message from B." << std::endl;
+            continue;
+        }
         if (message_B.type == 'B') 
         {
             pressure1 = message_B.data[1]; 
@@ -57,12 +67,12 @@ void Judgment::Receive_Send()
 
 void Judgment::start_posEstimation() 
 {
-    thread = std::thread(&Judgment::posEstimation, this);
+    thread_posEstimation = std::thread(&Judgment::posEstimation, this);
 }
 
 void Judgment::stop_posEstimation() 
 {
-    thread.join();
+    thread_posEstimation.join();
 }
 
 void Judgment::restart_posEstimation() 
@@ -71,9 +81,9 @@ void Judgment::restart_posEstimation()
     start_posEstimation();
 }
 
-void Judgment::posEstimation()
+std::string Judgment::posEstimation()
 {   
-    while(1)
+    while(true)
     {
         previous_pose = POS;
         
@@ -108,35 +118,35 @@ void Judgment::posEstimation()
 
         if(accelX_g < 0.01 && accelY_g < 0.01 && accelZ_g < 0.01 && pressure1 < 0.5 * pressure_threshold)
         {
-            POS = SITDOWN;
+            POS = SIT;
         }
 
         if((pressure1 < 0.2 * pressure_threshold) && ((gyroX_degPerSec > 0.8 * gyro_threshold && gyroY_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)||(gyroY_degPerSec > 0.8 * gyro_threshold && gyroZ_degPerSec > 0.8 * gyro_threshold)) && (accelX_g < acc_threshold && accelY_g < acc_threshold && accelZ_g < acc_threshold))
         {
-            POS = LAYDOWN;
+            POS = LAY;
         }
 
         std::string posChange = "NO_CHANGE";
         if (previous_pose != POS) {
-            if (previous_pose == SITDOWN && POS == STAND) {
+            if (previous_pose == SIT && POS == STAND) {
                 posChange = "SIT2STAND";
             }
-            if (previous_pose == STAND && POS == SITDOWN) {
+            if (previous_pose == STAND && POS == SIT) {
                 posChange = "STAND2SIT";
             }
-            if (previous_pose == SITDOWN && POS == LAYDOWN) {
+            if (previous_pose == SIT && POS == LAY) {
                 posChange = "SIT2LAY";
             }
-            if (previous_pose == STAND && POS == LAYDOWN) {
+            if (previous_pose == STAND && POS == LAY) {
                 posChange = "STAND2LAY";
             }
             if (previous_pose == FALL && POS == STAND) {
                 posChange = "RISE";
             }
-            if (previous_pose == FALL && POS == SITDOWN) {
+            if (previous_pose == FALL && POS == SIT) {
                 posChange = "FALL";
             }
-            if (previous_pose == FALL && POS == LAYDOWN) {
+            if (previous_pose == FALL && POS == LAY) {
                 posChange = "FALL";
             }
         }

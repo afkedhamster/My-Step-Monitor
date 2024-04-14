@@ -6,6 +6,7 @@
 #include <sys/msg.h>
 #include <vector>
 #include <string>
+#include <variant>
 
 // Define Message
 struct Message 
@@ -13,13 +14,10 @@ struct Message
     char type; // Pos
     std::variant<std::vector<float>, std::string> data; // Value
 
-    Message(char t, size_t i) : type(t)
-    {
-        data = std::vector<float>(i);
-    }
+    Message(char t, size_t i);
 };
 
-Message createMessage(int type, const std::vector<float>& data);
+Message createMessage(char type, const std::variant<std::vector<float>, std::string>& data);
 
 
 // Message Queue

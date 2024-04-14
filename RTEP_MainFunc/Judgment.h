@@ -1,4 +1,3 @@
-// Judgment.h
 #ifndef JUDGMENT_H
 #define JUDGMENT_H
 
@@ -31,19 +30,26 @@ public:
     void stop_posEstimation();
     void restart_posEstimation();
     void Receive_Send();
-    void posEstimation();
-    void updatePose(std::string new_pose);
-    std::thread thread;
+    std::string posEstimation();
+
+private:
+    std::thread thread_RS; 
+    std::thread thread_posEstimation;
+
     POS_CHANGE previous_pose;
     POS_CHANGE POS;
     
-    float accelX_g = 0, accelY_g = 0, accelZ_g = 0;
-    float gyroX_degPerSec = 0, gyroY_degPerSec = 0, gyroZ_degPerSec = 0;
-    float pressure1 = 0;
+    float accelX_g, accelY_g, accelZ_g;
+    float gyroX_degPerSec, gyroY_degPerSec, gyroZ_degPerSec;
+    float pressure1;
 
-    float pressure_threshold = 0.5;
-    float acc_threshold = 0.1;
-    float gyro_threshold = 0.1;
+    float pressure_threshold;
+    float acc_threshold;
+    float gyro_threshold;
+
+    IPC ipc_A; 
+    IPC ipc_B;
+    IPC ipc_C;
 };
 
 #endif
