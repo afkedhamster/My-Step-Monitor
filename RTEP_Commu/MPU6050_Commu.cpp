@@ -6,22 +6,21 @@
 #include "MPU6050_test.h"
 #include "IPC.h"
 
-
 int main() 
 {
     MPU6050 MPU;
     MPU.MPU6050_Init();
     
-    // Mark A
-    IPC mark("/tmp", 'A'); 
+    // Mark 1234
+    IPC mark("/tmp", 1234);
     
     while (true) 
     {
         MPU.Data_Process();
 
-        // Perpare Message
+        // Prepare Message
         std::vector<float> data = {MPU.accelX_g, MPU.accelY_g, MPU.accelZ_g, MPU.gyroX_degPerSec, MPU.gyroY_degPerSec, MPU.gyroZ_degPerSec};
-        Message message('A', data); // Type A
+        Message message = createFloatMessage('1234', data); // Type 1234
 
         // Send
         if (!mark.send(message)) 

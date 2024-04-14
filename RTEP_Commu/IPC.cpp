@@ -3,13 +3,23 @@
 #include "IPC.h"
 
 // Define Message
-Message::Message(char t, const std::variant<std::vector<float>, std::string>& d) : type(t), data(d) {}
-
-Message createMessage(char type, const std::variant<std::vector<float>, std::string>& data)
+Message createFloatMessage(char type, const std::vector<float>& data)
 {
-    return Message(type, data);
+    Message msg;
+    msg.type = type;
+    msg.dataType = Message::DataType::Float;
+    msg.data.floatN = data;
+    return msg;
 }
 
+Message createStringMessage(char type, const std::string& data)
+{
+    Message msg;
+    msg.type = type;
+    msg.dataType = Message::DataType::String;
+    msg.data.strN = data;
+    return msg;
+}
 
 // Constructor
 IPC::IPC(const char* filepath, int proj_id) : msgid(-1) 
@@ -48,36 +58,28 @@ bool IPC::MsgID(const char* filepath, int proj_id)
 }
 
 // Send
-// Send
 bool IPC::send(const Message& message)
 {
-    // Judge Type
-    std::visit([&](const auto& arg) 
+    if (message.dataType == Message::DataType::Float)
     {
-        if constexpr (std::is_same_v<decltype(arg), std::vector<float>>)
+        const std::vector<float>& values = message.data.floatN;
+        size_t size = values.size() * sizeof(float);
+        const void* dataPtr = static_cast<const void*>(values.data());
+        if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
         {
-            const std::vector<float>& values = arg;
-            size = values.size() * sizeof(float);
-            dataPtr = static_cast<const void*>(values.data());
-            if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
-            {
-                return false;
-            }
-        } 
-        else if constexpr (std::is_same_v<decltype(arg), std::string>)
-        {
-            const std::string& str = arg;
-            size = str.size() + 1;
-            dataPtr = static_cast<const void*>(str.c_str());
-            if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
-            {
-                return false;
-            }
+            return false;
         }
-        return true;
-    }, 
-    message.data);
-
+    } 
+    else if (message.dataType == Message::DataType::String)
+    {
+        const std::string& str = message.data.strN;
+        size_t size = str.size() + 1;
+        const void* dataPtr = static_cast<const void*>(str.c_str());
+        if (msgsnd(msgid, dataPtr, size, IPC_NOWAIT) == -1) 
+        {
+            return false;
+        }
+    }
     return true;
 }
 
@@ -85,10 +87,10 @@ bool IPC::send(const Message& message)
 bool IPC::receive(Message& message)
 {   
     // Receive
-    ssize_t receivedSize = msgrcv(msgid, &message, sizeof(message), 0, 0);
+    ssize_t receivedSize = msgrcv(msgid, &message.data, sizeof(message.data), 0, 0);
     if (receivedSize == -1)
     {
-    return false;
+        return false;
     }
 
     // Judge Type

@@ -1,3 +1,4 @@
+// IPC.h
 #ifndef IPC_H
 #define IPC_H
 
@@ -11,14 +12,26 @@
 // Define Message
 struct Message 
 {
-    char type; // Pos
-    std::variant<std::vector<float>, std::string> data; // Value
-
-    Message(char t, size_t i);
+    char type;
+    
+    enum class DataType
+    {
+        Float,
+        String 
+    } dataType;
+    
+    union Data
+    {
+        std::vector<float> floatN;
+        std::string strN;
+        
+        Data() {}
+        ~Data() {}
+    } data;
 };
 
-Message createMessage(char type, const std::variant<std::vector<float>, std::string>& data);
-
+Message createFloatMessage(char type, const std::vector<float>& data);
+Message createStringMessage(char type, const std::string& data);
 
 // Message Queue
 class IPC
