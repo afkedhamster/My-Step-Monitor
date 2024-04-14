@@ -15,9 +15,9 @@ void Response::Read()
     while (true) 
     {
         Message message_C;
-        if (!ipc_C.receive(message_C) || message_C.type != 'C') 
+        if (!ipc_C.receive(message_C)) 
         {
-            std::cerr << "Failed to receive message C." << std::endl;
+            std::cerr << "Failed to receive message from B." << std::endl;
             continue;
         }
         // Pos_Change
