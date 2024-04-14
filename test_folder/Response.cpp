@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Response.h"
+#include "IPC.h"
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 {
@@ -15,14 +16,13 @@ void Response::Read()
     while (true) 
     {
         Message message_C;
-        if (!ipc_C.receive(message_C) || message_C.type != 'C') 
+        if (!ipc_C.receive(message_C)) 
         {
-            std::cerr << "Failed to receive message C." << std::endl;
+            std::cerr << "Failed to receive message from B." << std::endl;
             continue;
         }
         // Pos_Change
-        enum POS_CHANGE posChange;
-        posChange = value.message_C.DataResult;
+        float posChange = value.message_C.DataResult;
 
         trigger_buzz_lcd(posChange);
     }    
