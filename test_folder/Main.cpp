@@ -13,12 +13,11 @@
 int main_MPU6050()
 {
     MPU6050 MPU;
-    MPU.MPU6050_Init();
     
     // Mark A
     IPC mark("/tmp", 'A'); 
     
-    while (true) 
+    while (!shouldExit) 
     {
         MPU.Data_Process();
 
@@ -41,18 +40,20 @@ int main_MPU6050()
         // Delay
         gpioDelay(100000);
     }
+
+    MPU.MPU6050_Stop();
+
     return 0;
 }
 
 int main_C25A()
 {
     ADS1115 ADS;
-    ADS.ADS_init();
 
     // Mark B
     IPC ipc("/tmp", 'B'); 
 
-    while (true) 
+    while (!shouldExit) 
     {
         // Set (Different Channels)
         float ret0 = ADS.ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
@@ -94,6 +95,13 @@ int main_C25A()
 
 int main()
 {
+    gpioInitialise_t *gpioInit = gpioInitialise(); 
+    if (gpioInit < 0) 
+    {
+        std::cerr << "Failed to initialize pigpio." << std::endl;
+        return -1;
+    }
+
     std::thread t1(main_MPU6050);
     std::thread t2(main_C25A);
 
@@ -113,6 +121,7 @@ int main()
     t3.join();
     t4.join();
 
-    return 0;
+    gpioTerminate();
 
+    return 0;
 }
