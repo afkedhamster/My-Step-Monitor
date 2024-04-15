@@ -10,6 +10,14 @@
 #include "Judgment.h"
 #include "Response.h"
 
+// Thread Mark
+std::mutex mtx_t1;
+std::condition_variable cv_t1;
+bool t1_ready = false;
+
+std::mutex mtx_t2;
+std::condition_variable cv_t2;
+bool t2_ready = false;
 
 int main_MPU6050()
 {
@@ -23,7 +31,7 @@ int main_MPU6050()
     int MAX_MES = 1000; 
     
     std::cout << "Main MPU6050 thread started." << std::endl;
-    while (Mcount < MAX_MES) 
+    while (true) 
     {
         MPU.Data_Process();
 
@@ -46,8 +54,14 @@ int main_MPU6050()
         std::cout << "Angular Rate (deg/s): X = " << MPU.gyroX_degPerSec << ", Y = " << MPU.gyroY_degPerSec << ", Z = " << MPU.gyroZ_degPerSec << std::endl;
 
         // Delay
-        //gpioDelay(100000);
-        std::this thread::sleep for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_t1);
+            t1_ready = true;
+            cv_t1.notify_all();
+        }
     }
 
     MPU.MPU6050_Stop();
@@ -67,7 +81,7 @@ int main_C25A()
     int MAX_MES = 1000; 
     
     std::cout << "Main C25A thread started." << std::endl;
-    while (Mcount < MAX_MES) 
+    while (true) 
     {
         // Set (Different Channels)
         float ret0 = ADS.ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
@@ -102,6 +116,13 @@ int main_C25A()
         
         // Delay
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_t2);
+            t2_ready = true;
+            cv_t2.notify_all();
+        }    
     }
 
     ADS.ADS_stop();
@@ -122,16 +143,37 @@ int main()
 
     Judgment J;
     Response R;
-        Buzzer buzzer;
-        LCD lcd('l',0,true);
+    Buzzer buzzer;
+    LCD lcd('l',0,true);
 
-    J.start_RS();
-    J.start_posEstimation();
-    R.start(&buzzer, &lcd, nullptr);
+    while (true) 
+    {
+        // Wait t1 and t2
+        {
+            std::unique_lock<std::mutex> lock1(mtx_t1);
+            cv_t1.wait(lock1, []{ return t1_ready; });
+            t1_ready = false;
+        }
+        {
+            std::unique_lock<std::mutex> lock2(mtx_t2);
+            cv_t2.wait(lock2, []{ return t2_ready; });
+            t2_ready = false;
+        }
 
-    J.stop_RS();
-    J.stop_posEstimation();
-    R.stop();
+        // Start J
+        J.start_RS();
+        // Judge and Send
+        J.Receive_Send();
+        // Finish
+        J.wait_RS_ready();
+        
+        // Start R
+        R.start(&buzzer, &lcd, nullptr);
+        //Read and Response
+        R.Read();
+        // Finish
+        R.wait_R_ready();
+    }
 
     t1.join();
     t2.join();

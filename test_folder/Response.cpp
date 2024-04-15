@@ -3,6 +3,11 @@
 #include "IPC.h"
 #include "Judgment.h"
 
+// Thread Mark
+std::condition_variable cv_r_ready;
+std::mutex mtx_r_ready;
+bool r_ready = false;
+
 Response::Response(){};
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
@@ -32,7 +37,22 @@ void Response::Read()
         // Pos_Change
         float posChange = message_C.DataResult[0];
         trigger_buzz_lcd(static_cast<enum POS_CHANGE>(posChange));
+
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_r_ready);
+            r_ready = true;
+            cv_r_ready.notify_one();
+        }
     }    
+}
+
+// Wait Thread
+void Response::wait_R_ready() 
+{
+    std::unique_lock<std::mutex> lock(mtx_r_ready);
+    cv_r_ready.wait(lock, []{ return r_ready; });
+    r_ready = false;
 }
 
 void Response::trigger_buzz_lcd(enum POS_CHANGE posChange)

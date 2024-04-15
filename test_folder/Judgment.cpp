@@ -3,6 +3,11 @@
 #include "ADS1115.h"
 #include "IPC.h"
 
+// Thread Mark
+std::condition_variable cv_j_ready;
+std::mutex mtx_j_ready;
+bool j_ready = false;
+
 Judgment::Judgment(){};
 
 void Judgment::start_RS() 
@@ -35,7 +40,6 @@ void Judgment::Receive_Send()
             std::cerr << "Failed to receive message from A." << std::endl;
             continue;
         }
-
         accelX_g = message_A.DataResult[0]; 
         accelY_g = message_A.DataResult[1];
         accelZ_g = message_A.DataResult[2];
@@ -49,7 +53,6 @@ void Judgment::Receive_Send()
             std::cerr << "Failed to receive message from B." << std::endl;
             continue;
         }
-
         pressure1 = message_B.DataResult[1]; 
 
         float posChange = posEstimation();
@@ -65,7 +68,22 @@ void Judgment::Receive_Send()
             std::cerr << "Failed to send message C." << std::endl;
             continue;
         }
+
+        // Finish Mark
+        {
+            std::lock_guard<std::mutex> lock(mtx_j_ready);
+            j_ready = true;
+            cv_j_ready.notify_one();
+        }
     }    
+}
+
+// Wait Thread
+void Judgment::wait_RS_ready() 
+{
+    std::unique_lock<std::mutex> lock(mtx_j_ready);
+    cv_j_ready.wait(lock, []{ return j_ready; });
+    j_ready = false;
 }
 
 void Judgment::start_posEstimation() 
