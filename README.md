@@ -237,7 +237,13 @@ With the project setup and environment configuration complete, the Raspberry Pi 
   [RTEP_MainFunc\Response.h](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.h); [RTEP_MainFunc\Response.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Response.cpp); \
   [RTEP_MainFunc\Main.cpp](https://github.com/afkedhamster/My-Step-Monitor/blob/master/RTEP_MainFunc/Main.cpp)
 - Implement with Hardware
+- Creat *test_folder* to Debug
+- Creat *_Test branch_* to Debug
 - Merge with _*master branch*_
+
+# Final Work
+- Finish Final Code in the *test_folder*\
+  Link: [Final_Code]{https://github.com/afkedhamster/My-Step-Monitor/tree/master/test_folder}
 - Finish Wiki Page\
   Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
 
