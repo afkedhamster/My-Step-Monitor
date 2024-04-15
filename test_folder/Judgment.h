@@ -23,6 +23,8 @@ public:
         STAND2LAY = 7,
     };
 
+    Judgment();
+
     void start_RS();
     void stop_RS();
     void restart_RS();
@@ -31,6 +33,8 @@ public:
     void restart_posEstimation();
     float posEstimation();
     void Receive_Send();
+
+    void wait_RS_ready(); 
     
 
 private:

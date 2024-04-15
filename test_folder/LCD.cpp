@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -113,11 +115,14 @@ void LCD::lcd_byte(int bits, int mode)
 void LCD::lcd_toggle_enable(int bits)
 {
     // Toggle enable pin on LCD display
-    gpioDelay(500);
+    //gpioDelay(500);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     i2cReadByteData(fd, (bits | ENABLE));
-    gpioDelay(500);
+    //gpioDelay(500);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     i2cReadByteData(fd, (bits & ~ENABLE));
-    gpioDelay(500);
+    //gpioDelay(500);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void LCD::set_location(int line)

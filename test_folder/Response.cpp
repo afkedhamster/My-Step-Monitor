@@ -1,7 +1,20 @@
 #include <iostream>
+#include <condition_variable>
+#include <mutex>
 #include "Response.h"
 #include "IPC.h"
 #include "Judgment.h"
+
+// Thread Mark
+std::condition_variable cv_r_ready;
+std::mutex mtx_r_ready;
+bool r_ready = false;
+
+// Massage Mark
+std::condition_variable cv_j_ready;
+std::mutex mtx_j_ready;
+
+Response::Response(){};
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 {
@@ -10,12 +23,24 @@ void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
     thread = std::thread(&Response::trigger_buzz_lcd, this, std::ref(*posChange));
 }
 
+void Response::stop()
+{
+    thread.join();
+}
+
 void Response::Read()
 {
     IPC ipc_C("/tmp", 'C');
 
     while (true) 
     {
+        // Wait C
+        {
+            std::unique_lock<std::mutex> lock(mtx_j_ready);
+            cv_j_ready.wait(lock);
+        }
+
+        // Recevie C
         Message message_C(1);
         if (!ipc_C.receive(message_C)) 
         {
@@ -25,7 +50,22 @@ void Response::Read()
         // Pos_Change
         float posChange = message_C.DataResult[0];
         trigger_buzz_lcd(static_cast<enum POS_CHANGE>(posChange));
+
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_r_ready);
+            r_ready = true;
+            cv_r_ready.notify_one();
+        }
     }    
+}
+
+// Wait Thread
+void Response::wait_R_ready() 
+{
+    std::unique_lock<std::mutex> lock(mtx_r_ready);
+    cv_r_ready.wait(lock, []{ return r_ready; });
+    r_ready = false;
 }
 
 void Response::trigger_buzz_lcd(enum POS_CHANGE posChange)
