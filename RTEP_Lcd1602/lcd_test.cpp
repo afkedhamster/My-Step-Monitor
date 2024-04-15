@@ -20,9 +20,9 @@ int main(){
         
         lcd.set_location(2);
         lcd.set_delay(500);
-        lcd << "This is a test";
+        lcd << "My step Monitor";
 
-        gpioDelay(1000);
+        gpioDelay(100000);
     }
 
     return 0;
