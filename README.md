@@ -243,7 +243,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 
 # Final Work
 - Finish Final Code in the *test_folder*\
-  Link: [Final_Code]{https://github.com/afkedhamster/My-Step-Monitor/tree/master/test_folder}
+  Link: [Final_Code](https://github.com/afkedhamster/My-Step-Monitor/tree/master/test_folder)
 - Finish Wiki Page\
   Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
 
