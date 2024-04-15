@@ -120,8 +120,7 @@ int main_C25A()
 
 int main()
 {
-    gpioInitialise_t *gpioInit = gpioInitialise(); 
-    if (gpioInit < 0) 
+    if (gpioInitialise() < 0) 
     {
         std::cerr << "Failed to initialize pigpio." << std::endl;
         return -1;

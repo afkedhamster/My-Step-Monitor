@@ -3,6 +3,8 @@
 #include "IPC.h"
 #include "Judgment.h"
 
+Response::Response(){};
+
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
 {
     buzzer = bobj;

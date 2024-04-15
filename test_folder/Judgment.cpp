@@ -3,6 +3,8 @@
 #include "ADS1115.h"
 #include "IPC.h"
 
+Judgment::Judgment(){};
+
 void Judgment::start_RS() 
 {
     thread_RS = std::thread(&Judgment::Receive_Send, this);
