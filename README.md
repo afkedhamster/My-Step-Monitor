@@ -246,7 +246,7 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 # Team 6 Member Labour Division
 
 ## Zhiyue Lu (2931528L)
-Github Link: [Afked Hamster](https://github.com/djhfasfg)
+Github Link: [djhfasfg](https://github.com/djhfasfg)
 - One of the testors of the devices
 - Control class for buzzer
 - Control class for LCD 12864
