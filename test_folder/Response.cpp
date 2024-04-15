@@ -11,9 +11,8 @@ std::mutex mtx_r_ready;
 bool r_ready = false;
 
 // Massage Mark
-std::condition_variable cv_MPU6050_C25A;
-std::condition_variable cv_J_ready;
-std::mutex mtx_MPU6050_C25A;
+std::condition_variable cv_j_ready;
+std::mutex mtx_j_ready;
 
 Response::Response(){};
 
