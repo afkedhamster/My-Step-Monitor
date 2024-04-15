@@ -4,7 +4,8 @@
 #include <chrono>
 #include "ADS1115.h"
 
-ADS1115::ADS1115(){
+ADS1115::ADS1115()
+{
     if (ADS_init() != 0) 
     {
         std::cerr << "Initialization failed" << std::endl;
@@ -12,17 +13,20 @@ ADS1115::ADS1115(){
     }
 }
 
-ADS1115::~ADS1115(){
+ADS1115::~ADS1115()
+{
     ADS_stop();
 }
 
-int ADS1115::ADS_init(){
-    // Initialize Pigpio
+int ADS1115::ADS_init()
+{
+    /*// Initialize Pigpio
     if (gpioInitialise() < 0)
     {
         std::cerr << "Failed to initialize pigpio." << std::endl;
         return 1;
-    }
+    }*/
+
     // Initialize I2C
     i2c_handle = i2cOpen(1, ADS1115_ADDRESS, 0);
     if (i2c_handle < 0) 
@@ -34,12 +38,14 @@ int ADS1115::ADS_init(){
     return 0;
 }
 
-void ADS1115::ADS_stop(){
+void ADS1115::ADS_stop()
+{
     gpioTerminate();
     i2cClose(i2c_handle);
 }
 
-int ADS1115::ADS_readReg(unsigned char reg){
+int ADS1115::ADS_readReg(unsigned char reg)
+{
     char buf[1] = {reg};
     char data[2];
     if (i2cWriteDevice(i2c_handle, buf, 1) != 1) 
