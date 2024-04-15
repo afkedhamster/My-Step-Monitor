@@ -20,6 +20,7 @@ class LCD
     int currentln;
     char alignment;
     int pause;
+    bool mockMode; // For bypassing real LCD module
 
     void set_variables();
     void lcd_init();
