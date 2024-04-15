@@ -132,7 +132,7 @@ int main()
     Judgment J;
     Response R;
         Buzzer buzzer;
-        LCD lcd("l",0,true);
+        LCD lcd('l',0,true);
 
     J.start_RS();
     R.start(&buzzer, &lcd, nullptr);
