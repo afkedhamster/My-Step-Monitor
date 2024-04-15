@@ -248,6 +248,11 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 ## Zhiyue Lu (2931528L)
 
 ## Jiahui Tang (2855848T)
+Github Link: [tangjiahui47](https://github.com/tangjiahui47)    
+- Code MPU6050
+- Threads_Judgment definition & declaration
+- Part Wiki and Devlog
+- Social Media management
 
 ## Jiewen Tan (2934324T) 
 Github Link: [Afked Hamster](https://github.com/afkedhamster)
