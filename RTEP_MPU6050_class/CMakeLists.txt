@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(MPU6050Test)
 
 # Add the executable
-add_executable(MPU6050Test MPU6050_test_main.cpp MPU6050_test.cpp)
+add_executable(MPU6050Test MPU6050_test_main.cpp Mpu6050_test.cpp)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
