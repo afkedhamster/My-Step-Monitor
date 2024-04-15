@@ -277,6 +277,7 @@ Github Link: [Afked Hamster](https://github.com/afkedhamster)
 - Global debug
 - Github Management & Pull Request handling
 - Early Dev log & Wiki
+- Debugging i2c bus, cooperate with Zhiyue Lu to debug all the external hardwares for thread communication protcol
 
 ## Shuaifei Wang (2936142W) 
 Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
