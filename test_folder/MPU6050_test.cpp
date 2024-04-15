@@ -30,7 +30,7 @@ int MPU6050::MPU6050_Init()
     }*/
 
     // Initialize I2C
-    fd = i2cOpen(0, MPU6050_ADDR, 0);
+    fd = i2cOpen(5, MPU6050_ADDR, 0);
     if (fd < 0)
     {
         std::cerr << "Failed to initialize I2C communication." << std::endl;
