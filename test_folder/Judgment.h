@@ -34,7 +34,7 @@ public:
     float posEstimation();
     void Receive_Send();
 
-    void wait_RS_ready() 
+    void wait_RS_ready(); 
     
 
 private:

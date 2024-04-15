@@ -1,3 +1,5 @@
+#include <condition_variable>
+#include <mutex>
 #include "Judgment.h"
 #include "MPU6050_test.h"
 #include "ADS1115.h"

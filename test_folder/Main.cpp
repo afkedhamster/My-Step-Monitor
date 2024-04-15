@@ -146,6 +146,10 @@ int main()
     Buzzer buzzer;
     LCD lcd('l',0,true);
 
+    // Start
+    J.start_RS();
+    R.start(&buzzer, &lcd, nullptr);
+
     while (true) 
     {
         // Wait t1 and t2
@@ -160,15 +164,11 @@ int main()
             t2_ready = false;
         }
 
-        // Start J
-        J.start_RS();
         // Judge and Send
         J.Receive_Send();
         // Finish
         J.wait_RS_ready();
         
-        // Start R
-        R.start(&buzzer, &lcd, nullptr);
         //Read and Response
         R.Read();
         // Finish

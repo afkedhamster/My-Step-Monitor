@@ -31,7 +31,7 @@ public:
     void Read();
     void trigger_buzz_lcd(enum POS_CHANGE posChange);
     
-    void wait_R_ready() 
+    void wait_R_ready(); 
 
     std::thread thread;
 
