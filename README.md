@@ -246,7 +246,14 @@ With the project setup and environment configuration complete, the Raspberry Pi 
 # Team 6 Member Labour Division
 
 ## Zhiyue Lu (2931528L)
-
+Github Link: [Afked Hamster](https://github.com/djhfasfg)
+- One of the testors of the devices
+- Control class for buzzer
+- Control class for LCD 12864
+- Encapsulation mpu class
+- Package pressure sensitive
+- Global debug
+- Dev log & Wiki
 ## Jiahui Tang (2855848T)
 Github Link: [tangjiahui47](https://github.com/tangjiahui47)    
 - Code MPU6050
