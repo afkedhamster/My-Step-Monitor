@@ -12,6 +12,11 @@ void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
     thread = std::thread(&Response::trigger_buzz_lcd, this, std::ref(*posChange));
 }
 
+void Response::stop()
+{
+    thread.join();
+}
+
 void Response::Read()
 {
     IPC ipc_C("/tmp", 'C');

@@ -138,15 +138,15 @@ int main()
         LCD lcd('l',0,true);
 
     J.start_RS();
+    J.start_posEstimation();
     R.start(&buzzer, &lcd, nullptr);
 
-    std::thread t3([&](){ J.Receive_Send(); });
-    std::thread t4([&](){ R.Read(); });
+    J.stop_RS();
+    J.stop_posEstimation();
+    R.stop();
 
     t1.join();
     t2.join();
-    t3.join();
-    t4.join();
 
     gpioTerminate();
 
