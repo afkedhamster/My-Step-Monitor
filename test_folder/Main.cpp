@@ -4,6 +4,8 @@
 #include <pigpio.h>
 #include <cstring>
 #include <atomic>
+#include <condition_variable>
+#include <mutex>
 #include "MPU6050_test.h"
 #include "ADS1115.h"
 #include "IPC.h"
