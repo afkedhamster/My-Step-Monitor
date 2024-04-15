@@ -20,6 +20,7 @@ class LCD
     int currentln;
     char alignment;
     int pause;
+    bool mockMode;
 
     void set_variables();
     void lcd_init();
