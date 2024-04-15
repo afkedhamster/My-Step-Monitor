@@ -3,6 +3,7 @@
 #include <chrono>
 #include <pigpio.h>
 #include <cstring>
+#include <atomic>
 #include "MPU6050_test.h"
 #include "ADS1115.h"
 #include "IPC.h"
@@ -10,7 +11,7 @@
 #include "Response.h"
 
 // Exit Mark
-bool ExitMark = false;
+std::atomic<bool> ExitMark(false);
 const int MAX_MES = 1000; 
 
 int main_MPU6050()
@@ -23,6 +24,7 @@ int main_MPU6050()
     // Counter
     int Mcount = 0;
     
+    std::cout << "Main MPU6050 thread started." << std::endl;
     while (!ExitMark) 
     {
         MPU.Data_Process();
@@ -69,7 +71,8 @@ int main_C25A()
 
     // Counter
     int Mcount = 0;
-
+    
+    std::cout << "Main C25A thread started." << std::endl;
     while (!ExitMark) 
     {
         // Set (Different Channels)
