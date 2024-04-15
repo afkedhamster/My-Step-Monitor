@@ -10,9 +10,6 @@
 #include "Judgment.h"
 #include "Response.h"
 
-// Exit Mark
-std::atomic<bool> ExitMark(false);
-const int MAX_MES = 1000; 
 
 int main_MPU6050()
 {
@@ -21,11 +18,12 @@ int main_MPU6050()
     // Mark A
     IPC mark("/tmp", 'A'); 
     
-    // Counter
+    // Exit Mark
     int Mcount = 0;
+    int MAX_MES = 1000; 
     
     std::cout << "Main MPU6050 thread started." << std::endl;
-    while (!ExitMark) 
+    while (Mcount < MAX_MES) 
     {
         MPU.Data_Process();
 
@@ -48,13 +46,8 @@ int main_MPU6050()
         std::cout << "Angular Rate (deg/s): X = " << MPU.gyroX_degPerSec << ", Y = " << MPU.gyroY_degPerSec << ", Z = " << MPU.gyroZ_degPerSec << std::endl;
 
         // Delay
-        gpioDelay(100000);
-
-        // Exit
-        if (Mcount >= MAX_MES) 
-        {
-            ExitMark = true;
-        }
+        //gpioDelay(100000);
+        std::this thread::sleep for(std::chrono::milliseconds(100));
     }
 
     MPU.MPU6050_Stop();
@@ -71,9 +64,10 @@ int main_C25A()
 
     // Counter
     int Mcount = 0;
+    int MAX_MES = 1000; 
     
     std::cout << "Main C25A thread started." << std::endl;
-    while (!ExitMark) 
+    while (Mcount < MAX_MES) 
     {
         // Set (Different Channels)
         float ret0 = ADS.ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
@@ -108,12 +102,6 @@ int main_C25A()
         
         // Delay
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-        // Exit
-        if (Mcount >= MAX_MES) 
-        {
-            ExitMark = true;
-        }
     }
 
     ADS.ADS_stop();
