@@ -4,6 +4,8 @@
 #include <pigpio.h>
 #include <cstring>
 #include <atomic>
+#include <condition_variable>
+#include <mutex>
 #include "MPU6050_test.h"
 #include "ADS1115.h"
 #include "IPC.h"
@@ -19,16 +21,18 @@ std::mutex mtx_t2;
 std::condition_variable cv_t2;
 bool t2_ready = false;
 
+// Message Mark
+std::condition_variable cv_MPU6050;
+std::condition_variable cv_C25A;
+std::mutex mtx_MPU6050;
+std::mutex mtx_C25A;
+
 int main_MPU6050()
 {
     MPU6050 MPU;
     
     // Mark A
     IPC mark("/tmp", 'A'); 
-    
-    // Exit Mark
-    int Mcount = 0;
-    int MAX_MES = 1000; 
     
     std::cout << "Main MPU6050 thread started." << std::endl;
     while (true) 
@@ -46,7 +50,11 @@ int main_MPU6050()
             return -1;
         }
         
-        Mcount++;
+        // Finish Send
+        {
+            std::unique_lock<std::mutex> lock(mtx_MPU6050);
+            cv_MPU6050.notify_one();
+        }
 
         // Display
         std::cout << "Message sent to message queue." << std::endl;
@@ -75,10 +83,6 @@ int main_C25A()
 
     // Mark B
     IPC ipc("/tmp", 'B'); 
-
-    // Counter
-    int Mcount = 0;
-    int MAX_MES = 1000; 
     
     std::cout << "Main C25A thread started." << std::endl;
     while (true) 
@@ -106,7 +110,11 @@ int main_C25A()
             return -1;
         }
 
-        Mcount++;
+        // Finish Send
+        {
+            std::unique_lock<std::mutex> lock(mtx_C25A);
+            cv_C25A.notify_one();
+        }
 
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
@@ -115,7 +123,7 @@ int main_C25A()
         std::cout << "ret_v1 = " << ret_v1 << std::endl; */
         
         // Delay
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     
         // Finish Thread
         {
@@ -146,6 +154,10 @@ int main()
     Buzzer buzzer;
     LCD lcd('l',0,true);
 
+    // Start
+    J.start_RS();
+    R.start(&buzzer, &lcd, nullptr);
+
     while (true) 
     {
         // Wait t1 and t2
@@ -160,15 +172,19 @@ int main()
             t2_ready = false;
         }
 
-        // Start J
-        J.start_RS();
+        // Wait Send
+        {
+            std::unique_lock<std::mutex> lock_MPU6050(mtx_MPU6050);
+            std::unique_lock<std::mutex> lock_C25A(mtx_C25A);
+            cv_MPU6050.wait(lock_MPU6050);
+            cv_C25A.wait(lock_C25A);
+        }
+
         // Judge and Send
         J.Receive_Send();
         // Finish
         J.wait_RS_ready();
         
-        // Start R
-        R.start(&buzzer, &lcd, nullptr);
         //Read and Response
         R.Read();
         // Finish
