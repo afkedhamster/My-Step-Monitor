@@ -10,6 +10,11 @@ std::condition_variable cv_j_ready;
 std::mutex mtx_j_ready;
 bool j_ready = false;
 
+// Message Mark
+std::condition_variable cv_MPU6050_C25A;
+std::condition_variable cv_J_ready;
+std::mutex mtx_MPU6050_C25A;
+
 Judgment::Judgment(){};
 
 void Judgment::start_RS() 
@@ -36,6 +41,13 @@ void Judgment::Receive_Send()
 
     while (true) 
     {
+        // Wait A and B
+        {
+            std::unique_lock<std::mutex> lock(mtx_MPU6050_C25A);
+            cv_MPU6050_C25A.wait(lock);
+        }
+        
+        // Receive A
         Message message_A(6);
         if (!ipc_A.receive(message_A)) 
         {
@@ -48,7 +60,7 @@ void Judgment::Receive_Send()
         gyroX_degPerSec = message_A.DataResult[3];
         gyroY_degPerSec = message_A.DataResult[4];
         gyroZ_degPerSec = message_A.DataResult[5];
-
+        // Receive B
         Message message_B(2);
         if (!ipc_B.receive(message_B)) 
         {

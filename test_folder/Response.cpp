@@ -10,6 +10,11 @@ std::condition_variable cv_r_ready;
 std::mutex mtx_r_ready;
 bool r_ready = false;
 
+// Massage Mark
+std::condition_variable cv_MPU6050_C25A;
+std::condition_variable cv_J_ready;
+std::mutex mtx_MPU6050_C25A;
+
 Response::Response(){};
 
 void Response::start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange)
@@ -30,6 +35,13 @@ void Response::Read()
 
     while (true) 
     {
+        // Wait C
+        {
+            std::unique_lock<std::mutex> lock(mtx_j_ready);
+            cv_j_ready.wait(lock);
+        }
+
+        // Recevie C
         Message message_C(1);
         if (!ipc_C.receive(message_C)) 
         {
