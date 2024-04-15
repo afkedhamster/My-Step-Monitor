@@ -262,7 +262,9 @@ Github Link: [Afked Hamster](https://github.com/afkedhamster)
 
 ## Shuaifei Wang (2936142W) 
 Github Link: [ShuaifeiWang5173](https://github.com/ShuaifeiWang5173?tab=overview&from=2024-03-01&to=2024-03-31)
-- Code and debug MPU6050 and C25A & ADS1115
+- Code and debug MPU6050
+- Code adn debug C25A & ADS1115
 - Code and debug communication function of IPC
-- Code main function and settle Judgmen and Response 
-- Part of the report
+- Settle and debug Judgment and Response 
+- Code and debug main function
+- Part Devlog and Wiki
