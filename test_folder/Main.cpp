@@ -9,6 +9,9 @@
 #include "Judgment.h"
 #include "Response.h"
 
+// Exit Mark
+bool ExitMark = false;
+const int MAX_MES = 1000; 
 
 int main_MPU6050()
 {
@@ -17,7 +20,10 @@ int main_MPU6050()
     // Mark A
     IPC mark("/tmp", 'A'); 
     
-    while (!shouldExit) 
+    // Counter
+    int Mcount = 0;
+    
+    while (!ExitMark) 
     {
         MPU.Data_Process();
 
@@ -32,6 +38,8 @@ int main_MPU6050()
             return -1;
         }
         
+        Mcount++;
+
         // Display
         std::cout << "Message sent to message queue." << std::endl;
         std::cout << "Acceleration (g): X = " << MPU.accelX_g << ", Y = " << MPU.accelY_g << ", Z = " << MPU.accelZ_g << std::endl;
@@ -39,6 +47,12 @@ int main_MPU6050()
 
         // Delay
         gpioDelay(100000);
+
+        // Exit
+        if (Mcount >= MAX_MES) 
+        {
+            ExitMark = true;
+        }
     }
 
     MPU.MPU6050_Stop();
@@ -53,7 +67,10 @@ int main_C25A()
     // Mark B
     IPC ipc("/tmp", 'B'); 
 
-    while (!shouldExit) 
+    // Counter
+    int Mcount = 0;
+
+    while (!ExitMark) 
     {
         // Set (Different Channels)
         float ret0 = ADS.ADS_measure(ADS1115_REG_CONFIG_MUX_SINGLE_0, 
@@ -78,6 +95,8 @@ int main_C25A()
             return -1;
         }
 
+        Mcount++;
+
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
         std::cout << "ret_v0 = " << ret_v0 << std::endl;
@@ -86,6 +105,12 @@ int main_C25A()
         
         // Delay
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        // Exit
+        if (Mcount >= MAX_MES) 
+        {
+            ExitMark = true;
+        }
     }
 
     ADS.ADS_stop();
