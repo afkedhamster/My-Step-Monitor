@@ -28,8 +28,8 @@ void Response::Read()
 {
     IPC ipc_C("/tmp", 'C');
 
-    /*while (true) 
-    {*/
+    while (true) 
+    {
         // Recevie C
         Message message_C(1);
         if (!ipc_C.receive(message_C)) 
@@ -47,7 +47,7 @@ void Response::Read()
             r_ready = true;
             cv_r_ready.notify_one();
         }
-    //}    
+    }    
 }
 
 // Wait Thread

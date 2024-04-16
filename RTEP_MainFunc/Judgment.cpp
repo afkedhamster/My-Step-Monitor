@@ -39,8 +39,8 @@ void Judgment::Receive_Send()
     IPC ipc_B("/tmp", 'B');
     IPC ipc_C("/tmp", 'C');
 
-    /*while (true) 
-    {*/
+    while (true) 
+    {
         // Wait A and B
         {
             std::unique_lock<std::mutex> lock(mtx_MPU6050_C25A);
@@ -60,7 +60,7 @@ void Judgment::Receive_Send()
         gyroX_degPerSec = message_A.DataResult[3];
         gyroY_degPerSec = message_A.DataResult[4];
         gyroZ_degPerSec = message_A.DataResult[5];
-        // Receive B
+        // Receive B 
         Message message_B(2);
         if (!ipc_B.receive(message_B)) 
         {
@@ -89,7 +89,7 @@ void Judgment::Receive_Send()
             j_ready = true;
             cv_j_ready.notify_one();
         }
-    //}    
+    }    
 }
 
 // Wait Thread
