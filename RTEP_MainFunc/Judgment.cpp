@@ -1,7 +1,21 @@
+#include <condition_variable>
+#include <mutex>
 #include "Judgment.h"
 #include "MPU6050_test.h"
 #include "ADS1115.h"
 #include "IPC.h"
+
+// Thread Mark
+std::condition_variable cv_j_ready;
+std::mutex mtx_j_ready;
+bool j_ready = false;
+
+// Message Mark
+std::condition_variable cv_MPU6050_C25A;
+std::condition_variable cv_J_ready;
+std::mutex mtx_MPU6050_C25A;
+
+Judgment::Judgment(){};
 
 void Judgment::start_RS() 
 {
@@ -25,29 +39,34 @@ void Judgment::Receive_Send()
     IPC ipc_B("/tmp", 'B');
     IPC ipc_C("/tmp", 'C');
 
-    while (true) 
-    {
+    /*while (true) 
+    {*/
+        // Wait A and B
+        {
+            std::unique_lock<std::mutex> lock(mtx_MPU6050_C25A);
+            cv_MPU6050_C25A.wait(lock);
+        }
+        
+        // Receive A
         Message message_A(6);
         if (!ipc_A.receive(message_A)) 
         {
             std::cerr << "Failed to receive message from A." << std::endl;
             continue;
         }
-
         accelX_g = message_A.DataResult[0]; 
         accelY_g = message_A.DataResult[1];
         accelZ_g = message_A.DataResult[2];
         gyroX_degPerSec = message_A.DataResult[3];
         gyroY_degPerSec = message_A.DataResult[4];
         gyroZ_degPerSec = message_A.DataResult[5];
-
+        // Receive B
         Message message_B(2);
         if (!ipc_B.receive(message_B)) 
         {
             std::cerr << "Failed to receive message from B." << std::endl;
             continue;
         }
-
         pressure1 = message_B.DataResult[1]; 
 
         float posChange = posEstimation();
@@ -63,7 +82,22 @@ void Judgment::Receive_Send()
             std::cerr << "Failed to send message C." << std::endl;
             continue;
         }
-    }    
+
+        // Finish Mark
+        {
+            std::lock_guard<std::mutex> lock(mtx_j_ready);
+            j_ready = true;
+            cv_j_ready.notify_one();
+        }
+    //}    
+}
+
+// Wait Thread
+void Judgment::wait_RS_ready() 
+{
+    std::unique_lock<std::mutex> lock(mtx_j_ready);
+    cv_j_ready.wait(lock, []{ return j_ready; });
+    j_ready = false;
 }
 
 void Judgment::start_posEstimation() 

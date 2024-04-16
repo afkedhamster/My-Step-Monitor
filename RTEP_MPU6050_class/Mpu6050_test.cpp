@@ -7,20 +7,10 @@
 
 MPU6050::MPU6050()
 {
-   // Initialize Pigpio
-    if (gpioInitialise() < 0)
+    if (MPU6050_Init() != 0) 
     {
-        std::cerr << "Failed to initialize pigpio." << std::endl;
-        throw std::runtime_error("Failed to initialize pigpio.");
-    }
-
-    // Initialize I2C
-    fd = i2cOpen(5, MPU6050_ADDR, 0);//Correct I2C bus serial number
-    if (fd < 0)
-    {
-        std::cerr << "Failed to initialize I2C communication." << std::endl;
-        gpioTerminate();
-        throw std::runtime_error("Failed to initialize I2C communication.");
+        std::cerr << "Initialization failed" << std::endl;
+        //return -1;
     }
 }
 
@@ -32,6 +22,22 @@ MPU6050::~MPU6050()
 // MPU On/Off
 int MPU6050::MPU6050_Init()
 {
+    // Initialize Pigpio
+    /*if (gpioInitialise() < 0)
+    {
+        std::cerr << "Failed to initialize pigpio." << std::endl;
+        throw std::runtime_error("Failed to initialize pigpio.");
+    }*/
+
+    // Initialize I2C
+    fd = i2cOpen(5, MPU6050_ADDR, 0);
+    if (fd < 0)
+    {
+        std::cerr << "Failed to initialize I2C communication." << std::endl;
+        gpioTerminate();
+        throw std::runtime_error("Failed to initialize I2C communication.");
+    }
+    
     // Enable MPU6050
     if (i2cWriteByteData(fd, 0x6B, 0) < 0)
     {
@@ -48,11 +54,12 @@ int MPU6050::MPU6050_Stop()
     return 0;
 }
 
-// Read
-//void MPU6050 ::readMPU6050(uint8_t reg, uint8_t *data, int len){
-//    i2cWriteByteData(fd, reg, 0);
-//    i2cReadI2CBlockData(fd, reg, reinterpret_cast<char *>(data), len);
-//}
+/*// Read
+void MPU6050 ::readMPU6050(uint8_t reg, uint8_t *data, int len)
+{
+    i2cWriteByteData(fd, reg, 0);
+    i2cReadI2CBlockData(fd, reg, reinterpret_cast<char *>(data), len);
+}*/
 
 // Convert
 double MPU6050::convertAccel(int16_t raw)

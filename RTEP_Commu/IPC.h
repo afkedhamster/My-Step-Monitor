@@ -29,7 +29,8 @@ private:
     int msgid;
 
 public:
-    IPC() : msgid(-1) {};
+    IPC() : msgid(-1){}
+    
     IPC(const char* filepath, char proj_id);
     ~IPC();
     bool MsgID(const char* filepath, char proj_id); 

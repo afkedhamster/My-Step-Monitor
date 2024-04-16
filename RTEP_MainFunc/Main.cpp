@@ -3,21 +3,38 @@
 #include <chrono>
 #include <pigpio.h>
 #include <cstring>
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
 #include "MPU6050_test.h"
 #include "ADS1115.h"
 #include "IPC.h"
 #include "Judgment.h"
 #include "Response.h"
 
+// Thread Mark
+std::mutex mtx_t1;
+std::condition_variable cv_t1;
+bool t1_ready = false;
+
+std::mutex mtx_t2;
+std::condition_variable cv_t2;
+bool t2_ready = false;
+
+// Message Mark
+std::condition_variable cv_MPU6050;
+std::condition_variable cv_C25A;
+std::mutex mtx_MPU6050;
+std::mutex mtx_C25A;
 
 int main_MPU6050()
 {
     MPU6050 MPU;
-    MPU.MPU6050_Init();
     
     // Mark A
     IPC mark("/tmp", 'A'); 
     
+    std::cout << "Main MPU6050 thread started." << std::endl;
     while (true) 
     {
         MPU.Data_Process();
@@ -33,25 +50,41 @@ int main_MPU6050()
             return -1;
         }
         
+        // Finish Send
+        {
+            std::unique_lock<std::mutex> lock(mtx_MPU6050);
+            cv_MPU6050.notify_one();
+        }
+
         // Display
         std::cout << "Message sent to message queue." << std::endl;
         std::cout << "Acceleration (g): X = " << MPU.accelX_g << ", Y = " << MPU.accelY_g << ", Z = " << MPU.accelZ_g << std::endl;
         std::cout << "Angular Rate (deg/s): X = " << MPU.gyroX_degPerSec << ", Y = " << MPU.gyroY_degPerSec << ", Z = " << MPU.gyroZ_degPerSec << std::endl;
 
         // Delay
-        gpioDelay(100000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_t1);
+            t1_ready = true;
+            cv_t1.notify_all();
+        }
     }
+
+    MPU.MPU6050_Stop();
+
     return 0;
 }
 
 int main_C25A()
 {
     ADS1115 ADS;
-    ADS.ADS_init();
 
     // Mark B
     IPC ipc("/tmp", 'B'); 
-
+    
+    std::cout << "Main C25A thread started." << std::endl;
     while (true) 
     {
         // Set (Different Channels)
@@ -77,6 +110,12 @@ int main_C25A()
             return -1;
         }
 
+        // Finish Send
+        {
+            std::unique_lock<std::mutex> lock(mtx_C25A);
+            cv_C25A.notify_one();
+        }
+
         // Display
         std::cout << "ret0 = " << ret0 << std::endl;
         std::cout << "ret_v0 = " << ret_v0 << std::endl;
@@ -84,7 +123,14 @@ int main_C25A()
         std::cout << "ret_v1 = " << ret_v1 << std::endl; */
         
         // Delay
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    
+        // Finish Thread
+        {
+            std::lock_guard<std::mutex> lock(mtx_t2);
+            t2_ready = true;
+            cv_t2.notify_all();
+        }    
     }
 
     ADS.ADS_stop();
@@ -94,25 +140,61 @@ int main_C25A()
 
 int main()
 {
+    if (gpioInitialise() < 0) 
+    {
+        std::cerr << "Failed to initialize pigpio." << std::endl;
+        return -1;
+    }
+
     std::thread t1(main_MPU6050);
     std::thread t2(main_C25A);
 
     Judgment J;
     Response R;
-        Buzzer buzzer;
-        LCD lcd('l',0,true);
+    Buzzer buzzer;
+    LCD lcd('l',0,true);
 
+    // Start
     J.start_RS();
     R.start(&buzzer, &lcd, nullptr);
 
-    std::thread t3([&](){ J.Receive_Send(); });
-    std::thread t4([&](){ R.Read(); });
+    while (true) 
+    {
+        // Wait t1 and t2
+        {
+            std::unique_lock<std::mutex> lock1(mtx_t1);
+            cv_t1.wait(lock1, []{ return t1_ready; });
+            t1_ready = false;
+        }
+        {
+            std::unique_lock<std::mutex> lock2(mtx_t2);
+            cv_t2.wait(lock2, []{ return t2_ready; });
+            t2_ready = false;
+        }
+
+        // Wait Send
+        {
+            std::unique_lock<std::mutex> lock_MPU6050(mtx_MPU6050);
+            std::unique_lock<std::mutex> lock_C25A(mtx_C25A);
+            cv_MPU6050.wait(lock_MPU6050);
+            cv_C25A.wait(lock_C25A);
+        }
+
+        // Judge and Send
+        J.Receive_Send();
+        // Finish
+        J.wait_RS_ready();
+        
+        //Read and Response
+        R.Read();
+        // Finish
+        R.wait_R_ready();
+    }
 
     t1.join();
     t2.join();
-    t3.join();
-    t4.join();
+
+    gpioTerminate();
 
     return 0;
-
 }

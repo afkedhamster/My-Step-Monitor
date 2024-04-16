@@ -27,8 +27,11 @@ public:
     Response();
 
     void start(Buzzer *bobj, LCD *lobj, enum POS_CHANGE *posChange);
+    void stop();
     void Read();
     void trigger_buzz_lcd(enum POS_CHANGE posChange);
+    
+    void wait_R_ready(); 
 
     std::thread thread;
 

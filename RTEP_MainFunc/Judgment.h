@@ -33,6 +33,8 @@ public:
     void restart_posEstimation();
     float posEstimation();
     void Receive_Send();
+
+    void wait_RS_ready(); 
     
 
 private:
