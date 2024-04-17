@@ -2,7 +2,8 @@
 - Ins: https://www.instagram.com/mystepmonitor/
 - Check _*Wiki page*_ for detailed description of the project!
   Link: [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki)
-  
+- Setup Instruction: 
+  [WikiPage](https://github.com/afkedhamster/My-Step-Monitor/wiki/3.Setting-up-Guidance)
 ## Priliminary RPi & Environment Setup
 
 ### Hardware Setup
